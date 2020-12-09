@@ -1,12 +1,22 @@
-
 <div class="sheet-character">
     <div class="header flex-center">
-        <h1>Dragon Ball Z RPG 
-    <button type="action" name="act_character" >Character</button>
-    <button type="action" name="act_perk" >Perks</button>
-	<input type='hidden' class='sheet-tabstoggle' name='attr_sheetTab'  value='character'  />
-	</h1>
+        <h1>Dragon Ball Z RPG </h1>
+        <button type="action" name="act_attributes" >Character</button>
+        <button type="action" name="act_perk" >Perks</button>
+        <button type="action" name="act_journal">Journal</button>
+        <input type='hidden' class='sheet-tabstoggle' name='attr_sheetTab'  value='character'  />
     </div>
+    
+    <script type="text/worker">
+        const buttonlist = ["attributes","perks","journal"];
+        buttonlist.forEach(button => {
+            on(`clicked:${button}`, function() {
+                setAttrs({
+                    sheetTab: button
+                });
+            });
+        });
+    </script>
 
     <div class="common section">
         <h2>Common Information</h2>

@@ -1,0 +1,190 @@
+
+<div class="sheet-character">
+    <div class="header flex-center">
+        <h1>Dragon Ball Z RPG 
+    <button type="action" name="act_character" >Character</button>
+    <button type="action" name="act_perk" >Perks</button>
+	<input type='hidden' class='sheet-tabstoggle' name='attr_sheetTab'  value='character'  />
+	</h1>
+    </div>
+
+    <div class="common section">
+        <h2>Common Information</h2>
+        <label>Character name: <input name="attr_character_name" type="text" style="width:120px;" /></label>
+        <label>
+            Race:
+            <select name="attr_race" style="width:100px;">
+                <option value="human">Human</option>
+                <option value="saiyan">Saiyan</option>
+                <option value="arcosian">Arcosians</option>
+                <option value="namekians">Namekians</option>
+                <option value="android">Androids</option>
+                <option value="majin">Majin</option>
+            </select>
+        </label>
+        <label>
+            Archetype:
+            <select name="attr_archetype" style="width:100px;">
+                <option value="adventurer">Adventurer</option>
+                <option value="illusionist">Illusionist</option>
+                <option value="gadgeteer">Gadgeteer</option>
+                <option value="martial_artist">Martial Artist</option>
+                <option value="spiritualist">Spiritualist</option>
+            </select>
+        </label>
+        <label>HP: <input type="number" name="attr_hp" value="20" /> / <input type="number" name="attr_hp_max" value="20"/></label>
+        <label>Power Level: <input type="number" name="attr_power_level" value="1" /></label>
+        <label>Ki:  <input type="number" name="attr_ki" value="30+16*(@{power_level}-1)" /> / <input type="number" name="attr_ki_max" value="30+16*(@{power_level}-1)" disabled="true" /> </label>
+        <label>Influx: <input type="checkbox" name="attr_power_up" value="0.25"/>  <input type="number" name="attr_influx" value="14+8*(@{power_level}-1)+floor(@{power_up}*(14+8*(@{power_level}-1)))"/> / <input type="number" name="attr_influx_max" value="14+8*(@{power_level}-1)+floor(@{power_up}*(14+8*(@{power_level}-1)))" disabled="true" /></label>
+        <label>Initiative:  <input type="number" name="attr_init_mod" value="0" style="width:50px;"/><button type="roll" value="/r 1d10!10+floor(@{agility}/2)+@{init_mod} &{tracker}"></button> </label>
+		<label>Zeni: <input type="number" name="attr_zeni" value="0"/></label>
+		<label>XP: <input type="number" name="attr_xp" value = "0"/> TXP: <input type="number" name="attr_txp" value="0"/></label>
+    </div>
+
+    <div class="z-soul section">
+        <h2>Z-souls</h2>
+        <fieldset class="repeating_z-soul">
+            <label>Z-Soul <input type="text" name="attr_z-soul" /></label>
+        </fieldset>
+    </div>
+
+    <div class="gear">
+        <div class="section">
+            <h2>Weapons</h2>
+            <fieldset class="repeating_attack">
+                <label>Weapon: <select name="attr_melee_range" style="width:auto;"> <option value="melee">Melee</option><option value="range">Range</option></select> <input name="attr_attack_modification" style="width:100px;" value="modification"/> <input name="attr_attack_damage" style="width:100px;" value="damage" /></label>
+            </fieldset>
+        </div>
+        <div class="section">
+            <h2>Equipment</h2>
+            <fieldset class="repeating_equipment">
+                <label><input type="text" name="gear_name" value="name" style="width:50px;"/>     <input type="text" name="gear_descrp" value="description"/></label>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="attribute section">
+        <h2>Attributes</h2>
+        <label>Strength <input type="number" name="attr_strength" value="2" /></label>
+        <input type="hidden" name="attr_strength_modifier" value="floor(@{strength}/2)"/>
+        <label>Agility <input type="number" name="attr_agility" value="2" /></label>
+        <input type="hidden" name="attr_agility_modifier" value="floor(@{agility}/2)"/>
+        <label>Tenacity <input type="number" name="attr_tenacity" value="2" /></label>
+        <input type="hidden" name="attr_tenacity_modifier" value="floor(@{tenacity}/2)"/>
+        <label>Scholarship <input type="number" name="attr_scholarship" value="2" /></label>
+        <input type="hidden" name="attr_scholarship_modifier" value="floor(@{scholarship}/2)"/>
+        <label>Insight <input type="number" name="attr_insight" value="2" /></label>
+        <input type="hidden" name="attr_insight_modifier" value="floor(@{insight}/2)"/>
+        <label>Spirit <input type="number" name="attr_spirit" value="2" /></label>
+        <input type="hidden" name="attr_spirit_modifier" value="floor(@{spirit}/2)"/>
+        <label>Potency <input type="number" name="attr_potency" value="2" /></label>
+        <input type="hidden" name="attr_potency_modifier" value="floor(@{potency}/2)"/>
+        <label>Personality <input type="number" name="attr_personality" value="2" /></label>
+        <input type="hidden" name="attr_personality_modifier" value="floor(@{personality}/2)"/>
+        <label>Technique <input type="number" name="attr_tp" value="12"/></label>
+    </div>
+	<div class="perks section">
+        <h2>Character perks</h2>
+        <fieldset class="repeating_perk">
+            <select name="attr_perk" style="width:auto;">
+                <option value="attribute_addition">Attribute Addition</option>
+                <option value="skill_proficiency">Skill Proficiency</option>
+                <option value="techinque_point">Technique Points</option>
+                <option value="talent">Talent</option>
+                <option value="mixture">Mixture</option>
+            </select>
+            <textarea name="attr_perk_input"/></textarea>
+        </fieldset>
+    </div>
+    <div class="footer section flex-col">
+        <label>Ki Attack</label>
+        <fieldset class="repeating_ki_attack">
+            <div class="ktable">
+                <label class="ki_name">Name<input class="ki_input" type="text" name="attr_ki_name" /></label>
+                <label class="ki_type">Type<input class="ki_input" type="text" name="attr_ki_type" /></label>
+				<label class="ki_cost">TP Cost<input class="ki_input" type="text" name="attr_ki_cost" /></label>
+                <label class="ki_dam_amp">Damage Modifier<input class="ki_input" type="text" name="attr_ki_dam_amp" /></label>
+                <label class="ki_charge">Ki Use<input class="ki_input" type="text" name="attr_ki_charge" /></label>
+                <label class="ki_size">Disadvantage<input class="ki_input" type="text" name="attr_ki_size" /></label>
+                <label class="ki_use">Advantage<input class="ki_input" type="text" name="attr_ki_use" /></label>
+                <label class="ki_piercing">Attack Modifier<input class="ki_input" type="text" name="attr_ki_piercing" /></label>  
+            </div>
+        </fieldset>
+    </div>
+	
+    <div class="skill section flex-center">
+        <h2>Skills:</h2>
+        <div class="section">
+            <h3>Strength <button type="roll" value="/r 1d10!10 + @{strength_modifier}" name="roll_strength"></button></h3>
+            <label style="font-size: 1em; text-align:center">Athletics <input type="checkbox" name="attr_athletics" value="3" />  <input type="number" name="attr_athletics_modifier" value="0">  <button type="roll" value="/r 1d10!10 + @{strength_modifier} + @{athletics_modifier} + @{athletics}" name="roll_athletics"></button></label>
+        </div>
+
+        <div class="section">
+            <h3>Agility <button type="roll" value="/r 1d10!10 + @{agility_modifier}" name="roll_agility"></button></h3>
+            <div class="skill_section">
+                <div class="skill_checkbox 4_skill">
+                    <label class="1_skill" style="font-size: 1em;">Acrobatics <input type="checkbox" name="attr_acrobatics" value="3" /> <input type="number" name="attr_acrobatics_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{agility_modifier} + @{acrobatics_modifier} + @{acrobatics}" name="roll_acrobatics"></button></label>
+                    <label class="1_skill" style="font-size: 1em;">Stealth <input type="checkbox" name="attr_stealth" value="3" /> <input type="number" name="attr_stealth_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{agility_modifier} + @{stealth_modifier} + @{stealth}" name="roll_stealth"></button></label>
+                    <label class="1_skill" style="font-size: 1em;">Pilot <input type="checkbox" name="attr_pilot" value="3" /> <input type="number" name="attr_pilot_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{agility_modifier} + @{pilot_modifier} + @{pilot}" name="roll_pilot"></button></label>
+                    <label class="1_skill" style="font-size: 1em;">Thievery <input type="checkbox" name="attr_thievery" value="3" /> <input type="number" name="attr_thievery_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{agility_modifier} +@{thievery_modifier} + @{thievery}" name="roll_thievery"></button></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Scholarship <button type="roll" value="/r 1d10!10+ @{scholarship_modifier}" name="roll_scholarship"></button></h3>
+            <div class="skill_section">
+                <div class="skill_checkbox 4_skill">
+                    <label class="1_skill" style="font-size: 1em;">Craft <input type="checkbox" name="attr_craft" value="3" /> <input type="number" name="attr_craft_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{scholarship_modifier} + @{craft_modifier} + @{craft}" name="roll_craft"></button></label>
+                    <label class="1_skill" style="font-size: 1em;">Knowledge <input type="checkbox" name="attr_knowledge" value="3" /> <input type="number" name="attr_knowledge_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{scholarship_modifier} + @{knowledge_modifier} + @{knowledge}" name="roll_knowledge"></button></label>
+                    <label class="1_skill" style="font-size: 1em;">Profession <input type="checkbox" name="attr_profession" value="3" /> <input type="number" name="attr_profession_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{scholarship_modifier} + @{profession_modifier} + @{profession}" name="roll_profession"></button></label>
+                    <label class="1_skill" style="font-size: 1em;">Investigation <input type="checkbox" name="attr_investigation" value="3" /> <input type="number" name="attr_investigation_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{scholarship} + @{investigation_modifier} + @{investigation}" name="roll_investigation"></button></label>
+                    <label class="1_skill" style="font-size: 1em;">Science <input type="checkbox" name="attr_science" value="3" /> <input type="number" name="attr_science_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{scholarship_modifier}+@{science}+@{science_modifier}" name="roll_science"></button></label>
+                    <label class="1_skill" style="font-size: 1em;">Medicine <input type="checkbox" name="attr_medicine" value="3" /> <input type="number" name="attr_medicine_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{scholarship_modifier} +@{medicine} + @{medicine_modifier}" name="roll_medicine"></button></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Insight <button type="roll" value="/r 1d10!10 + @{insight_modifier}" name="roll_insight"></button></h3>
+            <div class="skill_section">
+                <div class="skill_checkbox 4_skill">
+                    <label class="1_skill" style="font-size: 1em;">Perception <input type="checkbox" name="attr_perception" value="3"/> <input type="number" name="attr_perception_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{insight_modifier}+@{perception} + @{perception_modifier}" name="roll_perception"></button></label>
+                    <label class="1_skill" style="font-size: 1em;">Survival <input type="checkbox" name="attr_survival" value="3"/> <input type="number" name="attr_survival_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{insight_modifier} + @{survival} +@{survival_modifier}" name="roll_survival"></button></label>
+                    <label class="1_skill" style="font-size: 0.8em;">Creature Handling <input type="checkbox" name="attr_creature_handling" value="3"/> <input type="number" name="attr_creature_handling_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{insight_modifier}+@{creature_handling}+@{creature_handling_modifier}" name="roll_creature_handling"></button></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Spirit <button type="roll" value="/r 1d10!10 + @{spirit_modifier}" name="roll_spirit"></button></h3>
+            <div class="skill_section">
+                <div class="skill_checkbox 4_skill">
+                    <label class="1_skill" style="font-size: 1em;">Clairvoyant <input type="checkbox" name="attr_clairvoyant" value="3"/> <input type="number" name="attr_clairvoyant_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{spirit_modifier}+@{clairvoyant}+@{clairvoyant_modifier}" name="roll_clairvoyant"></label>
+                    <label class="1_skill" style="font-size: 1em;">Concealment <input type="checkbox" name="attr_concealment" value="3"/> <input type="number" name="attr_concealment_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{spirit_modifier}+@{concealment}+@{concealment_modifier}" name="roll_concealment"></label>
+                    <label class="1_skill" style="font-size: 1em;">Use Magic <input type="checkbox" name="attr_use_magic" value="3"/> <input type="number" name="attr_use_magic_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{spirit_modifier}+@{use_magic}+@{use_magic_modifier}" name="roll_use_magic"></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Personality <button type="roll" value="/r 1d10!10 + @{personality_modifier}" name="roll_personality"></button></h3>
+            <div class="skill_section">
+                <div class="skill_checkbox 4_skill">
+                    <label class="1_skill" style="font-size: 1em;">Bluff <input type="checkbox" name="attr_bluff" value="3"/> <input type="number" name="attr_bluff_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{personality_modifier}+@{bluff}+@{bluff_modifier}" name="roll_bluff"></button></label>
+                    <label class="1_skill" style="font-size: 1em;">Diplomacy <input type="checkbox" name="attr_diplomacy" value="3"/> <input type="number" name="attr_diplomacy_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{personality_modifier}+@{diplomacy}+@{diplomacy_modifier}" name="roll_diplomacy"></button></label>
+                    <label class="1_skill" style="font-size: 1em;">Intimidate <input type="checkbox" name="attr_intimidate" value="3"/> <input type="number" name="attr_intimidate_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{personality_modifier}+@{intimidate}+@{intimidate_modifier}" name="roll_intimidate"></button></label>
+                    <label class="1_skill" style="font-size: 1em;">Persuasion <input type="checkbox" name="attr_persuasion"  value="3"/> <input type="number" name="attr_persuasion_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{personality_modifier}+@{persuasion}+@{persuasion_modifier}" name="roll_persuasion"></button></label>
+                    <label class="1_skill" style="font-size: 1em;">Performance <input type="checkbox" name="attr_performance" value="3"/> <input type="number" name="attr_performance_modifier" value="0"> <button type="roll" value="/r 1d10!10 + @{personality_modifier}+@{performance}+@{performance_modifier}" name="roll_performance"></button></label>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h3>Tenacity <button type="roll" value="/r 1d10!10 + @{tenacity_modifier}" name="roll_tenacity"></button></h3>
+            <h3>Potency <button type="roll" value ="/r 1d10!10 + @{potency_modifier}" name="roll_potency"></button></h3>
+        </div>
+    </div>
+</div>
+
+
+	

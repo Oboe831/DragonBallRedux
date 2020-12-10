@@ -1,0 +1,26 @@
+<div>
+    <button type="action" name="act_attributes" >Attributes</button>
+    <button type="action" name="act_journal" >Journal</button>
+</div>
+<input type='hidden' class='sheet-tabstoggle' name='attr_sheetTab'  value='attributes'  />
+
+<div class='sheet-attributes'>
+    <h2>Character</h2>
+    <span>character Stuff Goes here </span>
+</div>
+<div class='sheet-journal'>
+    <h2>Journal/Notes</h2>
+    <span>Journal/Notes Stuff Goes here</span> 
+</div>
+
+
+<script type="text/worker">
+    const buttonlist = ["attributes","journal"];
+    buttonlist.forEach(button => {
+        on(`clicked:${button}`, function() {
+            setAttrs({
+                sheetTab: button
+            });
+        });
+    });
+</script>

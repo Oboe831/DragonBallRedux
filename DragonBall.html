@@ -1,23 +1,15 @@
 <div class="sheet-character">
     <div class="header flex-center">
-        <h1>Dragon Ball Z RPG </h1>
-        <button type="action" name="act_attributes" >Character</button>
+        <h1>Dragon Ball Z RPG</h1>
+        <button type="action" name="act_attributes" >Attributes</button>
         <button type="action" name="act_perk" >Perks</button>
         <button type="action" name="act_journal">Journal</button>
-        <input type='hidden' class='sheet-tabstoggle' name='attr_sheetTab'  value='character'  />
+        <input type='hidden' class='sheet-tabstoggle' name='attr_sheetTab'  value='attributes'/>
     </div>
-    
-    <script type="text/worker">
-        const buttonlist = ["attributes","perks","journal"];
-        buttonlist.forEach(button => {
-            on(`clicked:${button}`, function() {
-                setAttrs({
-                    sheetTab: button
-                });
-            });
-        });
-    </script>
+</div>
 
+<div class='sheet-attributes'>
+    <h1>Test</h1>
     <div class="common section">
         <h2>Common Information</h2>
         <label>Character name: <input name="attr_character_name" type="text" style="width:120px;" /></label>
@@ -93,34 +85,7 @@
         <input type="hidden" name="attr_personality_modifier" value="floor(@{personality}/2)"/>
         <label>Technique <input type="number" name="attr_tp" value="12"/></label>
     </div>
-	<div class="perks section">
-        <h2>Character perks</h2>
-        <fieldset class="repeating_perk">
-            <select name="attr_perk" style="width:auto;">
-                <option value="attribute_addition">Attribute Addition</option>
-                <option value="skill_proficiency">Skill Proficiency</option>
-                <option value="techinque_point">Technique Points</option>
-                <option value="talent">Talent</option>
-                <option value="mixture">Mixture</option>
-            </select>
-            <textarea name="attr_perk_input"/></textarea>
-        </fieldset>
-    </div>
-    <div class="footer section flex-col">
-        <label>Ki Attack</label>
-        <fieldset class="repeating_ki_attack">
-            <div class="ktable">
-                <label class="ki_name">Name<input class="ki_input" type="text" name="attr_ki_name" /></label>
-                <label class="ki_type">Type<input class="ki_input" type="text" name="attr_ki_type" /></label>
-				<label class="ki_cost">TP Cost<input class="ki_input" type="text" name="attr_ki_cost" /></label>
-                <label class="ki_dam_amp">Damage Modifier<input class="ki_input" type="text" name="attr_ki_dam_amp" /></label>
-                <label class="ki_charge">Ki Use<input class="ki_input" type="text" name="attr_ki_charge" /></label>
-                <label class="ki_size">Disadvantage<input class="ki_input" type="text" name="attr_ki_size" /></label>
-                <label class="ki_use">Advantage<input class="ki_input" type="text" name="attr_ki_use" /></label>
-                <label class="ki_piercing">Attack Modifier<input class="ki_input" type="text" name="attr_ki_piercing" /></label>  
-            </div>
-        </fieldset>
-    </div>
+	
 	
     <div class="skill section flex-center">
         <h2>Skills:</h2>
@@ -196,5 +161,43 @@
     </div>
 </div>
 
-
-	
+<div class='sheet-perk'>
+    <div class="perks section">
+        <h2>Character perks</h2>
+        <fieldset class="repeating_perk">
+            <select name="attr_perk" style="width:auto;">
+                <option value="attribute_addition">Attribute Addition</option>
+                <option value="skill_proficiency">Skill Proficiency</option>
+                <option value="techinque_point">Technique Points</option>
+                <option value="talent">Talent</option>
+                <option value="mixture">Mixture</option>
+            </select>
+            <textarea name="attr_perk_input"/></textarea>
+        </fieldset>
+    </div>
+    <div class="footer section flex-col">
+        <label>Ki Attack</label>
+        <fieldset class="repeating_ki_attack">
+            <div class="ktable">
+                <label class="ki_name">Name<input class="ki_input" type="text" name="attr_ki_name" /></label>
+                <label class="ki_type">Type<input class="ki_input" type="text" name="attr_ki_type" /></label>
+				<label class="ki_cost">TP Cost<input class="ki_input" type="text" name="attr_ki_cost" /></label>
+                <label class="ki_dam_amp">Damage Modifier<input class="ki_input" type="text" name="attr_ki_dam_amp" /></label>
+                <label class="ki_charge">Ki Use<input class="ki_input" type="text" name="attr_ki_charge" /></label>
+                <label class="ki_size">Disadvantage<input class="ki_input" type="text" name="attr_ki_size" /></label>
+                <label class="ki_use">Advantage<input class="ki_input" type="text" name="attr_ki_use" /></label>
+                <label class="ki_piercing">Attack Modifier<input class="ki_input" type="text" name="attr_ki_piercing" /></label>  
+            </div>
+        </fieldset>
+    </div>
+</div>
+<script type="text/worker">
+    const buttonlist = ["attributes","perks","journal"];
+    buttonlist.forEach(button => {
+        on(`clicked:${button}`, function() {
+            setAttrs({
+                sheetTab: button
+            });
+        });
+    });
+</script>

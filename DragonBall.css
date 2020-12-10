@@ -2,14 +2,12 @@
 
 /*Configure the tab buttons*/
 .sheet-attributes,
-.sheet-perk,
 .sheet-journal {
 	display: none;
 }
 
 /* show the selected tab */
 .sheet-tabstoggle[value="attributes"] ~ div.sheet-attributes,
-.sheet-tabstoggle[value="configuration"] ~ div.sheet-perk,
 .sheet-tabstoggle[value="journal"] ~ div.sheet-journal {
 	display: block;
 }
@@ -19,8 +17,6 @@
     background-attachment: scroll;
     background-position: center;
     display: grid;
-   /*width: 900px;
-    height: 1000px;*/
     grid-gap: 4px;
     grid-template-columns: auto auto auto 100px 300px;
     grid-template-rows: 90px 1fr 1fr 1fr auto;

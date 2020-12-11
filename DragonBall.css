@@ -11,200 +11,130 @@
 .sheet-tabstoggle[value="journal"] ~ div.sheet-journal {
 	display: block;
 }
+
 .sheet-character{
-	background-image: url(https://i.pinimg.com/564x/46/8d/b3/468db3c7624338b830765a3792625fba.jpg);
-    background-size: 1128px 1800px;
-    background-attachment: scroll;
-    background-position: center;
-    display: grid;
-    grid-gap: 4px;
-    grid-template-columns: auto auto auto 100px 300px;
-    grid-template-rows: 90px 1fr 1fr 1fr auto;
-    grid-template-areas: 
-        "header  header  header  header header" 
-        "attribute   common  common  skill skill" 
-        "z-soul   z-soul z-soul  skill skill" 
-        "gear gear gear gear gear"
-		"perks perks perks perks perks"
-        "footer  footer  footer  footer footer";
+    background-image: url(https://i.pinimg.com/564x/90/77/29/9077291c252a3177ae7f138c7ad718aa.jpg);
+    background-position: center top;
+    background-color: rgb(237, 109, 0);
+    background-repeat: no-repeat;
+    text-align: center;
 }
 
-textarea {
-    width: 90%;
-    height: 85%;
-}
-
-.sheet-section {
-    padding: 5px;
-    border-style: solid;
-}
-
-.sheet-flex-col {
+.sheet-stat-ten{
     display: flex;
-    flex-flow: row wrap;
-    /*justify-content: flex-start;*/
+    justify-content: center;
+    align-content: space-between;
+    border: 1px inset darkred;
 }
 
-.sheet-flex-center {
-    align-items: center;
+.sheet-stat-pot{
+    display: flex;
     justify-content: center;
+    align-content: space-between;
+    border: 1px inset darkred;
+}
+
+.sheet-stat-per{
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    border: 1px inset darkred;
+}
+
+.sheet-stat-spi{
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    border: 1px inset darkred;
+}
+
+.sheet-stat-str{
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    border: 1px inset darkred;
+}
+
+.sheet-stat-sch{
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    border: 1px inset darkred;
+}
+
+.sheet-stat-agi{
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    border: 1px inset darkred;
+}
+
+.sheet-stat-ins{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px inset darkred;
+}
+
+.sheet-stats{
+    display: grid;
+    border: 3px solid darkred;
+    grid-template-areas: 
+    'stat-ins stat-agi'
+    'stat-sch stat-str'
+    'stat-spi stat-per'
+    'stat-pot stat-ten';
+}
+
+.sheet-attr-head{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    grid-area: attr-head;
+}
+
+.sheet-attr-top{
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    grid-area: attr-top;
+}
+
+.sheet-attr-bot{
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    grid-area: attr-bottom;
+}
+.sheet-info{
+    display: grid;
+    border: 3px solid darkred;
+    grid-row: 25px;
+    grid-template-areas:
+    'attr-head'
+    'attr-top'
+    'attr-bottom';
 }
 
 h1{
     font-size: 3em;
-    color: orangered;
+    color: navy;
 }
 
 h2{
     font-size: 2em;
-    color:orangered;
+    color: navy;
 }
 
 h3{
     font-size: 1.5em;
     text-align: center;
-    color:orangered;
+    color: navy;
 }
 
 label{
-    color: orangered;
+    color: navy;
     display: inline-block;
-}
-
-.sheet-gear{
-    grid-area: gear;
-}
-
-.sheet-perks{
-    grid-area: perks;
-}
-
-.sheet-z-soul{
-    grid-area: z-soul;
-}
-
-.sheet-header {
-    grid-area: header;
-    
-    flex-direction: column;
-}
-
-
-
-.sheet-attribute {
-    grid-area: attribute;
-}
-
-.sheet-common {
-    grid-area: common;
-}
-
-.sheet-power {
-    grid-area: power;
-}
-
-.sheet-attack {
-    grid-area: attack;
-}
-
-.sheet-inv {
-    grid-area: inv;
-}
-
-.sheet-misc {
-    grid-area: misc;
-}
-
-.sheet-footer {
-    grid-area: footer;
-}
-
-.sheet-ktable{
-    grid-column: col 4;
-    grid-row: row 2;
-    display: grid;
-    grid-template-areas:
-        "ki_name ki_type"
-        "ki_cost ki_charge"
-        "ki_dam_amp ki_piercing"
-        "ki_use ki_size"
-}
-
-.sheet-ki_name{
-    grid-area: ki_name;
-}
-
-.sheet-ki_use{
-    grid-area: ki_use;
-}
-
-.sheet-ki_type {
-    grid-area: ki_type;
-}
-
-.sheet-ki_piercing {
-    grid-area:ki_piercing;
-}
-
-.sheet-ki_dam_amp {
-    grid-area: ki_dam_amp;
-}
-
-.sheet-ki_bur_val {
-    grid-area: ki_bur_val;
-}
-
-.sheet-ki_charge {
-    grid-area: ki_charge;
-}
-
-.sheet-ki_prop {
-    grid-area: ki_prop;
-}
-
-.sheet-ki_size {
-    grid-area: ki_size;
-}
-
-.sheet-ki_cost {
-    grid-area: ki_cost;
-}
-
-.sheet-ki_input{
-    width: 50%;
-}
-
-.sheet-skill {
-    grid-area: skill;
-}
-
-.sheet-skill_section {
-    display: inline-grid;
-    grid-row: 2;
-    grid-column: 1;
-    justify-content: flex-start;
-    grid-gap: 10px;
-    grid-template-areas: "skill_label" 
-        "skill_checkbox";
-}
-
-.sheet-skill_label {
-    grid-area: skill_label;
-}
-
-.sheet-skil_checkbox{
-    grid-area: skill_checkbox;
-}
-
-.sheet-4_skill{
-    display: inline-grid;
-    grid-row: 2;
-    grid-column: 2;
-    grid-template-areas:
-        "1_skill 1_skill"
-        "1_skill 1_skill";
-}
-
-.sheet-1_skill{
-    grid-area: 1_skill;
 }

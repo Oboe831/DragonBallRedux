@@ -1,26 +1,167 @@
-<div>
-    <button type="action" name="act_attributes" >Attributes</button>
-    <button type="action" name="act_journal" >Journal</button>
-</div>
-<input type='hidden' class='sheet-tabstoggle' name='attr_sheetTab'  value='attributes'  />
+<div class ="character">
+    <div>
+        <h1>Dragon Ball Z RPG</h1> <br>
+        <button type="action" name="act_attributes" >Attributes</button>
+        <button type="action" name="act_journal" >Journal</button>
+    </div>
+    <input type='hidden' class='sheet-tabstoggle' name='attr_sheetTab'  value='attributes'  />
+    <br>
+    <!--The attributes division that creates all of the attributes input for the players-->
+    <div class='attributes'>
 
-<div class='sheet-attributes'>
-    <h2>Character</h2>
-    <span>character Stuff Goes here </span>
-</div>
-<div class='sheet-journal'>
-    <h2>Journal/Notes</h2>
-    <span>Journal/Notes Stuff Goes here</span> 
-</div>
+        <div class="info">
+            <div class="attr-head">
+                <h2>Character</h2>
+                <div><label>Character name: <input name="attr_character_name" type="text" style="width:120px;" /></label></div>
+                <div><label>Tier of Power <input name="attr_tier_of_power" type="text" value="@{hidden_power}" style="width: 30px;" disabled/></label></div>
+                <input type="hidden" name="attr_hidden_power" value="1d0"/>
+                <script type="text/worker">
+                    on("change:power_level", function(){
+                        getAttrs(["POWER_LEVEL"], function(values){
+                            var powerlist = [5, 10, 15, 20, 25];
+                            var dicelist = ["1d4", "1d6", "1d8", "1d10", "1d10+1d4"];
+                            let pl = parseInt(values.POWER_LEVEL)||0;
+                            var changed = false;
+                            for(i=0;i<powerlist.length; i++){
+                                if(powerlist[i]==pl){
+                                    setAttrs({
+                                        "hidden_power":dicelist[i]
+                                    });
+                                    changed=true;
+                                };
+                            };
+                            if(!changed){
+                                if(pl<5){
+                                    setAttrs({
+                                        "hidden_power":0
+                                    });
+                                };
+                            };
+                        });
+                    });
+                </script>
+            </div>
+
+            <div class="attr-top">
+                <div><label>
+                    Race:
+                    <select name="attr_race" style="width:100px;">
+                        <option value="human">Human</option>
+                        <option value="saiyan">Saiyan</option>
+                        <option value="arcosian">Arcosians</option>
+                        <option value="namekians">Namekians</option>
+                        <option value="android">Androids</option>
+                        <option value="majin">Majin</option>
+                    </select>
+                </label></div>
+                <div><label>Subrace:<select name="attr_subrace" style="width:100px;"></select></label></div>
+                <script type="text/worker">
+                    on("change:race", function(){
+
+                    });
+                </script>
+                <div><label>HP: <input type="number" name="attr_hp" value="20" /> / <input type="number" name="attr_hp_max" value="20"/></label></div>
+                <div><label>Power Level: <input type="number" name="attr_power_level" value="1" /></label></div>
+                <div><label>Initiative:  <input type="number" name="attr_init_mod" value="0" style="width:50px;"/><button type="roll" value="/r 1d10!10+floor(@{agility}/2)+@{init_mod} &{tracker}"></button> </label></div>
+            </div>
+            
+            <div class="attr-bot">
+                <div><label>Ki Pool:  <input type="number" name="attr_ki" value="26+12*(@{power_level}-1)" /> / <input type="number" name="attr_ki_max" value="26+12*(@{power_level}-1)" disabled="true" /> </label></div>
+                <div><label>Capacity Rate: <input type="checkbox" name="attr_power_up" value="0.25"/>  <input type="number" name="attr_capacity" value="12+8*(@{power_level}-1)+floor(@{power_up}*(12+8*(@{power_level}-1)))"/> / <input type="number" name="attr_influx_max" value="12+8*(@{power_level}-1)+floor(@{power_up}*(12+8*(@{power_level}-1)))" disabled="true" /></label></div>
+                <div><label>Zeni: <input type="number" name="attr_zeni" value="0"/></label></div>
+                <div><label>XP: <input type="number" name="attr_xp" value = "0"/> </label></div>
+                <div><label>TXP: <input type="number" name="attr_txp" value="0"/></label></div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="stats">
+            <div class="stat-ins">
+                <h3>Insight</h3>
+                <div>
+                    <label>Score: <input type="number" name="attr_insight" value="2"/><button type="roll" name="roll_insight" value="/r 1d10!10+@{insight_modifier}+1d@{hidden_power}"></button></label>
+                    <input type="hidden" value="floor(@{insight}/2)" name="attr_insight_modifier"> 
+                </div>
+                
+            </div>
+            
+            <div class="stat-agi">
+                <h3>Agility</h3>
+                <div>
+                    <label>Score: <input type="number" name="attr_agility" value="2"/><button type="roll" name="roll_agility" value="/r 1d10!10+@{agility_modifier}+1d@{hidden_power}"></button></label>
+                    <input type="hidden" value="floor(@{agility}/2)" name="attr_agility_modifier"> 
+                </div>
+            </div>
+            
+            <div class="stat-sch">
+                <h3>Scholarship</h3>
+                <div>
+                    <label>Score: <input type="number" name="attr_scholarship" value="2"/><button type="roll" name="roll_scholarship" value="/r 1d10!10+@{scholarship_modifier}+@{hidden_power}"></button></label>
+                    <input type="hidden" value="floor(@{scholarship}/2)" name="attr_scholarship_modifier"> 
+                </div>
+            </div>
+
+            <div class="stat-str">
+                <h3>Strength</h3>
+                <div>
+                    <label>Score: <input type="number" name="attr_strength" value="2"/><button type="roll" name="roll_strength" value="/r 1d10!10+@{strength_modifier}+1d@{hidden_power}"></button></label>
+                    <input type="hidden" value="floor(@{strength}/2)" name="attr_strength_modifier"> 
+                </div>
+            </div>
+
+            <div class="stat-spi">
+                <h3>Spirit</h3>
+                <div>
+                    <label>Score: <input type="number" name="attr_spirit" value="2"/><button type="roll" name="roll_spirit" value="/r 1d10!10+@{spirit_modifier}+1d@{hidden_power}"></button></label>
+                    <input type="hidden" value="floor(@{spirit}/2)" name="attr_spirit_modifier"> 
+                </div>
+            </div>
+
+            <div class="stat-per">
+                <h3>Personality</h3>
+                <div>
+                    <label>Score: <input type="number" name="attr_personality" value="2"/><button type="roll" name="roll_personality" value="/r 1d10!10+@{personality_modifier}+1d@{hidden_power}"></button></label>
+                    <input type="hidden" value="floor(@{personality}/2)" name="attr_personality_modifier"> 
+                </div>
+            </div>
+
+            <div class="stat-pot">
+                <h3>Potency</h3>
+                <div>
+                    <label>Score: <input type="number" name="attr_potency" value="2"/><button type="roll" name="roll_potency" value="/r 1d10!10+@{potency_modifier}+1d@{hidden_power}"></button></label>
+                    <input type="hidden" value="floor(@{potency}/2)" name="attr_potency_modifier"> 
+                </div>
+            </div>
+
+            <div class="stat-ten">
+                <h3>Tenacity</h3>
+                <div>
+                    <label>Score: <input type="number" name="attr_tenacity" value="2"/><button type="roll" name="roll_tenacity" value="/r 1d10!10+@{tenacity_modifier}+1d@{hidden_power}"></button></label>
+                    <input type="hidden" value="floor(@{tenacity}/2)" name="attr_tenacity_modifier"> 
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 
-<script type="text/worker">
-    const buttonlist = ["attributes","journal"];
-    buttonlist.forEach(button => {
-        on(`clicked:${button}`, function() {
-            setAttrs({
-                sheetTab: button
+
+
+    <div class='journal'>
+        <h2>Journal/Notes</h2>
+        <span>Journal/Notes Stuff Goes here</span> 
+    </div>
+
+
+    <script type="text/worker">
+        const buttonlist = ["attributes","journal"];
+        buttonlist.forEach(button => {
+            on(`clicked:${button}`, function() {
+                setAttrs({
+                    sheetTab: button
+                });
             });
         });
-    });
-</script>
+    </script>
+</div>

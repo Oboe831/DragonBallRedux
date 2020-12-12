@@ -20,6 +20,25 @@
     text-align: center;
 }
 
+button[type="roll"].sheet-skill:before{
+    content: ' ';
+  }
+  
+button[type="roll"].sheet-skill:hover{
+    background-position: 0;
+  }
+
+button[type="roll"].sheet-skill{
+    background-image: url(https://i.pinimg.com/564x/2e/91/59/2e9159fb812de554f20fb4c143c09ae0.jpg);
+    background-size: 26px 26px;
+    background-repeat: no-repeat;
+    width: 26px;
+    height: 26px;
+    border-style: none;
+    background-color: transparent;
+    margin-left: 5px;
+}
+
 .sheet-stat-ten{
     display: flex;
     justify-content: center;

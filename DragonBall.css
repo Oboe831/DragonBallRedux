@@ -20,6 +20,40 @@
     text-align: center;
 }
 
+.sheet-skill6{
+    grid-area: skill6;
+}
+
+.sheet-skill5{
+    grid-area: skill5;
+}
+
+.sheet-skill4{
+    grid-area: skill4;
+}
+
+.sheet-skill3{
+    grid-area: skill3;
+}
+
+.sheet-skill2{
+    grid-area: skill2;
+}
+
+.sheet-skill1{
+    grid-area: skill1;
+}
+
+.sheet-skill-label{
+    color:darkred;
+}
+.sheet-skills{
+    display: grid;
+    grid-template-areas: 
+    'skill1 skill2 skill3'
+    'skill4 skill5 skill6';
+}
+
 button[type="roll"].sheet-skill:before{
     content: ' ';
   }
@@ -29,7 +63,7 @@ button[type="roll"].sheet-skill:hover{
   }
 
 button[type="roll"].sheet-skill{
-    background-image: url(https://i.pinimg.com/564x/2e/91/59/2e9159fb812de554f20fb4c143c09ae0.jpg);
+    background-image: url(https://i.pinimg.com/564x/c4/79/b1/c479b192840cbf0bebedd912fde8b53f.jpg);
     background-size: 26px 26px;
     background-repeat: no-repeat;
     width: 26px;
@@ -41,55 +75,70 @@ button[type="roll"].sheet-skill{
 
 .sheet-stat-ten{
     display: flex;
+    grid-area: stat-ten;
+    flex-direction: column;
     justify-content: center;
-    align-content: space-between;
+    align-items: center;
     border: 1px inset darkred;
 }
 
 .sheet-stat-pot{
     display: flex;
+    grid-area: stat-pot;
+    flex-direction: column;
     justify-content: center;
-    align-content: space-between;
+    align-items: center;
     border: 1px inset darkred;
 }
 
 .sheet-stat-per{
     display: flex;
+    grid-area: stat-per;
+    flex-direction: column;
     justify-content: center;
-    align-content: space-between;
+    align-items: center;
     border: 1px inset darkred;
 }
 
 .sheet-stat-spi{
     display: flex;
+    grid-area: stat-spi;
+    flex-direction: column;
     justify-content: center;
-    align-content: space-between;
+    align-items: center;
     border: 1px inset darkred;
 }
 
 .sheet-stat-str{
     display: flex;
+    grid-area: stat-str;
+    flex-direction: column;
     justify-content: center;
-    align-content: space-between;
+    align-items: center;
     border: 1px inset darkred;
 }
 
 .sheet-stat-sch{
     display: flex;
+    grid-area: stat-sch;
+    flex-direction: column;
     justify-content: center;
-    align-content: space-between;
+    align-items: center;
     border: 1px inset darkred;
 }
 
 .sheet-stat-agi{
     display: flex;
+    grid-area: stat-agi;
+    flex-direction: column;
     justify-content: center;
-    align-content: space-between;
+    align-items: center;
     border: 1px inset darkred;
 }
 
 .sheet-stat-ins{
     display: flex;
+    grid-area: stat-ins;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -100,10 +149,10 @@ button[type="roll"].sheet-skill{
     display: grid;
     border: 3px solid darkred;
     grid-template-areas: 
-    'stat-ins stat-agi'
-    'stat-sch stat-str'
-    'stat-spi stat-per'
-    'stat-pot stat-ten';
+    'stat-agi stat-ins'
+    'stat-per stat-pot'
+    'stat-sch stat-spi'
+    'stat-str stat-ten';
 }
 
 .sheet-attr-head{
@@ -150,6 +199,11 @@ h2{
 h3{
     font-size: 1.5em;
     text-align: center;
+    color: navy;
+}
+
+h4{
+    font-size: 1em;
     color: navy;
 }
 

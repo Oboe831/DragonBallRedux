@@ -64,10 +64,10 @@ button[type="roll"].sheet-skill:hover{
 
 button[type="roll"].sheet-skill{
     background-image: url(https://i.pinimg.com/564x/c4/79/b1/c479b192840cbf0bebedd912fde8b53f.jpg);
-    background-size: 26px 26px;
+    background-size: 20px 20px;
     background-repeat: no-repeat;
-    width: 26px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
     border-style: none;
     background-color: transparent;
     margin-left: 5px;
@@ -150,9 +150,9 @@ button[type="roll"].sheet-skill{
     border: 3px solid darkred;
     grid-template-areas: 
     'stat-agi stat-ins'
-    'stat-per stat-pot'
-    'stat-sch stat-spi'
-    'stat-str stat-ten';
+    'stat-per stat-sch'
+    'stat-spi stat-str'
+    'stat-pot stat-ten';
 }
 
 .sheet-attr-head{

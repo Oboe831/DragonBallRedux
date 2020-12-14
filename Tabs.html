@@ -133,6 +133,14 @@
                     <label>Score: <input type="number" name="attr_scholarship" value="2"/><button class="skill" type="roll" name="roll_scholarship" value="/r 1d10!10+@{scholarship_modifier}+@{hidden_power}"></button></label>
                     <input type="hidden" value="floor(@{scholarship}/2)" name="attr_scholarship_modifier"> 
                 </div>
+                <div class="skills">
+                    <div class="skill1"><label class="skill-label">Craft: <input type="number" name="attr_craft" value="0"/><button class="skill" type="roll" name="roll_craft" value="/r 1d10!10+@{scholarship_modifier}+@{craft}+@{hidden_power}"></label></div>
+                    <div class="skill2"><label class="skill-label">Knowledge: <input type="number" name="attr_knowledge" value="0"/><button class="skill" type="roll" name="roll_knowledge" value="/r 1d10!10+@{scholarship_modifier}+@{knowledge}+@{hidden_power}"></label></div>
+                    <div class="skill3"><label class="skill-label">Profession: <input type="number" name="attr_profession" value="0"/><button class="skill" type="roll" name="roll_profession" value="/r 1d10!10+@{scholarship_modifier}+@{profession}+@{hidden_power}"></label></div>
+                    <div class="skill4"><label class="skill-label">Investigation: <input type="number" name="attr_investigation" value="0"/><button class="skill" type="roll" name="roll_investigation" value="/r 1d10!10+@{scholarship_modifier}+@{investigation}+@{hidden_power}"></label></div>
+                    <div class="skill5"><label class="skill-label">Science: <input type="number" name="attr_science" value="0"/><button class="skill" type="roll" name="roll_science" value="/r 1d10!10+@{scholarship_modifier}+@{science}+@{hidden_power}"></label></div>
+                    <div class="skill6"><label class="skill-label">Medicine: <input type="number" name="attr_medicine" value="0"/><button class="skill" type="roll" name="roll_medicine" value="/r 1d10!10+@{scholarship_modifier}+@{medicine}+@{hidden_power}"></label></div>
+                </div>
             </div>
 
             <div class="stat-spi">
@@ -141,6 +149,11 @@
                     <label>Score: <input type="number" name="attr_spirit" value="2"/><button class="skill" type="roll" name="roll_spirit" value="/r 1d10!10+@{spirit_modifier}+@{hidden_power}"></button></label>
                     <input type="hidden" value="floor(@{spirit}/2)" name="attr_spirit_modifier"> 
                 </div>
+                <div class="skills">
+                    <div class="skill2"><label class="skill-label">Clairvoyant: <input type="number" name="attr_clairvoyant" value="0"/><button class="skill" type="roll" name="roll_clairvoyant" value="/r 1d10!10+@{spirit_modifier}+@{clairvoyant}+@{hidden_power}"></label></div>
+                    <div class="skill4"><label class="skill-label">Concealment: <input type="number" name="attr_concealment" value="0"/><button class="skill" type="roll" name="roll_concealment" value="/r 1d10!10+@{spirit_modifier}+@{concealment}+@{hidden_power}"></label></div>
+                    <div class="skill6"><label class="skill-label">Use Magic: <input type="number" name="attr_use_magic" value="0"/><button class="skill" type="roll" name="roll_use_magic" value="/r 1d10!10+@{spirit_modifier}+@{use_nagic}+@{hidden_power}"></label></div>
+                </div>
             </div>
 
             <div class="stat-str">
@@ -148,6 +161,9 @@
                 <div>
                     <label>Score: <input type="number" name="attr_strength" value="2"/><button class="skill" type="roll" name="roll_strength" value="/r 1d10!10+@{strength_modifier}+@{hidden_power}"></button></label>
                     <input type="hidden" value="floor(@{strength}/2)" name="attr_strength_modifier"> 
+                </div>
+                <div class="skills">
+                    <div class="skill2"><label class="skill-label">Athletics: <input type="number" name="attr_athletics" value="0"/><button class="skill" type="roll" name="roll_strength" value="/r 1d10!10+@{strength_modifier}+@{athletics}+@{hidden_power}"></button></label></div>
                 </div>
             </div>
 

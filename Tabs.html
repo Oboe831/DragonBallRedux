@@ -98,6 +98,11 @@
                     <label>Score: <input type="number" name="attr_insight" value="2"/><button class="skill" type="roll" name="roll_insight" value="/r 1d10!10+@{insight_modifier}+@{hidden_power}"></button></label>
                     <input type="hidden" value="floor(@{insight}/2)" name="attr_insight_modifier"> 
                 </div>
+                <div class="skills">
+                    <div class="skill2"><label class="skill-label">Creature Handling: <input type="number" name="attr_creature_handling" value="0"/><button class="skill" type="roll" name="roll_creature_handling" value="/r 1d10!10+@{insight_modifier}+@{creature_handling}+@{hidden_power}"></label></div>
+                    <div class="skill5"><label class="skill-label">Perception: <input type="number" name="attr_perception" value="0"/><button class="skill" type="roll" name="roll_perception" value="/r 1d10!10+@{insight_modifier}+@{perception}+@{hidden_power}"></label></div>
+                    <div class="skill6"><label class="skill-label">Survival: <input type="number" name="attr_survival" value="0"/><button class="skill" type="roll" name="roll_survival" value="/r 1d10!10+@{insight_modifier}+@{survival}+@{hidden_power}"></label></div>
+                </div>
             </div>
 
             <div class="stat-per">
@@ -105,6 +110,12 @@
                 <div>
                     <label>Score: <input type="number" name="attr_personality" value="2"/><button class="skill" type="roll" name="roll_personality" value="/r 1d10!10+@{personality_modifier}+@{hidden_power}"></button></label>
                     <input type="hidden" value="floor(@{personality}/2)" name="attr_personality_modifier"> 
+                </div>
+                <div class="skills">
+                    <div class="skill1"><label class="skill-label">Bluff: <input type="number" name="attr_bluff" value="0"/><button class="skill" type="roll" name="roll_bluff" value="/r 1d10!10+@{personality_modifier}+@{bluff}+@{hidden_power}"></label></div>
+                    <div class="skill3"><label class="skill-label">Intimidate: <input type="number" name="attr_intimidate" value="0"/><button class="skill" type="roll" name="roll_intimidate" value="/r 1d10!10+@{personality_modifier}+@{intimidate}+@{hidden_power}"></label></div>
+                    <div class="skill4"><label class="skill-label">Persuasion: <input type="number" name="attr_persuasion" value="0"/><button class="skill" type="roll" name="roll_persuasion" value="/r 1d10!10+@{personality_modifier}+@{persuasion}+@{hidden_power}"></label></div>
+                    <div class="skill6"><label class="skill-label">Performance: <input type="number" name="attr_performance" value="0"/><button class="skill" type="roll" name="roll_performance" value="/r 1d10!10+@{personality_modifier}+@{performance}+@{hidden_power}"></label></div>
                 </div>
             </div>
 

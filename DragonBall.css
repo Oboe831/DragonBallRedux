@@ -1,57 +1,136 @@
 /*----------------- GENERAL CSS ------------------*/
 
 /*Configure the tab buttons*/
+.sheet-banner{
+    background-image: url(https://i.pinimg.com/564x/ad/ce/f3/adcef371d608bdabd95fca1ee9a37ec4.jpg);
+    background-color: white;
+    background-size: 50% 100%;
+    background-position: center top;
+    background-repeat: no-repeat;
+    text-align: center;
+}
 .sheet-attributes,
-.sheet-journal {
+.sheet-attacks,
+.sheet-abilities,
+.sheet-transformations {
 	display: none;
 }
 
 /* show the selected tab */
 .sheet-tabstoggle[value="attributes"] ~ div.sheet-attributes,
-.sheet-tabstoggle[value="journal"] ~ div.sheet-journal {
+.sheet-tabstoggle[value="attacks"] ~ div.sheet-attacks,
+.sheet-tabstoggle[value="abilities"] ~ div.sheet-abilities,
+.sheet-tabstoggle[value="transformations"] ~ div.sheet-transformations {
 	display: block;
+}
+
+button[type="roll"].sheet-attack-button:before{
+    content: ' ';
+  }
+  
+button[type="roll"].sheet-attack-button:hover{
+    background-position: 0;
+  }
+
+button[type="roll"].sheet-attack-button{
+    background-image: url(https://i.pinimg.com/564x/24/79/d7/2479d70c7483283648c3af85b1da948d.jpg);
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    border-style: none;
+    background-color: transparent;
+    margin-left: 5px;
+}
+
+.sheet-basic-attacks-row{
+    border: 1px inset rgb(156, 155, 155);
+    border-left-style: none;
+    border-right-style: none;
+    height: 35px;
+}
+
+.sheet-basic-attack-col4{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center top;
+    border: 1px inset rgb(156, 155, 155);
+    grid-area: col4;
+}
+
+.sheet-basic-attack-col3{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center top;
+    border: 1px inset rgb(156, 155, 155);
+    grid-area: col3;
+}
+
+.sheet-basic-attack-col2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center top;
+    border: 1px inset rgb(156, 155, 155);
+    grid-area: col2;
+}
+
+.sheet-basic-attack-col1{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center top;
+    border: 1px inset rgb(156, 155, 155);
+    grid-area: col1;
+}
+
+.sheet-basic-attack{
+    display: grid;
+    grid-template-areas: 
+    'col1 col2 col3 col4';
+    border: 3px solid rgb(156, 155, 155);
+}
+
+.sheet-attacks{
+    background-image: url(https://i.pinimg.com/564x/cf/db/99/cfdb99728dfe48c17957810e9c65f23a.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgb(38, 44, 58);
+    text-align: center;
 }
 
 .sheet-character{
     background-image: url(https://i.pinimg.com/564x/90/77/29/9077291c252a3177ae7f138c7ad718aa.jpg);
-    background-position: center top;
+    background-position: center;
     background-color: rgb(237, 109, 0);
     background-repeat: no-repeat;
     text-align: center;
 }
 
-.sheet-skill6{
-    grid-area: skill6;
-}
-
-.sheet-skill5{
-    grid-area: skill5;
-}
-
-.sheet-skill4{
-    grid-area: skill4;
-}
-
-.sheet-skill3{
-    grid-area: skill3;
-}
-
 .sheet-skill2{
     grid-area: skill2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 6px;
+    border: 1px inset darkred;
 }
 
 .sheet-skill1{
     grid-area: skill1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 6px;
+    border: 1px inset darkred;
 }
 
 .sheet-skill-label{
-    color:darkred;
-}
-.sheet-skills{
-    display: grid;
-    grid-template-areas: 
-    'skill1 skill2 skill3'
-    'skill4 skill5 skill6';
+    color: rgb(27, 92, 129);
 }
 
 button[type="roll"].sheet-skill:before{
@@ -137,22 +216,30 @@ button[type="roll"].sheet-skill{
 }
 
 .sheet-stat-ins{
-    display: flex;
     grid-area: stat-ins;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 1px inset darkred;
 }
 
+.sheet-all-stats{
+    grid-area: all-stats;
+}
+
+.sheet-all-skills{
+    grid-area: all-skills;
+    display: grid;
+    grid-template-areas: 
+    'skill1' 'skill2';
+}
+
 .sheet-stats{
     display: grid;
-    border: 3px solid darkred;
+    border: 2px solid darkred;
     grid-template-areas: 
-    'stat-agi stat-ins'
-    'stat-per stat-sch'
-    'stat-spi stat-str'
-    'stat-pot stat-ten';
+    'all-stats skill1 skill2';
 }
 
 .sheet-attr-head{
@@ -184,6 +271,15 @@ button[type="roll"].sheet-skill{
     'attr-head'
     'attr-top'
     'attr-bottom';
+}
+
+.sheet-j-label{
+    color: rgb(15, 56, 80);
+}
+
+.sheet-j-h3{
+    color: rgb(15, 56, 80);
+    font-size: 1.5em;
 }
 
 h1{

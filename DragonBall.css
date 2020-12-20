@@ -24,6 +24,25 @@
 	display: block;
 }
 
+button[type="roll"].sheet-stress-button:before{
+    content: ' ';
+  }
+  
+button[type="roll"].sheet-stress-button:hover{
+    background-position: 0;
+  }
+
+button[type="roll"].sheet-stress-button{
+    background-image: url(https://i.pinimg.com/564x/e2/3d/e8/e23de8081ca4de637306e28c58f521e4.jpg);
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    border-style: none;
+    background-color: transparent;
+    margin-left: 5px;
+}
+
 button[type="roll"].sheet-attack-button:before{
     content: ' ';
   }
@@ -41,6 +60,112 @@ button[type="roll"].sheet-attack-button{
     border-style: none;
     background-color: transparent;
     margin-left: 5px;
+}
+
+.sheet-transformations{
+    background-image: url(https://i.pinimg.com/564x/75/a2/d4/75a2d435cf7687fc839860f45cc4ac1e.jpg);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: black;
+    text-align: center;
+}
+
+.sheet-ccol7{
+    grid-area: ccol7;
+}
+
+.sheet-ccol6{
+    grid-area: ccol6;
+}
+
+.sheet-ccol5{
+    grid-area: ccol5;
+    justify-content: center;
+}
+
+.sheet-ccol4{
+    grid-area: ccol4;
+    justify-content: center;
+}
+
+.sheet-ccol3{
+    grid-area: ccol3;
+    justify-content: center;
+}
+
+.sheet-ccol2{
+    grid-area: ccol2;
+    justify-content: center;
+}
+.sheet-ccol1{
+    grid-area: ccol1;
+    justify-content: center;
+}
+
+.sheet-custom-attack-table{
+    display: grid;
+    border: 2px solid rgb(156, 155, 155);
+    justify-content: space-around;
+    grid-template-areas: 
+    'ccol1 ccol2 ccol3 ccol4 ccol5';
+}
+
+.sheet-custom-attacks-hcol7{
+    grid-area: hcol7;
+}
+
+
+.sheet-custom-attacks-hcol6{
+    grid-area: hcol6;
+}
+
+
+.sheet-custom-attacks-hcol5{
+    grid-area: hcol5;
+}
+
+
+.sheet-custom-attacks-hcol4{
+    grid-area: hcol4;
+}
+
+
+.sheet-custom-attacks-hcol3{
+    grid-area: hcol3;
+}
+
+
+.sheet-custom-attacks-hcol2{
+    grid-area: hcol2;
+}
+
+
+.sheet-custom-attacks-hcol1{
+    grid-area: hcol1;
+}
+
+.sheet-custom-attacks-top{
+    display: grid;
+    grid-area: custom-attacks-top;
+    grid-column: auto;
+    grid-template-areas: 
+    'hcol1 hcol2 hcol3 hcol4 hcol5';
+}
+
+.sheet-custom-attack-bottom{
+    grid-area: custom-attacks-bottom;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sheet-custom-attacks{
+    display: grid;
+    grid-row: auto;
+    grid-template-areas:
+    'custom-attacks-top'
+    'custom-attacks-bottom';
+    border: 3px solid rgb(156, 155, 155);
 }
 
 .sheet-basic-attacks-row{
@@ -95,7 +220,7 @@ button[type="roll"].sheet-attack-button{
 
 .sheet-attacks{
     background-image: url(https://i.pinimg.com/564x/cf/db/99/cfdb99728dfe48c17957810e9c65f23a.jpg);
-    background-position: center;
+    background-position: center top;
     background-repeat: no-repeat;
     background-color: rgb(38, 44, 58);
     text-align: center;

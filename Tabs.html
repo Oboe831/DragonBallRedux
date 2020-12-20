@@ -375,53 +375,152 @@
 
 
 
-    <div class='attacks'>
-        <h1 style="color: rgb(185, 102, 0);">Attacks</h1>
-        <h2 style="color: rgb(185, 102, 0);">Technique Points <input type="number" name="attr_technique_points" value="0"/></h2>
-        <div class="basic-attack">
-            <div class="basic-attacks-col1">
-                <h2 style="color: rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">Name:</h2>
-                <div class="basic-attacks-row"><input type="text" value="Basic Physical" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_physical" value="/em swings a kick at the enemy for [[@{basic_physical_hit}d10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_physical_wound}d10+@{strength_modifier}+@{hidden_power}]]"></button></div>
-            </div>
-            <div class="basic-attacks-col2">
-                <h2 style="color: rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">To Hit Die:</h2>
-                <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_physical_hit"></div>
-            </div>
-            <div class="basic-attacks-col3">
-                <h2 style="color: rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">To Wound Die:</h2>
-                <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_physical_wound"></div>
-            </div>
-            <div class="basic-attacks-col4">
-                <h2 style="color:rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155); ">Ki Cost:</h2>
-                <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_physical_ki"></div>
-            </div>
-        </div>
-        <div class="custom">
-
-        </div>
-    </div>
-
-    <div class='abilities'>
-        <h1>GALIC GUN</h1>
-        <h2>Journal/Notes</h2>
-        <span>Journal/Notes Stuff Goes here</span> 
-    </div>
-
-    <div class='transformations'>
-        <h1>SPECIAL BEAM CANNON</h1>
-        <h2>Journal/Notes</h2>
-        <span>Journal/Notes Stuff Goes here</span> 
-    </div>
-
-
+<div class='attacks'>
+    <h1 style="color: rgb(185, 102, 0);">Attacks</h1>
+    <h2 style="color: rgb(185, 102, 0);">Technique Points <input type="number" name="attr_technique_points" value="0"/></h2>
+    <h2 style="color: rgb(185, 102, 0);">Soak <input type="number" name="attr_soak" value="0"/>/<input type="number" name="attr_soak_max" value="@{hidden_soak}+@{soak_modifier}"  disabled> Modifier: <input type="number" name="attr_soak_modifier" value="0"/></h2>
+    <h2 style="color: rgb(185, 102, 0);">Dodge <input type="number" name="attr_dodge_modifier" value="0"/><button class="attack-button" type="roll" name="roll_dodge" value="/r 1d10!10+@{dodge_modifier}+@{agility_modifier}"></button></h2>
+    <input type="hidden" name="attr_hidden_soak" value="0">
     <script type="text/worker">
-        const buttonlist = ["attributes","attacks","abilities","transformations"];
-        buttonlist.forEach(button => {
-            on(`clicked:${button}`, function() {
-                setAttrs({
-                    sheetTab: button
-                });
+        on("change:tenacity, sheet:opened", function(){
+            getAttrs(["TENACITY_MODIFIER"], function(values){
+                var ten = values.TENACITY_MODIFIER;
+                if(ten == 1){
+                    setAttrs({
+                        "hidden_soak":2
+                    });
+                }else{
+                    setAttrs({
+                        "hidden_soak":ten
+                    });
+                };
             });
         });
     </script>
+    
+    <div class="basic-attack">
+        <div class="basic-attacks-col1">
+            <h2 style="color: rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">Name:</h2>
+            <div class="basic-attacks-row"><input type="text" value="Basic Physical" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_physical" value="/em swings a kick at the enemy for [[@{basic_physical_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_physical_wound}d10!10+@{strength_modifier}+@{hidden_power}]] and costing @{basic_physical_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Sphere Energy Attack" style="width: 100px;" disabled><button class="attack-button" type="roll" name="roll_basic_sphere" value="/em hurls a sphere of energy for [[@{basic_sphere_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_sphere_wound}d10!10+@{potency_modifier}+@{hidden_power}]] and costing @{basic_sphere_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Incantation" style="width: 100px;" disabled><button class="attack-button" type="roll" name="roll_basic_incantation" value="/em casts an incantation for [[@{basic_incantation_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_incantation_wound}d10!10+@{spirit_modifier}+@{hidden_power}]] and costing @{basic_incantation_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Rapid Fire" style="width: 100px;" disabled><button class="attack-button" type="roll" name="roll_basic_rapid" value="/em fires several energy attacks for [[@{basic_rapid_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[(@{basic_rapid_wound}d10!10)*2+@{hidden_power}]] and costing @{basic_rapid_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Guided" style="width: 100px;" disabled><button class="attack-button" type="roll" name="roll_basic_guided" value="/em a guided blast for [[@{basic_guided_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]] or [[(@{basic_guided_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier})/2]], dealing [[@{basic_guided_wound}d10!10+@{potency_modifier}+@{hidden_power}]] and costing @{basic_guided_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Kiai" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_kiai" value="/em fires an kiai blast for [[@{basic_kiai_hit}d10d1!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_kiai_wound}d10d1!10+@{potency_modifier}+@{hidden_power}]] and costing @{basic_kiai_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Energy Focus" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_focus" value="/em focuses their ki into a weapon and strikes for [[@{basic_focus_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_focus_wound}d10!10+@{strength_modifier}+@{potency_modifier}+@{hidden_power}]] and costing @{basic_focus_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Blast" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_blast" value="/em fires a blast of energy in front of them, 3 feet wide and 3 feet long for [[@{basic_blast_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_blast_wound}d10!10+@{potency_modifier}+@{hidden_power}]] and costing @{basic_blast_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Explosion" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_explosion" value="/em fires off an explosion measuring 3 feet by 3 feet for [[@{basic_explosion_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_explosion_wound}d10!10+@{potency_modifier}+@{hidden_power}]] and costing @{basic_explosion_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Beam" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_beam" value="/em fires a beam of energy, impeding its target, for [[@{basic_beam_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_beam_wound}d10!10+@{potency_modifier}+@{hidden_power}]] and costing @{basic_beam_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Combination" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_combination" value="/em attcks with a flurry of blows for [[@{basic_combination_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_combination_wound}d10!10+@{hidden_power}]] and costing @{basic_combination_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Powered" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_powered" value="/em empowers themselves with ki energy and strikes for [[@{basic_powered_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_powered_wound}d10!10+@{strength_modifier}+@{potency_modifier}+@{hidden_power}]] and costing @{basic_powered_ki} ki"></button></div>
+        </div>
+        <div class="basic-attacks-col2">
+            <h2 style="color: rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">To Hit Die:</h2>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_physical_hit"></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_sphere_hit"></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_incantation_hit"></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_rapid_hit"></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_guided_hit"></div>
+            <div class="basic-attacks-row"><input type="number" value="2" name="attr_basic_kiai_hit" disabled></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_focus_hit"></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_blast_hit"></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_explosion_hit"></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_beam_hit"></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_combination_hit"></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_powered_hit"></div>
+        </div>
+        <div class="basic-attacks-col3">
+            <h2 style="color: rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">To Wound Die:</h2>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_physical_wound"></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_sphere_wound"></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_incantation_wound"></div>
+            <div class="basic-attacks-row"><input type="number" value="2" name="attr_basic_rapid_wound" disabled></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_guided_wound"></div>
+            <div class="basic-attacks-row"><input type="number" value="2" name="attr_basic_kiai_wound" disabled></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_focus_wound"></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_blast_wound"></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_explosion_wound"></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_beam_wound"></div>
+            <div class="basic-attacks-row"><input type="number" value="2" name="attr_basic_combination_wound" disabled></div>
+            <div class="basic-attacks-row"><input type="number" value="1" name="attr_basic_powered_wound"></div>
+        </div>
+        <div class="basic-attacks-col4">
+            <h2 style="color:rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">Ki Cost:</h2>
+            <div class="basic-attacks-row"><input type="number" value="2" name="attr_basic_physical_ki"></div>
+            <div class="basic-attacks-row"><input type="number" value="2" name="attr_basic_sphere_ki"></div>
+            <div class="basic-attacks-row"><input type="number" value="2" name="attr_basic_incantation_ki"></div>
+            <div class="basic-attacks-row"><input type="number" value="10" name="attr_basic_rapid_ki"></div>
+            <div class="basic-attacks-row"><input type="number" value="7" name="attr_basic_guided_ki"></div>
+            <div class="basic-attacks-row"><input type="number" value="8" name="attr_basic_kiai_ki"></div>
+            <div class="basic-attacks-row"><input type="number" value="9" name="attr_basic_focus_ki"></div>
+            <div class="basic-attacks-row"><input type="number" value="6" name="attr_basic_blast_ki"></div>
+            <div class="basic-attacks-row"><input type="number" value="9" name="attr_basic_explosion_ki"></div>
+            <div class="basic-attacks-row"><input type="number" value="12" name="attr_basic_beam_ki"></div>
+            <div class="basic-attacks-row"><input type="number" value="10" name="attr_basic_combination_ki"></div>
+            <div class="basic-attacks-row"><input type="number" value="9" name="attr_basic_powered_ki"></div>
+        </div>
+    </div>
+    <br>
+    <div class="custom-attacks">
+        <div class="custom-attacks-top">
+            <div class="custom-attacks-hcol1">
+                <h2 style="color:rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">Name:</h2>
+            </div>
+            <div class="custom-attacks-hcol2">
+                <h2 style="color:rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">Ki Cost:</h2>
+            </div>
+            <div class="custom-attacks-hcol3">
+                <h2 style="color:rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">TP Cost:</h2>
+            </div>
+            <!--<div class="custom-attacks-hcol4">
+                <h2 style="color:rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">Advantages:</h2>
+            </div>
+            <div class="custom-attacks-hcol5">
+                <h2 style="color:rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">Disadvantages:</h2>
+            </div>-->
+            <div class="custom-attacks-hcol4">
+                <h2 style="color:rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">To Hit:</h2>
+            </div>
+            <div class="custom-attacks-hcol5">
+                <h2 style="color:rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">To Wound:</h2>
+            </div>
+        </div>
+
+        <div class="custom-attacks-bottom">
+            <fieldset class="repeating_custom-attacks-table">
+                <div class="custom-attack-table">
+                    <div class="ccol1"><input type="text" name="attr_custom_attack_name" style="width: 100px;"></div>
+                    <div class="ccol2"><input type="number" name="attr_custom_attack_ki" value="0"></div>
+                    <div class="ccol3"><input type="number" name="attr_custom_attack_technique" value="0" ></div>
+                    <!--<textarea class="ccol4" name="attr_custom_attack_advantages" style=" width: 150px; height: 100px;"></textarea>
+                    <textarea class="ccol5" name="attr_custom_attack_disadvantages" style=" width: 150px; height: 100px;"></textarea>-->
+                    <div class="ccol4"><input type="number" name="attr_custom_attack_hit" value="0"></div>
+                    <div class="ccol5"><input type="number" name="attr_custom_attack_wound" value="0"><button class="attack-button" type="roll" name="roll_custom_attack" value="/em @{custom_attack_name} for [[1d10!10+@{custom_attack_hit}+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[1d10!10+@{custom_attack_wound}+?{What ability are you using?|Strength,@{strength_modifier} | Potency,@{potency_modifier} |Spirit,@{spirit_modifier} | Balistic, 0}+@{hidden_power}]] and costing @{custom_attack_ki} ki"></button></div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
 </div>
+
+<div class='abilities'>
+    <h1>GALIC GUN</h1>
+    <h2>Journal/Notes</h2>
+    <span>Journal/Notes Stuff Goes here</span> 
+</div>
+
+<div class='transformations'>
+    <h1 style="color: silver;">Transformations</h1>
+    <h2 style="color: silver;">Stress Test<button class="stress-button" name="roll_stress_test" type="roll" value="/em [[1d10!10 + @{power_level}]]"></button></h2>
+</div>
+
+
+<script type="text/worker">
+    const buttonlist = ["attributes","attacks","abilities","transformations"];
+    buttonlist.forEach(button => {
+        on(`clicked:${button}`, function() {
+            setAttrs({
+                sheetTab: button
+            });
+        });
+    });
+</script>

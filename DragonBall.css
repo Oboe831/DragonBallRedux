@@ -41,7 +41,7 @@ button[type="roll"].sheet-stress-button{
     border-style: none;
     background-color: transparent;
     margin-left: 5px;
-}
+} 
 
 button[type="roll"].sheet-attack-button:before{
     content: ' ';

@@ -24,6 +24,76 @@
 	display: block;
 }
 
+.sheet-transformations-table{
+    display: grid;
+    border: 2px solid silver;
+    justify-content: space-around;
+    grid-template-areas: 
+    'tname tagi tins tper tpot tsch tspi tstr tten';
+}
+
+.sheet-tten{
+    grid-area: tten;
+}
+
+.sheet-tstr{
+    grid-area: tstr;
+}
+
+.sheet-tspi{
+    grid-area: tspi;
+}
+
+.sheet-tsch{
+    grid-area: tsch;
+}
+
+.sheet-tpot{
+    grid-area: tpot;
+}
+
+.sheet-tper{
+    grid-area: tper;
+}
+
+.sheet-tins{
+    grid-area: tins;
+}
+
+.sheet-tagi{
+    grid-area: tagi;
+}
+
+.sheet-ttype{
+    grid-area: ttype;
+}
+
+.sheet-tname{
+    grid-area: tname;
+}
+
+.sheet-transformations-bot{
+    grid-area: transformations-bot;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sheet-transformations-top{
+    grid-area: transformations-top;
+    display: grid;
+    grid-template-areas: 
+    'tn ta ti tpe tpo tsc tsp tst tte';
+}
+
+.sheet-transformations-page{
+    display: grid;
+    border: 3px solid silver;
+    grid-template-areas: 
+    'transformations-top'
+    'transformations-bot';
+}
+
 button[type="roll"].sheet-stress-button:before{
     content: ' ';
   }
@@ -64,7 +134,7 @@ button[type="roll"].sheet-attack-button{
 
 .sheet-transformations{
     background-image: url(https://i.pinimg.com/564x/75/a2/d4/75a2d435cf7687fc839860f45cc4ac1e.jpg);
-    background-position: center top;
+    background-position: center;
     background-repeat: no-repeat;
     background-color: black;
     text-align: center;

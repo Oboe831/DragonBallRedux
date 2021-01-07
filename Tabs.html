@@ -381,6 +381,7 @@
     <h2 style="color: rgb(185, 102, 0);">Soak <input type="number" name="attr_soak" value="0"/>/<input type="number" name="attr_soak_max" value="@{hidden_soak}+@{soak_modifier}"  disabled> Modifier: <input type="number" name="attr_soak_modifier" value="0"/></h2>
     <h2 style="color: rgb(185, 102, 0);">Dodge <input type="number" name="attr_dodge_modifier" value="0"/><button class="attack-button" type="roll" name="roll_dodge" value="/r 1d10!10+@{dodge_modifier}+@{agility_modifier}"></button></h2>
     <input type="hidden" name="attr_hidden_soak" value="0">
+    <div><h2 style="color: rgb(185, 102, 0);">Hit Modifier: <input type="number" name="attr_global_hit" value="0"></h2><h2 style="color: rgb(185, 102, 0);">Wound Modifier: <input type="number" name="attr_global_wound" value="0"></h2></div>
     <script type="text/worker">
         on("change:tenacity, sheet:opened", function(){
             getAttrs(["TENACITY_MODIFIER"], function(values){
@@ -401,18 +402,18 @@
     <div class="basic-attack">
         <div class="basic-attacks-col1">
             <h2 style="color: rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">Name:</h2>
-            <div class="basic-attacks-row"><input type="text" value="Basic Physical" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_physical" value="/em swings a kick at the enemy for [[@{basic_physical_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_physical_wound}d10!10+@{strength_modifier}+@{hidden_power}]] and costing @{basic_physical_ki} ki"></button></div>
-            <div class="basic-attacks-row"><input type="text" value="Sphere Energy Attack" style="width: 100px;" disabled><button class="attack-button" type="roll" name="roll_basic_sphere" value="/em hurls a sphere of energy for [[@{basic_sphere_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_sphere_wound}d10!10+@{potency_modifier}+@{hidden_power}]] and costing @{basic_sphere_ki} ki"></button></div>
-            <div class="basic-attacks-row"><input type="text" value="Incantation" style="width: 100px;" disabled><button class="attack-button" type="roll" name="roll_basic_incantation" value="/em casts an incantation for [[@{basic_incantation_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_incantation_wound}d10!10+@{spirit_modifier}+@{hidden_power}]] and costing @{basic_incantation_ki} ki"></button></div>
-            <div class="basic-attacks-row"><input type="text" value="Rapid Fire" style="width: 100px;" disabled><button class="attack-button" type="roll" name="roll_basic_rapid" value="/em fires several energy attacks for [[@{basic_rapid_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[(@{basic_rapid_wound}d10!10)*2+@{hidden_power}]] and costing @{basic_rapid_ki} ki"></button></div>
-            <div class="basic-attacks-row"><input type="text" value="Guided" style="width: 100px;" disabled><button class="attack-button" type="roll" name="roll_basic_guided" value="/em a guided blast for [[@{basic_guided_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]] or [[(@{basic_guided_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier})/2]], dealing [[@{basic_guided_wound}d10!10+@{potency_modifier}+@{hidden_power}]] and costing @{basic_guided_ki} ki"></button></div>
-            <div class="basic-attacks-row"><input type="text" value="Kiai" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_kiai" value="/em fires an kiai blast for [[@{basic_kiai_hit}d10d1!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_kiai_wound}d10d1!10+@{potency_modifier}+@{hidden_power}]] and costing @{basic_kiai_ki} ki"></button></div>
-            <div class="basic-attacks-row"><input type="text" value="Energy Focus" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_focus" value="/em focuses their ki into a weapon and strikes for [[@{basic_focus_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_focus_wound}d10!10+@{strength_modifier}+@{potency_modifier}+@{hidden_power}]] and costing @{basic_focus_ki} ki"></button></div>
-            <div class="basic-attacks-row"><input type="text" value="Blast" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_blast" value="/em fires a blast of energy in front of them, 3 feet wide and 3 feet long for [[@{basic_blast_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_blast_wound}d10!10+@{potency_modifier}+@{hidden_power}]] and costing @{basic_blast_ki} ki"></button></div>
-            <div class="basic-attacks-row"><input type="text" value="Explosion" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_explosion" value="/em fires off an explosion measuring 3 feet by 3 feet for [[@{basic_explosion_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_explosion_wound}d10!10+@{potency_modifier}+@{hidden_power}]] and costing @{basic_explosion_ki} ki"></button></div>
-            <div class="basic-attacks-row"><input type="text" value="Beam" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_beam" value="/em fires a beam of energy, impeding its target, for [[@{basic_beam_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_beam_wound}d10!10+@{potency_modifier}+@{hidden_power}]] and costing @{basic_beam_ki} ki"></button></div>
-            <div class="basic-attacks-row"><input type="text" value="Combination" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_combination" value="/em attcks with a flurry of blows for [[@{basic_combination_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_combination_wound}d10!10+@{hidden_power}]] and costing @{basic_combination_ki} ki"></button></div>
-            <div class="basic-attacks-row"><input type="text" value="Powered" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_powered" value="/em empowers themselves with ki energy and strikes for [[@{basic_powered_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[@{basic_powered_wound}d10!10+@{strength_modifier}+@{potency_modifier}+@{hidden_power}]] and costing @{basic_powered_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Basic Physical" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_physical" value="/em swings a kick at the enemy for [[@{basic_physical_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}+@{global_hit}]], dealing [[@{basic_physical_wound}d10!10+@{strength_modifier}+@{hidden_power}+@{global_wound}]] and costing @{basic_physical_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Sphere Energy Attack" style="width: 100px;" disabled><button class="attack-button" type="roll" name="roll_basic_sphere" value="/em hurls a sphere of energy for [[@{basic_sphere_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}+@{global_hit}]], dealing [[@{basic_sphere_wound}d10!10+@{potency_modifier}+@{hidden_power}+@{global_wound}]] and costing @{basic_sphere_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Incantation" style="width: 100px;" disabled><button class="attack-button" type="roll" name="roll_basic_incantation" value="/em casts an incantation for [[@{basic_incantation_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}+@{global_hit}]], dealing [[@{basic_incantation_wound}d10!10+@{spirit_modifier}+@{hidden_power}+@{global_wound}]] and costing @{basic_incantation_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Rapid Fire" style="width: 100px;" disabled><button class="attack-button" type="roll" name="roll_basic_rapid" value="/em fires several energy attacks for [[@{basic_rapid_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}+@{global_hit}]], dealing [[(@{basic_rapid_wound}d10!10)*2+@{hidden_power}+@{global_wound}]] and costing @{basic_rapid_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Guided" style="width: 100px;" disabled><button class="attack-button" type="roll" name="roll_basic_guided" value="/em a guided blast for [[@{basic_guided_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}+@{global_hit}]] or [[(@{basic_guided_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}+@{global_hit})/2]], dealing [[@{basic_guided_wound}d10!10+@{potency_modifier}+@{hidden_power}+@{global_wound}]] and costing @{basic_guided_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Kiai" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_kiai" value="/em fires an kiai blast for [[@{basic_kiai_hit}d10d1!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}+@{global_hit}]], dealing [[@{basic_kiai_wound}d10d1!10+@{potency_modifier}+@{hidden_power}+@{global_wound}]] and costing @{basic_kiai_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Energy Focus" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_focus" value="/em focuses their ki into a weapon and strikes for [[@{basic_focus_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}+@{global_hit}]], dealing [[@{basic_focus_wound}d10!10+@{strength_modifier}+@{potency_modifier}+@{hidden_power}+@{global_wound}]] and costing @{basic_focus_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Blast" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_blast" value="/em fires a blast of energy in front of them, 3 feet wide and 3 feet long for [[@{basic_blast_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}@{global_hit}]], dealing [[@{basic_blast_wound}d10!10+@{potency_modifier}+@{hidden_power}+@{global_wound}]] and costing @{basic_blast_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Explosion" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_explosion" value="/em fires off an explosion measuring 3 feet by 3 feet for [[@{basic_explosion_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}@{global_hit}]], dealing [[@{basic_explosion_wound}d10!10+@{potency_modifier}+@{hidden_power}+@{global_wound}]] and costing @{basic_explosion_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Beam" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_beam" value="/em fires a beam of energy, impeding its target, for [[@{basic_beam_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}+@{global_hit}]], dealing [[@{basic_beam_wound}d10!10+@{potency_modifier}+@{hidden_power}+@{global_wound}]] and costing @{basic_beam_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Combination" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_combination" value="/em attcks with a flurry of blows for [[@{basic_combination_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}+@{global_hit}]], dealing [[@{basic_combination_wound}d10!10+@{hidden_power}+@{global_wound}]] and costing @{basic_combination_ki} ki"></button></div>
+            <div class="basic-attacks-row"><input type="text" value="Powered" style="width: 100px;" disabled> <button class="attack-button" type="roll" name="roll_basic_powered" value="/em empowers themselves with ki energy and strikes for [[@{basic_powered_hit}d10!10+@{hidden_power}+@{agility_modifier}+@{insight_modifier}+@{global_hit}]], dealing [[@{basic_powered_wound}d10!10+@{strength_modifier}+@{potency_modifier}+@{hidden_power}+@{global_wound}]] and costing @{basic_powered_ki} ki"></button></div>
         </div>
         <div class="basic-attacks-col2">
             <h2 style="color: rgb(202, 111, 0); border: 1px solid rgb(156, 155, 155);">To Hit Die:</h2>
@@ -487,7 +488,7 @@
                     <div class="ccol2"><input type="number" name="attr_custom_attack_ki" value="0"></div>
                     <div class="ccol3"><input type="number" name="attr_custom_attack_technique" value="0" ></div>
                     <div class="ccol4"><input type="number" name="attr_custom_attack_hit" value="0"></div>
-                    <div class="ccol5"><input type="number" name="attr_custom_attack_wound" value="0"><button class="attack-button" type="roll" name="roll_custom_attack" value="/em @{custom_attack_name} for [[1d10!10+@{custom_attack_hit}+@{hidden_power}+@{agility_modifier}+@{insight_modifier}]], dealing [[1d10!10+@{custom_attack_wound}+?{What ability are you using?|Strength,@{strength_modifier} | Potency,@{potency_modifier} |Spirit,@{spirit_modifier} | Balistic, 0}+@{hidden_power}]] and costing @{custom_attack_ki} ki"></button></div>
+                    <div class="ccol5"><input type="number" name="attr_custom_attack_wound" value="0"><button class="attack-button" type="roll" name="roll_custom_attack" value="/em @{custom_attack_name} for [[1d10!10+@{custom_attack_hit}+@{hidden_power}+@{agility_modifier}+@{insight_modifier}+@{global_hit}]], dealing [[1d10!10+@{custom_attack_wound}+?{What ability are you using?|Strength,@{strength_modifier} | Potency,@{potency_modifier} |Spirit,@{spirit_modifier} | Balistic, 0}+@{hidden_power}+@{global_wound}]] and costing @{custom_attack_ki} ki"></button></div>
                 </div>
             </fieldset>
         </div>
@@ -495,31 +496,67 @@
 </div>
 
 <div class='abilities'>
-    <h1>GALIC GUN</h1>
-    <h2>Journal/Notes</h2>
-    <span>Journal/Notes Stuff Goes here</span> 
+    <h1 style="color: #F5F5F5;">Abilities</h1>
+    <h2 style="color: #F5F5F5;">Karma: <input type="number" name="attr_karma" max="10" value="5"></h2>
+    <div style="border: 3px solid seagreen;">
+        <h2 style="color: #F5F5F5;">Z Soul: <input type="text" name="attr_z_soul"></h2>
+        <h2 style="color: #F5F5F5;">Z Soul: <input type="text" name="attr_z_soul2"></h2>
+        <h2 style="color: #F5F5F5;">Z Soul: <input type="text" name="attr_z_soul3"></h2>
+    </div>
+    <br>
+
+    <div style="border: 3px solid seagreen; border-collapse: collapse;">
+        <h2 style="color: white; border: 1px solid seagreen;">Equipment</h2>
+        <fieldset class="repeating_equipment" >
+            <div class="equipmentTable">
+                <div style="grid-area: gear1;"><h3 style="color: seagreen;">Name: <input type="text" name="attr_gear_name" style="width: 150px;"></h3></div>
+                <div style="grid-area: gear2;"><h3 style="color: seagreen;">Name: <input type="text" name="attr_gear_name2" style="width: 150px;"></h3></div>
+                <div style="grid-area: gear3;"><h3 style="color: seagreen;">Name: <input type="text" name="attr_gear_name3" style="width: 150px;"></h3></div>
+            </div>
+        </fieldset>
+    </div>
+
+    <br>
+
+    <h2 style="color: #F5F5F5;">Talents and Abilities</h2>
+    <div style="border: 3px solid seagreen;">
+        <fieldset class="repeating_talents">
+            <div style="display: grid; grid-template-areas: 'talent talent_description'; justify-content: space-between; border: 1px solid seagreen;">
+                <br>
+                <select style="grid-area: talent;" name="attr_talent" style="width: 20%;">
+                    <option value="attribute_addition">Attribute Addition</option>
+                    <option value="skill_proficiency">Skill Proficiency</option>
+                    <option value="technique_points">Technique Points</option>
+                    <option value="talent_addition">Talent Addition</option>
+                    <option value="mixture_aptitudes">Mixture Aptitudes</option>
+                </select>
+                <input type="text" name="attr_talent_description" style="width: 40%; grid-area: talent_description;">
+            </div>
+        </fieldset>
+    </div>
 </div>
 
 <div class='transformations'>
-    <h1 style="color: silver;">Transformations</h1>
-    <h2 style="color: silver;">Stress Test<button class="stress-button" name="roll_stress_test" type="roll" value="/em [[1d10!10 + @{power_level}]]"></button></h2>
+    <h1 style="color: lightseagreen;">Transformations</h1>
+    <h2 style="color: lightseagreen;">Stress Test<button class="stress-button" name="roll_stress_test" type="roll" value="/em [[1d10!10 + @{power_level}]]"></button></h2>
+    <h2 style="color: lightseagreen;">Training Roll <input type="number" min="1" value="1" name="attr_intensity"><button class="stress-button" name="roll_training" type="roll" value="/em puts their body on the line in training, attempt [[@{intensity}d10!10+@{agility_modifier}+@{tenacity_modifier}+@{insight_modifier}+@{personality_modifier}]]>[[?{Condition Range? |Very Easy, 10*@{intensity}+floor(@{power_level}/5)*5|Easy, 20*@{intensity}+floor(@{power_level}/5)*5|Medium, 30*@{intensity}+floor(@{power_level}/5)*5|Hard, 40*@{intensity}+floor(@{power_level}/5)*5|Very Hard, 50*@{intensity}+floor(@{power_level}/5)*5|Nearly Impossible, 60*@{intensity}+floor(@{power_level}/5)*5}]] gaining [[@{power_level}*@{intensity}]] xp"></button></h2>
     <div class="transformations-page">
         <div class="transformations-top">
-            <div style="grid-area: tn; border-right: 1px solid silver;"><h3 style="color: silver;">Name:</h3></div>
+            <div style="grid-area: tn; border-right: 1px solid silver; border-bottom: 1px solid silver;"><h3 style="color: silver;">Name:</h3></div>
             <!--<div style="grid-area: tty; border-right: 1px solid silver;"><h3 style="color: silver;">Type:</h3></div>-->
-            <div style="grid-area: ta; border-right: 1px solid silver;"><h3 style="color: silver;">Agi:</h3></div>
-            <div style="grid-area: ti; border-right: 1px solid silver;"><h3 style="color: silver;">Ins:</h3></div>
-            <div style="grid-area: tpe; border-right: 1px solid silver;"><h3 style="color: silver;">Per:</h3></div>
-            <div style="grid-area: tpo; border-right: 1px solid silver;"><h3 style="color: silver;">Pot:</h3></div>
-            <div style="grid-area: tsc; border-right: 1px solid silver;"><h3 style="color: silver;">Sch:</h3></div>
-            <div style="grid-area: tsp; border-right: 1px solid silver;"><h3 style="color: silver;">Spi:</h3></div>
-            <div style="grid-area: tst; border-right: 1px solid silver;"><h3 style="color: silver;">Str:</h3></div>
+            <div style="grid-area: ta; border-right: 1px solid silver; border-bottom: 1px solid silver;"><h3 style="color: silver;">Agi:</h3></div>
+            <div style="grid-area: ti; border-right: 1px solid silver; border-bottom: 1px solid silver;"><h3 style="color: silver;">Ins:</h3></div>
+            <div style="grid-area: tpe; border-right: 1px solid silver; border-bottom: 1px solid silver;"><h3 style="color: silver;">Per:</h3></div>
+            <div style="grid-area: tpo; border-right: 1px solid silver; border-bottom: 1px solid silver;"><h3 style="color: silver;">Pot:</h3></div>
+            <div style="grid-area: tsc; border-right: 1px solid silver; border-bottom: 1px solid silver;"><h3 style="color: silver;">Sch:</h3></div>
+            <div style="grid-area: tsp; border-right: 1px solid silver; border-bottom: 1px solid silver;"><h3 style="color: silver;">Spi:</h3></div>
+            <div style="grid-area: tst; border-right: 1px solid silver; border-bottom: 1px solid silver;"><h3 style="color: silver;">Str:</h3></div>
             <div style="grid-area: tte;"><h3 style="color: silver;">Ten:</h3></div>
         </div>
 
         <div class="transformations-bot">
             <fieldset class="repeating_transformationstable">
-                <div class="transformations-table">
+                <div class="transformations-table" style="border-top: none;">
                     <div class="tname"><input type="text" name="attr_transformation_name" style="width: 80px;"><input type="checkbox" name="attr_transformation_on" value="1"></div>
                     <div class="tagi"><input type="number" name="attr_transformation_agi" value="0"></div>
                     <div class="tins"><input type="number" name="attr_transformation_ins" value="0"></div>

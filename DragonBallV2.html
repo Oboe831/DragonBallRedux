@@ -35,7 +35,23 @@
                             if(!changed){
                                 if(pl<5){
                                     setAttrs({
-                                        "hidden_power":"0"
+                                        "hidden_power":"1d0"
+                                    });
+                                }else if(pl<10){
+                                    setAttrs({
+                                        "hidden_power":"1d4"
+                                    });
+                                }else if(pl<15){
+                                    setAttrs({
+                                        "hidden_power":"1d6"
+                                    });
+                                }else if(pl<20){
+                                    setAttrs({
+                                        "hidden_power":"1d8"
+                                    });
+                                }else if(pl<25){
+                                    setAttrs({
+                                        "hidden_power":"1d10"
                                     });
                                 };
                             };

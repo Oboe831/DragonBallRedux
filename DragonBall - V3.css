@@ -1,11 +1,35 @@
 /*----------------- GENERAL CSS ------------------*/
 
-/*Configure the tab buttons*/
+/*Configures the header (name/race/tabs/etc) */
+.label{
+    color: red;
+}
+
+.mech-info{
+    display: inline-flex;
+    grid-area: 'info_2';
+}
+
+.bio-info{
+    display: inline-flex;
+    grid-area: 'info_1';
+}
+
+.header{
+    text-align: center;
+    display: grid;
+    grid-template-areas: 
+    'info_1',
+    'info_2',
+    'tabs';
+}
+
+/*Configure the background header*/
 .banner {
-    background-image: url(https://i.pinimg.com/564x/ad/ce/f3/adcef371d608bdabd95fca1ee9a37ec4.jpg);
+    background-image: url(https://raw.githubusercontent.com/Oboe831/DragonBallRedux/double_ascended/header.PNG);
     background-color: white;
     background-size: 50% 100%;
-    background-position: center top;
+    background-position: top;
     background-repeat: no-repeat;
     text-align: center;
 }

@@ -1,9 +1,40 @@
 <div class="banner">
     <br><br><br>
-    <button type="action" name="act_attributes">Attributes</button>
-    <button type="action" name="act_attacks">Attacks</button>
-    <button type="action" name="act_abilities">Abilities</button>
-    <button type="action" name="act_transformations">Transformations</button>
+</div>
+
+<div class="header">
+    <div class="bio-info">
+        
+        <label>Race: <select name="attr_race" style="width: 200px;">
+            <option value="artificial_construct_android">Artificial Construct Androids</option>
+            <option value="cybernetic_android">Cybernetic Organism Androids</option>
+            <option value="bio_engineered_android">Bio-Enginnered Androids</option>
+            <option value="arcosian">Arcosians</option>
+            <option value="earthling_human">Earthling Human</option>
+            <option value="beast_men_human">Beast-man Human</option>
+            <option value="warrior_namekians">Warrior Namekians</option>
+            <option value="priest_namekians">Priest Namekians</option>
+            <option value="majin">Majin</option>
+            <option value="full_saiyan">Full-blood Saiyan</option>
+            <option value="half_saiyan">Half-blood Saiyan</option>
+            <option value="kaio_shinjin">Kaio Shinjin</option>
+            <option value="makaio_shinjin">Makaio Shinjin</option>
+        </select></label>
+        <label>Power Level: <input type="number" value="1" name="attr_power_level"></label>
+        <label>Tier of Power: <input type="number" value=0 name="attr_tier_of_power"></label>
+    </div>
+    <div class="mech-info">
+        <label>Name: <input type="text" name="attr_character_name" style="width: 100px;"></label>
+        <label class="label">Zeni: <input type="number" value=0 name="attr_zeni"></label>
+        <label>XP: <input type="number" value=0 name="attr_xp">/<input type="number" value="0" name="attr_txp"></label>
+        
+    </div>
+    <div class="tabs">
+        <button type="action" name="act_attributes">Attributes</button>
+        <button type="action" name="act_attacks">Attacks</button>
+        <button type="action" name="act_abilities">Abilities</button>
+        <button type="action" name="act_transformations">Transformations</button>
+    </div>
 </div>
 
 <br>

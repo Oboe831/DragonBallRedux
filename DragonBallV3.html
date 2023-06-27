@@ -1,0 +1,1930 @@
+
+<div class="banner">
+    <br><br><br>
+    <button class="select-btn" type="action" name="act_attributes" >Attributes</button>
+    <button class="select-btn" type="action" name="act_race" >Race</button>
+    <button class="select-btn" type="action" name="act_attacks" >Combat</button>
+    <button class="select-btn" type="action" name="act_abilities">Infomation</button>
+    <button class="select-btn" type="action" name="act_transformations">Transformations</button>
+    <button class="select-btn" type="action" name="act_settings">Settings</button>
+</div>
+<input type='hidden' class='sheet-tabstoggle' name='attr_sheetTab'  value='attributes'  />
+<br>
+<!--The attributes division that creates all of the attributes input for the players-->
+<div class='attributes'>
+    <div class ="character">
+        <div class="info">
+            <div class="info-header"><h1>Character</h1></div>
+            <div class="info-name"><label>Name:</label></div><div class="info-name-data"><input type='text' name="attr_character_name" placeholder="Character Name" /></div>
+            <div class="info-initiative"><label>Initiative:</label></div>
+            <div class="info-initiative-data">
+                <input type="text" name="attr_initiative_modifier" value="0"/>
+                <input type="number" name="attr_initiative" value="@{initiative_modifier} + floor(@{agility_tfmodifier}/2)" disabled="true" />
+                <button type="roll" value="/r @{dice_roll} + @{initiative} &{tracker}"></button>    
+            </div>
+            <div class="info-race"><label>Race:</label></div><div class="info-race-data"><input type='text' name="attr_race" value="@{race_name}, @{subrace_name}" disabled="true"/></div>
+            <div class="info-size"><label>Size:</label></div><div class="info-size-data"><input type='text' name="attr_size" value="@{race_size}" disabled="true" /></div>
+            <div class="info-reach"><label>Reach:</label></div>
+            <div class="info-reach-data">
+                <input type="hidden" name="attr_size_reach" value="1" />
+                <input type="text" name="attr_reach_modifier" value="0"/>
+                <input type="number" name="attr_reach" value="@{reach_modifier} + @{size_reach}" disabled="true" />
+            </div>
+            <div class="info-ki"><label>Ki Points:</label></div><div class="info-ki-data"><input style="width:45%;" type="number" name="attr_ki" value="0" /> / <input style="width:45%;" type="number" name="attr_ki_max" value="[[(26 + (12*(@{power_level}-1)))]]" disabled="true" /></div>
+            <div class="info-ki-bar">
+                <input type="hidden" type="number" value="@{kibarv}" name="attr_kibar" class="sheet-kibar" disabled="true" />
+                <div class="sheet-kibar"></div>
+            </div>
+            <div class="info-land-speed"><label>Ground Speed:</label></div>
+            <div class="info-land-speed-data">
+                <input type="hidden" name="attr_size_speed" value="1" />
+                <input type="text" name="attr_land_speed_modifier" value="0"/>
+                <input type="number" name="attr_land_speed" value="floor(@{agility_tfmodifier}/2) + @{dexterity} + @{size_speed} + @{land_speed_modifier}" disabled="true" />
+            </div>
+            <div class="info-capacity"><label>Capacity:</label></div><div class="info-capacity-data"><input style="width:45%;" type="number" name="attr_capacity" value="0"/> / <input style="width:45%;" type="number" name="attr_capacity_max" value="[[(14 + (6*(@{power_level}-1)))]]" disabled="true" /></div>
+            <div class="info-capacity-bar">
+                <input type="hidden" type="number" value="@{capacitybarv}" name="attr_hpbar" class="sheet-capacitybar" disabled="true" />
+                <div class="sheet-capacitybar"></div>
+            </div>
+            <div class="info-fly-speed"><label>Fly Speed:</label></div>
+            <div class="info-fly-speed-data">
+                <input type="hidden" name="attr_size_speed" value="1" />
+                <input type="text" name="attr_fly_speed_modifier" value="0"/>
+                <input type="number" name="attr_fly_speed" value="@{agility_tfmodifier} + @{dexterity} + @{size_speed} + @{fly_speed_modifier}" disabled="true" />
+            </div><div class="info-hp"><label>Hit Points:</label></div><div class="info-hp-data"><input type="number" name="attr_hp" value="0" /> / <input type="number" name="attr_hp_max" value="20"/><button name="roll_health" type="roll" value="/r 2d10+@{race_health}+@{tenacity_modifier}"></button></div>
+            <div class="info-hp-bar">
+                <input type="hidden" type="number" value="@{hpbarv}" name="attr_hpbar" class="sheet-hpbar" disabled="true" />
+                <div class="sheet-hpbar"></div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="stats">
+            <div class="all-stats">
+                <div class="level-table">
+                    <label class="level-header" style="text-align:center;">LEVEL</label>
+                    <div class="level-power"><label>Power Level:</label></div><div class="level-power-data"><input class="power-level-data" type="number" name="attr_power_level" value="1" style="width: 100%;" /></div>
+                    <div class="level-battle"><label>Battle Power:</label></div>
+                    <div class="level-battle-data">
+                        <input style="display:none;" class="power-level-calc" type="number" name="attr_battle_power" value="(@{agility} + ((@{force}) * 2) + @{tenacity}) / 2 * (@{ki_max} + @{capacity_max}) * @{power_level} * ((@{tier_of_power}) ** 2)" disabled="true" />
+                        <input style="width:100%;" class="power-level-calc" type="text" name="attr_visable_battle_power" value="" readonly />
+                    </div>
+                    <div class="level-tier"><label>Tier:</label></div><div class="level-tier-data"><input type="text" name="attr_tier_of_power_misc" value="0"><input name="attr_tier_of_power" type="number" value="1" readonly /></div>
+                    <div class="level-dice"><label>Bonus Dice:</label></div><div class="level-dice-data"><input type="text" name="attr_power_die" readonly="true"/></div>
+                </div>
+                <div class="ability-table">
+                    <div class="abilityName"><p>NAME</p></div>
+                    <div class="abilityMod"><p>MOD</p></div>
+                    <div class="abilityTrans"><p>TF MOD</p></div>
+                    <div class="abilityRanks"><p>RANKS</p></div>
+                    <div class="abilityRacial"><p>RACIAL</p></div>
+                    <div class="abilityTotal"><p>TOTAL</p></div>
+
+                    
+                    <div class="abilityName"><button class="ability" type="roll" name="roll_agility" value="/r @{dice_roll}+@{agility_tfmodifier}+@{power_die}">Agility</button></div>
+                    <div class="abilityMod"><input type="number" name="attr_agility_modifier" value="1" readonly /></div>
+                    <div class="abilityTrans"><input type="number" name="attr_agility_tfmodifier" value="1" readonly /></div>
+                    <div class="abilityRanks"><input type="number" name="attr_agility_ranks" value="2" /></div>
+                    <div class="abilityRacial"><input type="number" name="attr_agility_racial" value="@{race_ag}" disabled="true" /></div>
+                    <div class="abilityTotal"><input type="number" name="attr_agility" value="2" readonly /></div>
+                    <input type="hidden" value="0" name="attr_agility_tf">
+                    <input type="hidden" value="0" name="attr_agility_manifest">
+                    
+                    <div class="abilityName"><button class="ability" type="roll" name="roll_force" value="/r @{dice_roll}+@{force_tfmodifier}+@{power_die}">Force</button></div>
+                    <div class="abilityMod"><input type="number" name="attr_force_modifier" value="1" readonly /></div>
+                    <div class="abilityTrans"><input type="number" name="attr_force_tfmodifier" value="1" readonly /></div>
+                    <div class="abilityRaclnks"><input type="number" name="attr_force_ranks" value="2" /></div>
+                    <div class="abilityRacial"><input type="number" name="attr_force_racial" value="@{race_fo}" disabled="true"  /></div>
+                    <div class="abilityTotal"><input type="number" name="attr_force" value="2" readonly /></div>
+                    <input type="hidden" value="0" name="attr_force_tf">
+                    <input type="hidden" value="0" name="attr_force_manifest">
+
+                    <div class="abilityName"><button class="ability" type="roll" name="roll_tenacity" value="/r @{dice_roll}+@{tenacity_tfmodifier}+@{power_die}">Tenacity</button></div>
+                    <div class="abilityMod"><input type="number" name="attr_tenacity_modifier" value="1" readonly /></div>
+                    <div class="abilityTrans"><input type="number" name="attr_tenacity_tfmodifier" value="1" readonly /></div>
+                    <div class="abilityRanks"><input type="number" name="attr_tenacity_ranks" value="2" /></div>
+                    <div class="abilityRacial"><input type="number" name="attr_tenacity_racial" value="@{race_te}" disabled="true"  /></div>
+                    <div class="abilityTotal"><input type="number" name="attr_tenacity" value="2" readonly /></div>
+                    <input type="hidden" value="0" name="attr_tenacity_tf">
+                    <input type="hidden" value="0" name="attr_tenacity_manifest">
+
+                    <div class="abilityName"><button class="ability" type="roll" name="roll_scholarship" value="/r @{dice_roll}+@{scholarship_tfmodifier}+@{power_die}">Scholarship</button></div>
+                    <div class="abilityMod"><input type="number" name="attr_scholarship_modifier" value="1" readonly /></div>
+                    <div class="abilityTrans"><input type="number" name="attr_scholarship_tfmodifier" value="1" readonly /></div>
+                    <div class="abilityRanks"><input type="number" name="attr_scholarship_ranks" value="2" /></div>
+                    <div class="abilityRacial"><input type="number" name="attr_scholarship_racial" value="@{race_sc}" disabled="true"  /></div>
+                    <div class="abilityTotal"><input type="number" name="attr_scholarship" value="2" readonly /></div>
+                    <input type="hidden" value="0" name="attr_scholarship_tf">
+                    <input type="hidden" value="0" name="attr_scholarship_manifest">
+
+                    <div class="abilityName"><button class="ability" type="roll" name="roll_insight" value="/r @{dice_roll}+@{insight_tfmodifier}+@{power_die}">Insight</button></div>
+                    <div class="abilityMod"><input type="number" name="attr_insight_modifier" value="1" readonly /></div>
+                    <div class="abilityTrans"><input type="number" name="attr_insight_tfmodifier" value="1" readonly /></div>
+                    <div class="abilityRanks"><input type="number" name="attr_insight_ranks" value="2" /></div>
+                    <div class="abilityRacial"><input type="number" name="attr_insight_racial" value="@{race_in}" disabled="true"  /></div>
+                    <div class="abilityTotal"><input type="number" name="attr_insight" value="2" readonly /></div>
+                    <input type="hidden" value="0" name="attr_insight_tf">
+                    <input type="hidden" value="0" name="attr_insight_manifest">
+
+                    <div class="abilityName"><button class="ability" type="roll" name="roll_spirit" value="/r @{dice_roll}+@{spirit_tfmodifier}+@{power_die}">Spirit</button></div>
+                    <div class="abilityMod"><input type="number" name="attr_spirit_modifier" value="1" readonly /></div>
+                    <div class="abilityTrans"><input type="number" name="attr_spirit_tfmodifier" value="1" readonly /></div>
+                    <div class="abilityRanks"><input type="number" name="attr_spirit_ranks" value="2" /></div>
+                    <div class="abilityRacial"><input type="number" name="attr_spirit_racial" value="@{race_sp}" disabled="true"  /></div>
+                    <div class="abilityTotal"><input type="number" name="attr_spirit" value="2" readonly /></div>
+                    <input type="hidden" value="0" name="attr_spirit_tf">
+                    <input type="hidden" value="0" name="attr_spirit_manifest">
+
+                    <div class="abilityName"><button class="ability" type="roll" name="roll_personality" value="/r @{dice_roll}+@{personality_tfmodifier}+@{power_die}">Personality</button></div>
+                    <div class="abilityMod"><input type="number" name="attr_personality_modifier" value="1" readonly /></div>
+                    <div class="abilityTrans"><input type="number" name="attr_personality_tfmodifier" value="1" readonly /></div>
+                    <div class="abilityRanks"><input type="number" name="attr_personality_ranks" value="2" /></div>
+                    <div class="abilityRacial"><input type="number" name="attr_personality_racial" value="@{race_pe}" disabled="true"  /></div>
+                    <div class="abilityTotal"><input type="number" name="attr_personality" value="2" readonly /></div>
+                    <input type="hidden" value="0" name="attr_personality_tf">
+                    <input type="hidden" value="0" name="attr_personality_manifest">
+                </div>
+                <div class="save-table">
+                    <div class="save-name"><p>PROF. NAME</p></div>
+                    <div class="save-misc"><p>MISC</p></div>
+                    <div class="save-total"><p>TOTAL</p></div>
+
+                    <div class="save-name"><input type="checkbox" name="attr_impulsive_proficiency" value="@{tier_of_power}" /><button class="ability" type="roll" name="roll_impulsive" value="/r @{dice_roll}+@{impulsive}+@{power_die}">Impulsive</button></div>
+                    <div class="save-misc">
+                        <input type="text" name="attr_impulsive_misc" value="0" />
+                        <input type="hidden" name="attr_impulsive_misc_hidden" value="0" />
+                    </div>
+                    <div class="save-total"><input type="number" name="attr_impulsive" value="[[@{agility_modifier} + @{impulsive_proficiency} + @{impulsive_misc_hidden}]]" disabled="true" /></div>
+                
+                    <div class="save-name"><input type="checkbox" name="attr_corporeal_proficiency" value="@{tier_of_power}" /><button class="ability" type="roll" name="roll_corporeal" value="/r @{dice_roll}+@{corporeal}+@{power_die}">Corporeal</button></div>
+                    <div class="save-misc">
+                        <input type="text" name="attr_corporeal_misc" value="0" />
+                        <input type="hidden" name="attr_corporeal_misc_hidden" value="0" />
+                    </div>
+                    <div class="save-total"><input type="number" name="attr_corporeal" value="[[@{tenacity_modifier} + @{corporeal_proficiency} + @{corporeal_misc_hidden}]]" disabled="true" /></div>
+                    
+                    <div class="save-name"><input type="checkbox" name="attr_cognitive_proficiency" value="@{tier_of_power}" /><button class="ability" type="roll" name="roll_cognitive" value="/r @{dice_roll}+@{cognitive}+@{power_die}">Cognitive</button></div>
+                    <div class="save-misc">
+                        <input type="text" name="attr_cognitive_misc" value="0" />
+                        <input type="hidden" name="attr_cognitive_misc_hidden" value="0" />
+                    </div>
+                    <div class="save-total"><input type="number" name="attr_cognitive" value="[[@{insight_modifier} + @{cognitive_proficiency} + @{cognitive_misc_hidden}]]" disabled="true" /></div>
+                
+                    <div class="save-name"><input type="checkbox" name="attr_morale_proficiency" value="@{tier_of_power}" /><button class="ability" type="roll" name="roll_morale" value="/r @{dice_roll}+@{morale}+@{power_die}">Morale</button></div>
+                    <div class="save-misc">
+                        <input type="text" name="attr_morale_misc" value="0" />
+                        <input type="hidden" name="attr_morale_misc_hidden" value="0" />
+                    </div>
+                    <div class="save-total"><input type="number" name="attr_morale" value="[[@{personality_modifier} + @{morale_proficiency} + @{morale_misc_hidden}]]" disabled="true" /></div>
+                </div>
+            </div>
+            <div class="skills">
+                <label style="text-align:center;">SKILLS</label>
+                <div class="skill-table">
+                    <p style="padding:5px;">SKILL</p>
+                    <p style="padding:5px;">PROF</p>
+                    <p style="padding:5px;">MISC</p>
+                    <p style="padding:5px;">ABI</p>
+                    <p style="padding:5px;">TOTAL</p>
+            
+                    <button class="skill" type="roll" name="roll_acrobatics" value="/r @{dice_roll}+@{acrobatics}+@{power_die}">Acrobatics</button>
+                    <select class="proficiency-select" name="attr_acrobatics_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_acrobatics_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_acrobatics_mod" value="(@{agility_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_acrobatics" value="(@{agility_modifier}+@{acrobatics_proficiency}+@{acrobatics_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_athletics" value="/r @{dice_roll}+@{athletics}+@{power_die}">Athletics</button>
+                    <select class="proficiency-select" name="attr_athletics_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_athletics_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_athletics_mod" value="(@{force_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_athletics" value="(@{force_modifier}+@{athletics_proficiency}+@{athletics_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_bluff" value="/r @{dice_roll}+@{bluff}+@{power_die}">Bluff</button>
+                    <select class="proficiency-select" name="attr_bluff_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_bluff_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_bluff_mod" value="(@{personality_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_bluff" value="(@{personality_modifier}+@{bluff_proficiency}+@{bluff_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_clairvoyant" value="/r @{dice_roll}+@{clairvoyant}+@{power_die}">Clairvoyant</button>
+                    <select class="proficiency-select" name="attr_clairvoyant_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_clairvoyant_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_clairvoyant_mod" value="(@{spirit_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_clairvoyant" value="(@{spirit_modifier}+@{clairvoyant_proficiency}+@{clairvoyant_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_concealment" value="/r @{dice_roll}+@{concealment}+@{power_die}">Concealment</button>
+                    <select class="proficiency-select" name="attr_concealment_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_concealment_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_concealment_mod" value="(@{spirit_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_concealment" value="(@{spirit_modifier}+@{concealment_proficiency}+@{concealment_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_craft_weapon" value="/r @{dice_roll}+@{craft_weapon}+@{power_die}">Craft (Weapon)</button>
+                    <select class="proficiency-select" name="attr_craft_weapon_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_craft_weapon_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_craft_weapon_mod" value="(@{scholarship_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_craft_weapon" value="(@{scholarship_modifier}+@{craft_weapon_proficiency}+@{craft_weapon_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_craft_apparel" value="/r @{dice_roll}+@{craft_apparel}+@{power_die}">Craft (Apparel)</button>
+                    <select class="proficiency-select" name="attr_craft_apparel_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_craft_apparel_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_craft_apparel_mod" value="(@{scholarship_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_craft_apparel" value="(@{scholarship_modifier}+@{craft_apparel_proficiency}+@{craft_apparel_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_craft_basicitem" value="/r @{dice_roll}+@{craft_basicitem}+@{power_die}">Craft (Basic Item)</button>
+                    <select class="proficiency-select" name="attr_craft_basicitem_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_craft_basicitem_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_craft_basicitem_mod" value="(@{scholarship_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_craft_basicitem" value="(@{scholarship_modifier}+@{craft_basicitem_proficiency}+@{craft_basicitem_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_craft_vehicle" value="/r @{dice_roll}+@{craft_vehicle}+@{power_die}">Craft (Vehicle)</button>
+                    <select class="proficiency-select" name="attr_craft_vehicle_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_craft_vehicle_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_craft_vehicle_mod" value="(@{scholarship_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_craft_vehicle" value="(@{scholarship_modifier}+@{craft_vehicle_proficiency}+@{craft_vehicle_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_creature_handling" value="/r @{dice_roll}+@{creature_handling}+@{power_die}">Creature Handling</button>
+                    <select class="proficiency-select" name="attr_creature_handling_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_creature_handling_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_creature_handling_mod" value="(@{insight_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_creature_handling" value="(@{insight_modifier}+@{creature_handling_proficiency}+@{creature_handling_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_intimidate" value="/r @{dice_roll}+@{intimidate}+@{power_die}">Intimidate</button>
+                    <select class="proficiency-select" name="attr_intimidate_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_intimidate_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_intimidate_mod" value="(@{personality_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_intimidate" value="(@{personality_modifier}+@{intimidate_proficiency}+@{intimidate_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_investigation" value="/r @{dice_roll}+@{investigation}+@{power_die}">Investigation</button>
+                    <select class="proficiency-select" name="attr_investigation_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_investigation_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_investigation_mod" value="(@{scholarship_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_investigation" value="(@{scholarship_modifier}+@{investigation_proficiency}+@{investigation_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+                    
+                    <p class="skill">KNOWLEDGE</p><div></div><div></div><div></div><div></div>
+                </div>
+                <fieldset class="repeating_knowledge">
+                    <button class="skill" type="roll" name="roll_knowledge" value="/r @{dice_roll}+@{knowledge}+@{power_die}">Knowledge</button>
+                    <select class="proficiency-select" name="attr_knowledge_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_knowledge_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_knowledge_mod" value="(@{scholarship_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_knowledge" value="(@{scholarship_modifier}+@{knowledge_proficiency}+@{knowledge_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+                </fieldset>
+                <div class="skill-table">
+                    <button class="skill" type="roll" name="roll_medicine" value="/r @{dice_roll}+@{medicine}+@{power_die}">Medicine</button>
+                    <select class="proficiency-select" name="attr_medicine_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_medicine_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_medicine_mod" value="(@{scholarship_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_medicine" value="(@{scholarship_modifier}+@{medicine_proficiency}+@{medicine_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_perception" value="/r @{dice_roll}+@{perception}+@{power_die}">Perception</button>
+                    <select class="proficiency-select" name="attr_perception_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_perception_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_perception_mod" value="(@{insight_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_perception" value="(@{insight_modifier}+@{perception_proficiency}+@{perception_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_performance" value="/r @{dice_roll}+@{performance}+@{power_die}">Performance</button>
+                    <select class="proficiency-select" name="attr_performance_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_performance_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_performance_mod" value="(@{personality_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_performance" value="(@{personality_modifier}+@{performance_proficiency}+@{performance_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_persuasion" value="/r @{dice_roll}+@{persuasion}+@{power_die}">Persuasion</button>
+                    <select class="proficiency-select" name="attr_persuasion_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_persuasion_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_persuasion_mod" value="(@{personality_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_persuasion" value="(@{personality_modifier}+@{persuasion_proficiency}+@{persuasion_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <button class="skill" type="roll" name="roll_pilot" value="/r @{dice_roll}+@{pilot}+@{power_die}">Pilot</button>
+                    <select class="proficiency-select" name="attr_pilot_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_pilot_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_pilot_mod" value="(@{agility_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_pilot" value="(@{agility_modifier}+@{pilot_proficiency}+@{pilot_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+
+                    <p class="skill">PROFESSION</p><div></div><div></div><div></div><div></div>
+                </div>
+                <fieldset class="repeating_profession">
+                    <button class="skill" type="roll" name="roll_profession" value="/r @{dice_roll}+@{profession}+@{power_die}">Profession</button>
+                    <select class="proficiency-select" name="attr_profession_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_profession_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_profession_mod" value="(@{scholarship_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_profession" value="(@{scholarship_modifier}+@{profession_proficiency}+@{profession_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+                </fieldset>
+                <div class="skill-table">
+                    <button class="skill" type="roll" name="roll_science" value="/r @{dice_roll}+@{science}+@{power_die}">Science</button>
+                    <select class="proficiency-select" name="attr_science_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_science_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_science_mod" value="(@{scholarship_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_science" value="(@{scholarship_modifier}+@{science_proficiency}+@{science_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+                    
+                    <button class="skill" type="roll" name="roll_stealth" value="/r @{dice_roll}+@{stealth}+@{power_die}">Stealth</button>
+                    <select class="proficiency-select" name="attr_stealth_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_stealth_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_stealth_mod" value="(@{agility_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_stealth" value="(@{agility_modifier}+@{stealth_proficiency}+@{stealth_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+                    
+                    <button class="skill" type="roll" name="roll_survival" value="/r @{dice_roll}+@{survival}+@{power_die}">Survival</button>
+                    <select class="proficiency-select" name="attr_survival_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_survival_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_survival_mod" value="(@{insight_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_survival" value="(@{insight_modifier}+@{survival_proficiency}+@{survival_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+                    
+                    <button class="skill" type="roll" name="roll_thievery" value="/r @{dice_roll}+@{thievery}+@{power_die}">Thievery</button>
+                    <select class="proficiency-select" name="attr_thievery_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_thievery_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_thievery_mod" value="(@{agility_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_thievery" value="(@{agility_modifier}+@{thievery_proficiency}+@{thievery_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+                    
+                    <button class="skill" type="roll" name="roll_use_magic" value="/r @{dice_roll}+@{use_magic}+@{power_die}">Use Magic</button>
+                    <select class="proficiency-select" name="attr_use_magic_proficiency">
+                        <option value="0">No Proficiency</option>
+                        <option value="2">Experienced</option>
+                        <option value="4">Trained</option>
+                        <option value="6">Qualified</option>
+                        <option value="8">Specialist</option>
+                        <option value="10">Expert</option>
+                    </select>
+                    <input class="skill-number" type="number" name="attr_use_magic_misc" value="0" />
+                    <input class="skill-number" type="number" name="attr_use_magic_mod" value="(@{spirit_modifier})" disabled="true" />
+                    <input class="skill-number" type="number" name="attr_use_magic" value="(@{spirit_modifier}+@{use_magic_proficiency}+@{use_magic_misc}+floor(@{scholarship_modifier}/2))" disabled="true" />
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!--The race page to provide race information and stats-->
+<div class='race'>
+    <div class="race-head">
+        <h1 class="race-header">Race</h1>
+        <div class="race-name"><label>Race Name:</label></div><div class="race-name-data"><input type='text' name='attr_race_name' placeholder='Saiyan' /></div>
+        <div class="race-health"><label>HP Modifier:</label></div><div class="race-health-data"><input type='text' name='attr_race_health_data' value="4"/><input type='number' name='attr_race_health' value="@{race_health_data}" disabled="true"/></div>
+        <div class="race-subname"><label>Subrace Name:</label></div><div class="race-subname-data"><input type='text' name='attr_subrace_name' placeholder='Full Blood' /></div>
+        <div class="race-size"><label>Size:</label></div>
+        <div class="race-size-data">
+            <select style="width:100%; margin:0px;" name='attr_race_size'>
+                <option value="Tiny">Tiny</option>
+                <option value="Small">Small</option>
+                <option value="Medium" selected="selected">Medium</option>
+                <option value="Large">Large</option>
+                <option value="Enormous">Enormous</option>
+                <option value="Gigantic">Gigantic</option>
+            </select>
+        </div>
+        <div class="race-save"><label>Save:</label></div>
+        <div class="race-save-data">
+            <select style="width:100%; margin:0px;" name='attr_race_save'>
+                <option value="impulsive">Impulsive</option>
+                <option value="corporeal">Corporeal</option>
+                <option value="cognitive">Cognitive</option>
+                <option value="morale">Morale</option>
+            </select>
+        </div>
+        
+        <div class="race-dexterity"><label>Dexterity:</label></div><div class="race-dexterity-data"><input type='text' name='attr_race_dexterity_data' value="2"/><input type='number' name='attr_dexterity' value="@{race_dexterity_data}" disabled="true"/></div>
+    </div>
+    <br>
+    <div class="race-attributes">
+        <h3>AG</h3>
+        <h3>FO</h3>
+        <h3>TE</h3>
+        <h3>SC</h3>
+        <h3>IN</h3>
+        <h3>SP</h3>
+        <h3>PE</h3>
+        <input name="attr_race_ag" type="text" value="+0"> 
+        <input name="attr_race_fo" type="text" value="+0">
+        <input name="attr_race_te" type="text" value="+0">
+        <input name="attr_race_sc" type="text" value="+0">
+        <input name="attr_race_in" type="text" value="+0">
+        <input name="attr_race_sp" type="text" value="+0">
+        <input name="attr_race_pe" type="text" value="+0">
+    </div>
+    <br>
+    <div class="race-traits">
+        <h2 style="text-align:center;">Traits</h2>
+        <fieldset class="repeating_traits">
+            <input class="trait-edit" type="checkbox" name="attr_toggle-show" value="1" checked />
+            <div class="trait-table trait-verbose">
+                <input class="trait-name" type="text" name="attr_name" style="width:100%;" placeholder="Name"/>
+                <input class="trait-short-desc" type="text" name="attr_short_description" placeholder="Short Description"/>
+                <div class="auto-expand trait-long-desc">
+                    <span name="attr_description"></span>
+                    <textarea name="attr_description" rows="5" placeholder="Description"></textarea>
+                </div>
+            </div>
+            <div class="trait-simple">
+                <button class="ability trait-name" type="roll" name="roll_trait" value="&{template:default} {{name=@{name}}} {{description=@{description}}}" style="width:fit-content;"><b><span name="attr_name"></span></b></button>
+                <span class="trait-short-desc"name="attr_short_description"></span>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<div class='attacks'>
+
+    <!--div class="info">
+        <div class="attr-head">
+            <h1>Attacks</h1>
+            
+        </div>
+        <div class="attr-top">
+            <p>TP:</p><input class="skill-number" type="number" name="attr_technique_points" value="0"/>
+            <p>Soak</p> <input class="skill-number" type="number" name="attr_soak" value="0"/>/<input class="skill-number" type="number" name="attr_soak_max" value="@{hidden_soak}+@{soak_modifier}"  disabled> <p>Modifier: </p><input class="skill-number" type="number" name="attr_soak_modifier" value="0"/>
+            <h2>Dodge <input type="number" name="attr_dodge_modifier" value="0"/><button class="attack-button" type="roll" name="roll_dodge" value="/r @{dice_roll}+@{dodge_modifier}+@{agility_modifier}+@{size_dodge}"></button></h2>
+            <input type="hidden" name="attr_size_dodge" value="0" />
+            <input type="hidden" name="attr_hidden_soak" value="0">
+            <div style="display: flex;"><h2>Hit Modifier: <input type="number" name="attr_global_hit" value="0"></h2><h2>Wound Modifier: <input type="number" name="attr_global_wound" value="0"></h2></div>
+            
+        </div>
+    </div-->
+    
+    <div class="attack-header">
+        <h1 class="combat-header">Combat</h1>
+        <div class="strike-section">
+            <div class="strike-header"><label style="text-align:center;">Strike</label></div>
+            <div class="strike-haste"><button class="ability" type="roll" name="roll_haste" value="/r @{dice_roll}+@{haste}+@{power_die}">Haste:</button></div><div class="strike-haste-data"><input type="text" name="attr_haste_bonus" value="0" /><input type="number" name="attr_haste" value="([HASTE] floor(@{agility_tfmodifier} / 2) + @{haste_bonus})" disabled="true" /></div>
+            <div class="strike-awareness"><button class="ability" type="roll" name="roll_awareness" value="/r @{dice_roll}+@{awareness}+@{power_die}">Awareness:</button></div><div class="strike-awareness-data"><input type="text" name="attr_awareness_bonus" value="0" /><input type="number" name="attr_awareness" value="([AWARENESS] @{insight_tfmodifier} + @{awareness_bonus})" disabled="true" /></div>
+            <div class="strike-bonus">Bonus:</div><div class="strike-bonus-data"><input type="text" name="attr_strike_bonus_data" value="0" /><input type="number" name="attr_strike_bonus" value="([STRIKE BONUS] @{strike_bonus_data})" disabled="true" /></div>
+            <div class="strike-total"><button class="ability" type="roll" name="roll_strike" value="/r @{dice_roll}+@{strike}+@{power_die}">Strike:</button></div><div class="strike-total-data"><input type="number" name="attr_strike" value="@{haste} + @{awareness} + @{strike_bonus}" style="width:100%;" disabled="true" /></div>
+            
+        </div>
+        <div class="defense-section">
+            <div class="defense-header"><label style="text-align:center;">Defense</label></div>
+            <div class="defense-value">Value:</div><div class="defense-value-data"><input type="text" name="attr_defense_bonus" value="0" /><input type="number" name="attr_defense" value="([DEFENSE] @{agility_tfmodifier} + @{defense_bonus})" disabled="true" /></div>
+            <div class="defense-diminishing">Diminishing:</div><div class="defense-diminishing-data"><input type="number" name="attr_diminishing_defense" value="0" style="width:100%;" /></div>
+            <div class="defense-dodge"><button class="ability" type="roll" name="roll_dodge" value="/r @{dice_roll}+@{dodge}+@{power_die}">Dodge:</button></div><div class="defense-dodge-data"><input type="text" name="attr_dodge_bonus" value="0" /><input type="number" name="attr_dodge" value="@{defense} + [BONUS] @{dodge_bonus} + [SIZE] @{size_dodge} - [DIMINISHING DEFENSE] @{diminishing_defense}" disabled="true" /></div>
+            <div class="defense-soak">Soak:</div><div class="defense-soak-data"><input type="text" name="attr_soak_bonus" value="0" /><input type="number" name="attr_soak" value="@{hidden_soak}+@{soak_bonus} + @{size_soak}" disabled="true" /></div>
+        </div>
+    </div>
+    <br>
+    <div class="basic-attack">
+        <!-- Basic Attack Header -->
+        <div class="attack-category-head">TYPE</div>
+        <div class="attack-name-head">NAME</div>
+        <div class="attack-misc-strike-head">STRIKE MISC</div>
+        <div class="attack-strike-head">STRIKE</div>
+        <div class="attack-misc-wound-head">WOUND MISC</div>
+        <div class="attack-wound-head">WOUND</div>
+        <div class="attack-ki-cost-head">KI COST</div>
+
+        <div class="attack-physical">Physical</div>
+        <div class="attack-physical-content">
+            <button class="ability" style="width:80px;" type="roll" name="roll_simple" value="&{template:default} {{name=Simple Physical Attack}} {{strike=[[@{dice_roll} + @{simple_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[@{dice_roll} + @{simple_wound} + [EXTRA DIE] @{power_die}]]}}">Simple</button>
+            <input type="number" name="attr_simple_strike_misc" value="0" />
+            <input type="number" name="attr_simple_strike" value="@{strike} + @{simple_strike_misc}" disabled="true" />
+            <input type="number" name="attr_simple_wound_misc" value="0" />
+            <input type="number" name="attr_simple_wound" value="([FORCE] @{force_tfmodifier} + [MISC] (@{simple_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_simple_ki_cost" value="(@{ki_wager})" disabled="true" />
+
+            <button class="ability" style="width:80px;" type="roll" name="roll_combination" value="&{template:default} {{name=Combination Physical Attack}} {{strike=[[@{dice_roll} + @{combination_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[([HITS] [[@{dice_roll} + [[@{tier_of_power}]]d4]] * 2) + @{combination_wound} + [EXTRA DIE] @{power_die}]]}}">Combination</button>
+            <input type="number" name="attr_combination_strike_misc" value="0" />
+            <input type="number" name="attr_combination_strike" value="@{strike} + @{combination_strike_misc}" disabled="true" />
+            <input type="number" name="attr_combination_wound_misc" value="0" />
+            <input type="number" name="attr_combination_wound" value="([FORCE] @{force_tfmodifier} + [MISC] (@{combination_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_combination_ki_cost" value="((@{tier_of_power}) * 6 + @{ki_wager})" disabled="true" />
+            
+            <button class="ability" style="width:80px;" type="roll" name="roll_powered" value="&{template:default} {{name=Powered Physical Attack}} {{strike=[[@{dice_roll} + @{powered_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[@{dice_roll} + @{powered_wound} + [EXTRA DIE] @{power_die}]]}}">Powered</button>
+            <input type="number" name="attr_powered_strike_misc" value="0" />
+            <input type="number" name="attr_powered_strike" value="@{strike} + @{powered_strike_misc}" disabled="true" />
+            <input type="number" name="attr_powered_wound_misc" value="0" />
+            <input type="number" name="attr_powered_wound" value="([FORCE] (@{force_tfmodifier}) * 2 + [MISC] (@{powered_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_powered_ki_cost" value="((@{tier_of_power}) * 4 + @{ki_wager})" disabled="true" />
+            
+            <button class="ability" style="width:80px;" type="roll" name="roll_crushing" value="&{template:default} {{name=Crushing Physical Attack}} {{strike=[[@{dice_roll} + @{crushing_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[[[@{tier_of_power}]]d6 + @{crushing_wound} + [EXTRA DIE] @{power_die}]]}}">Crushing</button>
+            <input type="number" name="attr_crushing_strike_misc" value="0" />
+            <input type="number" name="attr_crushing_strike" value="@{strike} + @{crushing_strike_misc}" disabled="true" />
+            <input type="number" name="attr_crushing_wound_misc" value="0" />
+            <input type="number" name="attr_crushing_wound" value="([MISC] (@{crushing_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_crushing_ki_cost" value="((@{tier_of_power}) * 6 + @{ki_wager})" disabled="true" />
+            
+            <button class="ability" style="width:80px;" type="roll" name="roll_sweeping" value="&{template:default} {{name=Sweeping Physical Attack}} {{strike=[[@{dice_roll} + @{sweeping_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[@{dice_roll} + @{sweeping_wound} + [EXTRA DIE] @{power_die}]]}}">Sweeping</button>
+            <input type="number" name="attr_sweeping_strike_misc" value="0" />
+            <input type="number" name="attr_sweeping_strike" value="@{strike} + @{sweeping_strike_misc}" disabled="true" />
+            <input type="number" name="attr_sweeping_wound_misc" value="0" />
+            <input type="number" name="attr_sweeping_wound" value="([FORCE] @{force_tfmodifier} + [MISC] (@{sweeping_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_sweeping_ki_cost" value="((@{tier_of_power}) * 5 + @{ki_wager})" disabled="true" />
+        </div>
+
+        <div class="attack-energy">Energy</div>
+        <div class="attack-energy-content">
+            <button class="ability" style="width:80px;" type="roll" name="roll_sphere" value="&{template:default} {{name=Sphere Energy Attack}} {{strike=[[@{dice_roll} + @{sphere_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[@{dice_roll} + @{sphere_wound} + [EXTRA DIE] @{power_die}]]}}">Sphere</button>
+            <input type="number" name="attr_sphere_strike_misc" value="0" />
+            <input type="number" name="attr_sphere_strike" value="@{strike} + @{sphere_strike_misc}" disabled="true" />
+            <input type="number" name="attr_sphere_wound_misc" value="0" />
+            <input type="number" name="attr_sphere_wound" value="([FORCE] @{force_tfmodifier} + [MISC] (@{sphere_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_sphere_ki_cost" value="((@{tier_of_power}) * 2 + @{ki_wager})" disabled="true" />
+            
+            <button class="ability" style="width:80px;" type="roll" name="roll_rapid" value="&{template:default} {{name=Rapid Fire Energy Attack}} {{strike=[[@{dice_roll} + @{rapid_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[([HITS] [[@{dice_roll} + [[@{tier_of_power}]]d4]] * 2) + @{rapid_wound} + [EXTRA DIE] @{power_die}]]}}">Rapid Fire</button>
+            <input type="number" name="attr_rapid_strike_misc" value="0" />
+            <input type="number" name="attr_rapid_strike" value="@{strike} + @{rapid_strike_misc}" disabled="true" />
+            <input type="number" name="attr_rapid_wound_misc" value="0" />
+            <input type="number" name="attr_rapid_wound" value="([FORCE] @{force_tfmodifier} + [MISC] (@{rapid_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_rapid_ki_cost" value="((@{tier_of_power}) * 6 + @{ki_wager})" disabled="true" />
+            
+            <button class="ability" style="width:80px;" type="roll" name="roll_kiai" value="&{template:default} {{name=Kiai Energy Attack}} {{strike=[[{@{dice_roll},@{dice_roll}}kh1 + @{kiai_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[2d10kl1 + @{kiai_wound} + [EXTRA DIE] @{power_die}]]}}">Kiai</button>
+            <input type="number" name="attr_kiai_strike_misc" value="0" />
+            <input type="number" name="attr_kiai_strike" value="@{strike} + @{kiai_strike_misc}" disabled="true" />
+            <input type="number" name="attr_kiai_wound_misc" value="0" />
+            <input type="number" name="attr_kiai_wound" value="([FORCE] @{force_tfmodifier} + [MISC] (@{kiai_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_kiai_ki_cost" value="((@{tier_of_power}) * 4 + @{ki_wager})" disabled="true" />
+            
+            <button class="ability" style="width:80px;" type="roll" name="roll_blast" value="&{template:default} {{name=Blast Energy Attack}} {{strike=[[@{dice_roll} + @{blast_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[@{dice_roll} + @{blast_wound} + [EXTRA DIE] @{power_die}]]}}">Blast</button>
+            <input type="number" name="attr_blast_strike_misc" value="0" />
+            <input type="number" name="attr_blast_strike" value="@{strike} + @{blast_strike_misc}" disabled="true" />
+            <input type="number" name="attr_blast_wound_misc" value="0" />
+            <input type="number" name="attr_blast_wound" value="([FORCE] @{force_tfmodifier} + [MISC] (@{blast_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_blast_ki_cost" value="((@{tier_of_power}) * 5 + @{ki_wager})" disabled="true" />
+            
+            <button class="ability" style="width:80px;" type="roll" name="roll_explosion" value="&{template:default} {{name=Explosion Energy Attack}} {{strike=[[@{dice_roll} + @{explosion_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[@{dice_roll} + @{explosion_wound} + [EXTRA DIE] @{power_die}]]}}">Explosion</button>
+            <input type="number" name="attr_explosion_strike_misc" value="0" />
+            <input type="number" name="attr_explosion_strike" value="@{strike} + @{explosion_strike_misc}" disabled="true" />
+            <input type="number" name="attr_explosion_wound_misc" value="0" />
+            <input type="number" name="attr_explosion_wound" value="([FORCE] @{force_tfmodifier} + [MISC] (@{explosion_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_explosion_ki_cost" value="((@{tier_of_power}) * 6 + @{ki_wager})" disabled="true" />
+            
+            <button class="ability" style="width:80px;" type="roll" name="roll_beam" value="&{template:default} {{name=Beam Energy Attack}} {{strike=[[@{dice_roll} + @{beam_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[@{dice_roll} + @{beam_wound} + [EXTRA DIE] @{power_die}]]}}">Beam</button>
+            <input type="number" name="attr_beam_strike_misc" value="0" />
+            <input type="number" name="attr_beam_strike" value="@{strike} + @{beam_strike_misc}" disabled="true" />
+            <input type="number" name="attr_beam_wound_misc" value="0" />
+            <input type="number" name="attr_beam_wound" value="([FORCE] @{force_tfmodifier} + [MISC] (@{beam_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_beam_ki_cost" value="((@{tier_of_power}) * 8 + @{ki_wager})" disabled="true" />
+            
+            <button class="ability" style="width:80px;" type="roll" name="roll_cutting" value="&{template:default} {{name=Cutting Energy Attack}} {{strike=[[@{dice_roll} + @{cutting_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[@{dice_roll} + @{cutting_wound} + [EXTRA DIE] @{power_die}]]}}">Cutting</button>
+            <input type="number" name="attr_cutting_strike_misc" value="0" />
+            <input type="number" name="attr_cutting_strike" value="@{strike} + @{cutting_strike_misc}" disabled="true" />
+            <input type="number" name="attr_cutting_wound_misc" value="0" />
+            <input type="number" name="attr_cutting_wound" value="([FORCE] @{force_tfmodifier} + [MISC] (@{cutting_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_cutting_ki_cost" value="((@{tier_of_power}) * 8 + @{ki_wager})" disabled="true" />
+        </div>
+
+        <div class="attack-magic">Magic</div>
+        <div class="attack-magic-content">
+            <button class="ability" style="width:80px;" type="roll" name="roll_spell" value="&{template:default} {{name=Spell Magical Attack}} {{strike=[[@{dice_roll} + @{spell_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[@{dice_roll} + @{spell_wound} + [EXTRA DIE] @{power_die}]]}}">Spell</button>
+            <input type="number" name="attr_spell_strike_misc" value="0" />
+            <input type="number" name="attr_spell_strike" value="@{strike} + @{spell_strike_misc}" disabled="true" />
+            <input type="number" name="attr_spell_wound_misc" value="0" />
+            <input type="number" name="attr_spell_wound" value="([SPIRIT] @{spirit_tfmodifier} + [MISC] (@{spell_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_spell_ki_cost" value="((@{tier_of_power}) * 2 + @{ki_wager})" disabled="true" />
+            
+            <button class="ability" style="width:80px;" type="roll" name="roll_elemental" value="&{template:default} {{name=Elemental Magical Attack}} {{strike=[[@{dice_roll} + @{elemental_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[@{dice_roll} + @{elemental_wound} + [EXTRA DIE] @{power_die}]]}}">Elemental</button>
+            <input type="number" name="attr_elemental_strike_misc" value="0" />
+            <input type="number" name="attr_elemental_strike" value="@{strike} + @{elemental_strike_misc}" disabled="true" />
+            <input type="number" name="attr_elemental_wound_misc" value="0" />
+            <input type="number" name="attr_elemental_wound" value="([SPIRIT] @{spirit_tfmodifier} + [MISC] (@{elemental_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_elemental_ki_cost" value="((@{tier_of_power}) * 10 + @{ki_wager})" disabled="true" />
+
+            <button class="ability" style="width:80px;" type="roll" name="roll_spiritual" value="&{template:default} {{name=Spiritual Assault Magical Attack}} {{strike=[[@{dice_roll} + @{spiritual_strike} + [EXTRA DIE] @{power_die}]]}} {{wound=[[@{dice_roll} + @{spiritual_wound} + [EXTRA DIE] @{power_die}]]}}">Spiritual Assault</button>
+            <input type="number" name="attr_spiritual_strike_misc" value="0" />
+            <input type="number" name="attr_spiritual_strike" value="@{strike} + @{spiritual_strike_misc}" disabled="true" />
+            <input type="number" name="attr_spiritual_wound_misc" value="0" />
+            <input type="number" name="attr_spiritual_wound" value="([SPIRIT] @{spirit_tfmodifier} + [MISC] (@{spiritual_wound_misc}) + [WAGER] @{ki_wager})"  disabled="true" />
+            <input type="number" name="attr_spiritual_ki_cost" value="((@{tier_of_power}) * 8 + @{ki_wager})" disabled="true" />
+        </div>
+        <div class="attack-signature">Signature</div>
+        <div class="attack-signature-content">
+            <fieldset class="repeating_signatures">
+                <input style="display:none" class="signature-edit" type="checkbox" name="attr_toggle_show" value="1" />
+                <div class="attack-signature-item-display signature-style">
+                    <h3>
+                        <input class="signature-edit" type="checkbox" name="attr_toggle_show" value="1" />
+                        <button class="signature-button" type="roll" name="roll_signature"><span name="attr_name"></span> - <em><span name="attr_type"></span></em></button>
+                    </h3>
+                    <p><span name="attr_description"></span></p>
+                    <ul>
+                        <li><b>Foundation. </b><em><span name="attr_foundation"></span> (<span name="attr_profile"></span>)</em></li>
+                        <li><b>Advantages. </b><em><span name="attr_advantages"></span></em></li>
+                        <li><b>Disadvantages. </b><em><span name="attr_disadvantages"></span></em></li>
+                        <li><b>Ki Point Cost. </b><em><input class="combat-numberbox" type="number" name="attr_kicost" value="(@{kiprofile} + (@{advantage_count}*2) - @{disadvantage_count}) * (0.5 + (0.5*@{tier_of_power})) + @{ki_misc}" disabled="true"></em></li>
+                        <li><b>Technique Point Cost. </b><em><input class="combat-numberbox" type="number" name="attr_tpcost" value="0" disabled="true"></em></li>
+                    </ul>
+                </div>
+                <div class="attack-signature-item-edit signature-style">
+                    <h3>
+                        <input class="signature-edit" type="checkbox" name="attr_toggle_show" value="1" />
+                        <input type="text" name="attr_name" placeholder="Name"> -
+                        <select name="attr_type">
+                            <option value="Super Signature Attack">Super Signature Attack</option>
+                            <option value="Ultimate Signature Attack">Ultimate Signature Attack</option>
+                        </select>
+                    </h3>
+                    <!-- Make this an expanding section -->
+                    <p><input type="text" name="attr_description" value="Effect notes go here." /></p>
+                    <ul>
+                        <li><b>Foundation. </b><em><select name="attr_foundation">
+                            <option value="Ki Manipulation">Ki Manipulation</option>
+                            <option value="Martial Arts">Martial Arts</option>
+                            <option value="Aura">Aura</option>
+                            <option value="Magic">Magic</option>
+                            <option value="Dynamic">Dynamic</option>
+                        </select></em></li>
+                        <li><b>Profile. </b><input type="text" name="attr_profile" placeholder="Beam"></li>
+                        <li><b>Advantages. </b><em><span name="attr_advantages"></span></em></li>
+                        <li><b>Disadvantages. </b><em><span name="attr_disadvantages"></span></em></li>
+                        <li><b>Technique Point Cost. </b><em><span name="attr_tpcost"></span> TP</em></li>
+                        <div class="signature-kipoint-grid">
+                            <div class="ki-header combat-top-header">Ki Point Total</div>
+                            <div class="ki-total-header combat-middle-header">Total</div>
+                            <div class="ki-profile-header combat-middle-header">Profile</div>
+                            <div class="ki-advantages-header combat-middle-header">Advantage Count</div>
+                            <div class="ki-disadvantages-header combat-middle-header">Disadvantage Count</div>
+                            <div class="ki-misc-header combat-middle-header">Misc</div>
+
+                            <input type="number" name="attr_kicost" value="(@{kiprofile} + (@{advantage_count}*2) - @{disadvantage_count}) * (0.5 + (0.5*@{tier_of_power})) + @{ki_misc}" disabled="true" />
+                            <input type="number" name="attr_kiprofile" value="0">
+                            <input type="number" name="attr_advantage_count" value="0">
+                            <input type="number" name="attr_disadvantage_count" value="0">
+                            <input type="number" name="attr_ki_misc" value="0">
+                            
+                        </div>
+                    </ul>
+                </div>
+            </fieldset>
+        </div>
+        <div class="attack-footer">
+            <h3>Ki Wager: </h3><input type="number" name="attr_ki_wager" value="0" />
+        </div>
+    </div>
+    <br>
+    <div class="spellbook">
+        <h2>Spell Book</h2>
+        <fieldset class="repeating_spells">
+            <div class="spell">
+                <input style="display:none;" class="spell-edit" type="hidden" name="attr_toggle_show" value="on" />
+                <div class="spell-edit">
+                    <input type="checkbox" name="attr_toggle_show" checked/>
+                    <input type="text" name="attr_name" placeholder="Spell Name" />
+                    <textarea name="attr_description" rows="5" placeholder="Description"></textarea>
+                    <textarea name="attr_effect"></textarea>
+                    <input type="number" name="attr_ki_cost" value="0" />
+                    <input type="number" name="attr_tp_cost" value="0" />
+                    <input type="text" name="attr_prerequisite" placeholder="Prerequisite" />
+                </div>
+                <div class="spell-display">
+                    <h3><input type="checkbox" name="attr_toggle_show"/><span name="attr_name"></span> - <em>Magical Ability</em></h3>
+                    <p><span name="attr_description"></span></p>
+                    <ul>
+                        <li><strong>Effects. </strong><em><span name="attr_effects"></span></em></li>
+                        <li><strong>Ki Point Cost: </strong><em><span name="attr_ki_cost"></span> KP</em></li>
+                        <li><strong>Technique Point Cost: </strong><em><span name="attr_tp_cost"></span> TP</em></li>
+                        <li><strong>Prerequisite: </strong><em><span name="attr_prerequisite"></span></em></li>
+                    </ul>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <br>
+    <!-- <div class="custom-attacks">
+        <div class="custom-attacks-top">
+            <div class="custom-attacks-hcol1">
+                <h2 style="border: 1px solid darkgray;">Name:</h2>
+            </div>
+            <div class="custom-attacks-hcol2">
+                <h2 style="border: 1px solid darkgray;">Ki Cost:</h2>
+            </div>
+            <div class="custom-attacks-hcol3">
+                <h2 style="border: 1px solid darkgray;">TP Cost:</h2>
+            </div>
+            <div class="custom-attacks-hcol4">
+                <h2 style="border: 1px solid darkgray;">Roll:</h2>
+            </div>
+            <div class="custom-attacks-hcol5">
+                <h2 style="border: 1px solid darkgray;">To Wound:</h2>
+            </div>
+        </div>
+
+        <div class="custom-attacks-bottom">
+            <fieldset class="repeating_custom-attacks-table">
+                <div class="custom-attack-table">
+                    <div class="ccol1"><input type="text" name="attr_custom_attack_name" style="width: 100px;"></div>
+                    <div class="ccol2"><input type="number" name="attr_custom_attack_ki" value="0"></div>
+                    <div class="ccol3"><input type="number" name="attr_custom_attack_technique" value="0" ></div>  
+                    <div class="ccol4"><input type="text" name="attr_custom_attack_hit" value="0" style="width: 50px;"></div>
+                    <div class="ccol5"><input type="text" name="attr_custom_attack_wound" value="0" style="width: 50px;"><button class="attack-button" type="roll" name="roll_custom_attack" value="/em @{custom_attack_name} for [[@{custom_attack_hit}+@{power_die}+@{strike}]], dealing [[@{custom_attack_wound}+@{power_die}+@{ki_wager}+?{What ability are you using?|force,@{force_modifier} | Spirit,@{spirit_modifier} | Balistic, 0}+@{global_wound}]] and costing @{custom_attack_ki} ki"></button></div>
+                </div>
+            </fieldset>
+        </div>
+    </div> -->
+</div>
+
+<div class='abilities'>
+    <div class="abilities-head">
+    
+        <h1 class="abilities-header">Information</h1>
+        <span class="abilities-player-header abilities-left-header">Player</span>
+        <input class="abilities-player" type="text" name="attr_player_name" placeholder="Player Name" />
+        <span class="abilities-age-header abilities-top-header">Age</span>
+        <input class="abilities-age" type="text" name="attr_age" placeholder="25" />
+        <span class="abilities-gender-header abilities-left-header">Gender</span>
+        <input class="abilities-gender" type="text" name="attr_gender" placeholder="Gender" />
+        <span class="abilities-hair-header abilities-left-header">Hair Colour</span>
+        <input class="abilities-hair" type="text" name="attr_hair" placeholder="Brown" />
+        <span class="abilities-eye-header abilities-left-header">Eye Colour</span>
+        <input class="abilities-eye" type="text" name="attr_eye" placeholder="Hazelnut" />
+        <span class="abilities-backstory-header abilities-top-header">Backstory</span>
+        <div class="auto-expand abilities-backstory">
+            <span name="attr_backstory"></span>
+            <textarea name="attr_backstory" rows="10" placeholder="Backstory"></textarea>
+        </div>
+        
+        <!-- <label class="abilities-player">Player: <input type='text' name="attr_player_name" placeholder="Player Name" /></label>
+        <label class="abilities-age">Age: <input type='number' name="attr_age" value="0" /></label>
+        <label class="abilities-gender">Gender: <input type='text' name="attr_gender" placeholder="Gender" /></label>
+        <label class="abilities-skin">Skin Tone: <input type='text' name="attr_skin_tone" placeholder="Skin Tone" /></label>
+        <div class="abilities-birthday"><label>Birthday:</label></div><div class="abilities-birthday-data"><input type='text' name="attr_birthday" placeholder="YYYY/MM/DD" /></div>
+        <div class="abilities-hair"><label>Hair Colour:</label></div><div class="abilities-hair-data"><input type='text' name="attr_hair_color" placeholder="Hair Colour" /></div>
+        <div class="abilities-eye"><label>Eye Colour:</label></div><div class="abilities-eye-data"><input type='text' name="attr_eye_color" placeholder="Eye Colour" /></div> -->
+        
+    </div>
+    
+    <!-- <h2>Karma: <input type="number" name="attr_karma" max="10" value="5"></h2>
+    <div style="border: 3px solid darkgray;">
+        <h2>Z Soul: <input type="text" name="attr_z_soul"></h2>
+        <h2>Z Soul: <input type="text" name="attr_z_soul2"></h2>
+        <h2>Z Soul: <input type="text" name="attr_z_soul3"></h2>
+    </div>
+    <br> -->
+    <br>
+    <div class="abilities-group">
+        <div class="abilities-equipment">
+                <h2>Equipment</h2>
+                <fieldset class="repeating_equipment" >
+                    <div class="equipmentTable">
+                        <div style="grid-area: gear1;"><h3 style="color: darkgray;">Name: <input type="text" name="attr_gear_name" style="width: 150px;"></h3></div>
+                        <div style="grid-area: gear2;"><h3 style="color: darkgray;">Name: <input type="text" name="attr_gear_name2" style="width: 150px;"></h3></div>
+                        <div style="grid-area: gear3;"><h3 style="color: darkgray;">Name: <input type="text" name="attr_gear_name3" style="width: 150px;"></h3></div>
+                    </div>
+                </fieldset>
+        </div>
+        <div class="talent-table">
+            <h2>Talents</h2>
+            <fieldset class="repeating_talents">
+                <input class="talent-edit" type="checkbox" name="attr_toggle-show" value="1" checked />
+                <div class="talent-verbose">
+                    <span class="talent-name">Name:</span><input class="talent-name-data" type="text" name="attr_name" style="width:100%"; placeholder="Name"/>
+                    <span class="talent-type">Type:</span>
+                    <select class="talent-type-data" name="attr_type">
+                        <option value="Adaption">Adaption</option>
+                        <option value="Apparel">Apparel</option>
+                        <option value="Health">Health</option>
+                        <option value="Minion">Minion</option>
+                        <option value="Mobility">Mobility</option>
+                        <option value="Pose">Pose</option>
+                        <option value="Racial">Racial</option>
+                        <option value="Rage">Rage</option>
+                        <option value="Ranged">Ranged</option>
+                        <option value="Specialization">Specialization</option>
+                        <option value="Speed">Speed</option>
+                        <option value="Tactical">Tactical</option>
+                        <option value="Taunt">Taunt</option>
+                        <option value="Technique">Technique</option>
+                        <option value="Transformation">Transformation</option>
+                        <option value="Unarmed Combat">Unarmed Combat</option>
+                        <option value="Weapon">Weapon</option>
+                        <option value="Miscellaneous">Miscellaneous</option>
+                    </select>
+                    <span class="talent-short-desc">Short Description:</span><input class="talent-short-desc-data" type="text" name="attr_short_description" placeholder="Short Description"/>
+                    <span class="talent-prereqs">Prerequisites:</span><input class="talent-prereqs-data" name="attr_prerequisites" placeholder="Prerequisites" type="text"/>
+                    <span class="talent-description">Description:</span>
+                    <div class="auto-expand talent-description-data">
+                        <span name="attr_description"></span>
+                        <textarea name="attr_description" rows="5" placeholder="Description"></textarea>
+                    </div>
+                </div>
+                <div class="talent-simple">
+                    <button class="ability talent-name" type="roll" name="roll_talent" value="&{template:default} {{name=@{name}}} {{description=@{description}}}"><b><span name="attr_name"></span> (<span name="attr_type"></span>)</b></button>
+                    <span class="talent-short-desc"name="attr_short_description"></span>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+<div class='transformations'>
+    <div class="transformations-head">
+        <h1>Transformations</h1>
+        <h2>Stress Test<button class="stress-button" name="roll_stress_test" type="roll" value="/em [[1d10 + @{power_level} + floor(@{personality_modifier}/2)]]"></button></h2>
+        <h2>Training Roll <input type="number" min="1" value="1" name="attr_intensity"><button class="stress-button" name="roll_training" type="roll" value="/em puts their body on the line in training, attempt [[@{intensity}d10!10+@{agility_modifier}+@{tenacity_modifier}+@{insight_modifier}+@{personality_modifier}]]>[[?{Condition Range? |Very Easy, 10*@{intensity}+floor(@{power_level}/5)*5|Easy, 20*@{intensity}+floor(@{power_level}/5)*5|Medium, 30*@{intensity}+floor(@{power_level}/5)*5|Hard, 40*@{intensity}+floor(@{power_level}/5)*5|Very Hard, 50*@{intensity}+floor(@{power_level}/5)*5|Nearly Impossible, 60*@{intensity}+floor(@{power_level}/5)*5}]] gaining [[@{power_level}*@{intensity}]] xp"></button></h2>    
+        
+        <div class="transformations-header">Aspects</div>
+        <input class="transformations-global-aspects" type="text" name="attr_aspects" value="" readonly />
+    </div>
+    
+    <div class="transformations-content">
+
+        <input type="hidden" name="attr_enhanced_save" value="0" />
+        <input type="hidden" name="attr_high_speed_form" value="0" />
+        <input type="hidden" name="attr_durable_form" value="0" />
+        <input type="hidden" name="attr_armored_form" value="0" />
+        <input type="hidden" name="attr_perfect_ki_control" value="0" />
+        <input type="hidden" name="attr_size_decreasing" value="0" />
+        <input type="hidden" name="attr_size_increasing" value="0" />
+        <input type="hidden" name="attr_god_ki" value="0" />
+        <input type="hidden" name="attr_raging" value="0" />
+        <input type="hidden" name="attr_rampaging" value="0" />
+        <input type="hidden" name="attr_temporary_form" value="0" />
+        <input type="hidden" name="attr_draining" value="0" />
+        <input type="hidden" name="attr_long_transformation" value="0" />
+        <input type="hidden" name="attr_exhausting" value="0" />
+        <input type="hidden" name="attr_dedicated_transformation" value="0" />
+        <input type="hidden" name="attr_controlled_fury" value="0" />
+        <input type="hidden" name="attr_natural_form" value="0" />
+        <input type="hidden" name="attr_heartbeat" value="0" />
+        <input type="hidden" name="attr_bulky_form" value="0" />
+        <input type="hidden" name="attr_power_high" value="0" />
+        <fieldset class="repeating_transformations">
+            <div class="transformations-table">
+                <input class="transformations-expand" type="checkbox" name="attr_expand" value="1" checked>
+                <input class="transformations-type" type="hidden" name="attr_type" />
+
+                <div class="transformations-header-active transformations-header transformations-hide-on-manifest">Active</div>
+                <div class="transformations-header-name transformations-header">Name</div>
+                <div class="transformations-header-stacks transformations-header">Stacks</div>
+                <div class="transformations-header-mastered transformations-header transformations-hide-on-manifest transformations-hide-on-enchant">Mastered</div>
+                <div class="transformations-header-tier transformations-header">Tier</div>
+                <div class="transformations-header-stress transformations-header transformations-hide-on-manifest">Stress</div>
+                <div class="transformations-active transformations-hide-on-manifest">
+                    <input class="transformations-active-input" style="display:none;" type="checkbox" name="attr_active" value="1">
+                    <span class="transformations-active-span">
+                        <input class="transformations-active-input" type="checkbox" name="attr_active" value="1">
+                    </span>
+                </div>
+                <span class="transformations-name transformations-show" name="attr_name"></span>
+                <input class="transformations-name transformations-hide" type="text" name="attr_name" placeholder="Super Saiyan" />
+                <input class="transformations-stacks transformations-hide" type="number" name="attr_stacks" value="1" />
+                <span class="transformations-stacks transformations-show" name="attr_stacks"></span>
+                <input class="transformations-mastered transformations-hide-on-manifest transformations-hide-on-enchant" type="checkbox" name="attr_mastered" value="1" />
+                <input class="transformations-tier transformations-hide" type="text" name="attr_tier" value="1+" />
+                <span class="transformations-tier transformations-show" name="attr_tier"></span>
+                <input class="transformations-stress transformations-hide-on-manifest" type="number" name="attr_stress" value="@{stress_mod}" disabled="true"/>
+                
+                <div class="transformations-header-ag transformations-header">AG</div>
+                <div class="transformations-header-fo transformations-header">FO</div>
+                <div class="transformations-header-te transformations-header">TE</div>
+                <div class="transformations-header-sc transformations-header">SC</div>
+                <div class="transformations-header-in transformations-header">IN</div>
+                <div class="transformations-header-sp transformations-header">SP</div>
+                <div class="transformations-header-pe transformations-header">PE</div>
+
+                <input class="transformations-agility" type="number" name="attr_agility" value="0" hidden="true"/>
+                <span class="transformations-agility" name="attr_agility"></span>
+                <input class="transformations-force" type="number" name="attr_force" value="0" hidden="true"/>
+                <span class="transformations-force" name="attr_force"></span>
+                <input class="transformations-tenacity" type="number" name="attr_tenacity" value="0" hidden="true"/>
+                <span class="transformations-tenacity" name="attr_tenacity"></span>
+                <input class="transformations-scholarship" type="number" name="attr_scholarship" value="0" hidden="true"/>
+                <span class="transformations-scholarship" name="attr_scholarship"></span>
+                <input class="transformations-insight" type="number" name="attr_insight" value="0" hidden="true"/>
+                <span class="transformations-insight" name="attr_insight"></span>
+                <input class="transformations-spirit" type="number" name="attr_spirit" value="0" hidden="true"/>
+                <span class="transformations-spirit" name="attr_spirit"></span>
+                <input class="transformations-personality" type="number" name="attr_personality" value="0" hidden="true"/>
+                <span class="transformations-personality" name="attr_personality"></span>
+                
+                <div class="transformations-header-stress-mod transformations-vertical-header transformations-hide transformations-hide-on-manifest">Stress+</div>
+                <input class="transformations-stress-mod transformations-hide transformations-hide-on-manifest" type="text" name="attr_stress_mod">
+                <div class="transformations-header-shatter-limits transformations-vertical-header transformations-hide transformations-hide-on-manifest transformations-hide-on-enchant transformations-hide-on-alt">Shatter Your Limits</div>
+                <input class="transformations-shatter-limits transformations-hide transformations-hide-on-manifest transformations-hide-on-enchant transformations-hide-on-alt" type="checkbox" name="attr_shatter" value="1">
+                <div class="transformations-header-type transformations-vertical-header transformations-hide">Type</div>
+                <select class="transformations-type transformations-hide" style="margin:0px;" name="attr_type">
+                    <option value="" selected></option>
+                    <option value="Manifested Power">Manifested Power</option>
+                    <option value="Alternate Form">Alternate Form</option>
+                    <option value="Enhancement Power">Enhancement Power</option>
+                    <option value="Legendary Form">Legendary Form</option>
+                </select>
+
+                <div class="transformations-header-ag-misc transformations-hide transformations-header">AG Base</div>
+                <div class="transformations-header-fo-misc transformations-hide transformations-header">FO Base</div>
+                <div class="transformations-header-te-misc transformations-hide transformations-header">TE Base</div>
+                <div class="transformations-header-sc-misc transformations-hide transformations-header">SC Base</div>
+                <div class="transformations-header-in-misc transformations-hide transformations-header">IN Base</div>
+                <div class="transformations-header-sp-misc transformations-hide transformations-header">SP Base</div>
+                <div class="transformations-header-pe-misc transformations-hide transformations-header">PE Base</div>
+                <input class="transformations-ag-misc transformations-hide" type="text" name="attr_ag_misc" value="+0" />
+                <input class="transformations-fo-misc transformations-hide" type="text" name="attr_fo_misc" value="+0" />
+                <input class="transformations-te-misc transformations-hide" type="text" name="attr_te_misc" value="+0" />
+                <input class="transformations-sc-misc transformations-hide" type="text" name="attr_sc_misc" value="+0" />
+                <input class="transformations-in-misc transformations-hide" type="text" name="attr_in_misc" value="+0" />
+                <input class="transformations-sp-misc transformations-hide" type="text" name="attr_sp_misc" value="+0" />
+                <input class="transformations-pe-misc transformations-hide" type="text" name="attr_pe_misc" value="+0" />
+
+                <div class="transformations-header-aspects transformations-hide transformations-header transformations-hide-on-manifest">Aspects</div>
+                <input class="transformations-aspects transformations-hide transformations-hide-on-manifest" type="text" name="attr_aspects" value=""/>
+            </div>
+        </fieldset>
+    </div>
+    <div class="transformations-foot">
+        <div>Legendary Traits</div>
+        <span name="attr_legendary_traits"></span>
+    </div>
+</div>
+
+<div class='settings'>
+    <input type="hidden" name="attr_dice_roll" value="[[{{floor({[[1d10]]}/([[11-@{crit_rate}]])),{[[1d1]]}}dh1*[[1d10+11-1d[[@{crit_rate}]]]],1d10r>[[10-(@{crit_rate})]]}kh1]]" />
+    <input type="hidden" name="attr_crit_rate" value="1" />
+    <div class="settings-head">
+        <h1>Settings</h1>
+    </div>
+    <div class="settings-table">
+        <div class="settings-houserules">
+            <label><input type="checkbox" name="attr_maxhp_rule" /> Max HP Rolls</label>
+        </div>
+        <div class="settings-debug">
+            <button type="action" name="act_recalc_stats">Recalculate Stats</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/worker">
+    
+
+    const buttonlist = ["attributes", "race", "attacks", "abilities", "transformations", "settings"];
+    buttonlist.forEach(button => {
+        on(`clicked:${button}`, function() {
+            setAttrs({
+                sheetTab: button
+            });
+        });
+    });
+
+    /*
+        Bar Logic
+    */
+    on("sheet:opened change:ki change:ki_max", function(){
+        getAttrs([
+            "ki",
+            "ki_max"
+        ], function(values){
+            var maximum = values.ki_max;
+            var current = values.ki;
+            var percent = [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,999];
+            var val = 0
+            for (let i=0; i < percent.length; i++){
+                if (current <= (maximum * percent[i]/100)){
+                    val = i
+                    break;
+                }
+            }
+            setAttrs({
+                "kibarv":val
+            });
+        });
+    });
+    on("sheet:opened change:capacity change:capacity_max", function(){
+        getAttrs([
+            "capacity",
+            "capacity_max"
+        ], function(values){
+            var maximum = values.capacity_max;
+            var current = values.capacity;
+            var percent = [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,999];
+            var val = 0
+            for (let i=0; i < percent.length; i++){
+                if (current <= (maximum * percent[i]/100)){
+                    val = i
+                    break;
+                }
+            }
+            setAttrs({
+                "capacitybarv":val
+            });
+        });
+    });
+    on("sheet:opened change:hp change:hp_max", function(){
+        getAttrs([
+            "hp",
+            "hp_max"
+        ], function(values){
+            var maximum = values.hp_max;
+            var current = values.hp;
+            var percent = [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,999];
+            var val = 0
+            for (let i=0; i < percent.length; i++){
+                if (current <= (maximum * percent[i]/100)){
+                    val = i
+                    break;
+                }
+            }
+            setAttrs({
+                "hpbarv":val
+            });
+        });
+    });
+
+    /*
+        Powerlevel logic
+    */
+    on("sheet:opened change:power_level change:tier_of_power_misc", function(){
+        getAttrs(["power_level", "tier_of_power_misc"], function(values){
+            var capacity = 14 + ((values.power_level-1)*6);
+            var ki_pool = 26 + ((values.power_level-1)*12);
+            var tier = (Math.floor(parseInt(values.power_level)/5)+1) + (parseInt(values.tier_of_power_misc));
+            var dicelist = [0,4,6,8];
+            var d10s = Math.floor((tier-1)/4);
+            var die = "";
+            if (d10s > 0){
+                die += Math.floor((tier-1)/4) + "d10 + ";
+            }
+            die += "1d"+dicelist[(tier-1)%4];
+            setAttrs({
+                "tier_of_power":tier,
+                "ki_max":ki_pool,
+                "capacity_max": capacity,
+                "power_die":(die==="1d0"?0:die)
+            });
+        });
+    });
+    on("sheet:opened change:battle_power", ()=>{
+        getAttrs([
+        "power_level",
+        "agility",
+        "force",
+        "tenacity",
+        "tier_of_power"
+        ], function(values){
+            var pl = parseInt(values.power_level);
+            var ag = parseInt(values.agility);
+            var fo = parseInt(values.force);
+            var te = parseInt(values.tenacity);
+            var tier = parseInt(values.tier_of_power);
+            var capacity = 14 + ((pl-1)*6);
+            var ki_pool = 26 + ((pl-1)*12);
+            var battlepower = (capacity + ki_pool) * (ag + (fo*2) + te) / 2 * pl * (Math.pow(tier,2));
+            setAttrs({
+                "visable_battle_power":battlepower.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            });
+        });
+    });
+
+    /*
+    Attribute Logic
+    */
+    function update_stats(){
+        /* This may be considered an abomination by some */
+        getAttrs([
+        "agility_ranks",
+        "race_ag",
+        "agility_tf",
+        "agility_manifest",
+
+        "force_ranks",
+        "race_fo",
+        "force_tf",
+        "force_manifest",
+
+        "tenacity_ranks",
+        "race_te",
+        "tenacity_tf",
+        "tenacity_manifest",
+
+        "scholarship_ranks",
+        "race_sc",
+        "scholarship_tf",
+        "scholarship_manifest",
+
+        "insight_ranks",
+        "race_in",
+        "insight_tf",
+        "insight_manifest",
+
+        "spirit_ranks",
+        "race_sp",
+        "spirit_tf",
+        "spirit_manifest",
+
+        "personality_ranks",
+        "race_pe",
+        "personality_tf",
+        "personality_manifest"
+        ], function(values){
+            var agility = parseInt(values.agility_ranks) + parseInt(values.race_ag);
+            var force = parseInt(values.force_ranks) + parseInt(values.race_fo);
+            var tenacity = parseInt(values.tenacity_ranks) + parseInt(values.race_te);
+            var scholarship = parseInt(values.scholarship_ranks) + parseInt(values.race_sc);
+            var insight = parseInt(values.insight_ranks) + parseInt(values.race_in);
+            var spirit = parseInt(values.spirit_ranks) + parseInt(values.race_sp);
+            var personality = parseInt(values.personality_ranks) + parseInt(values.race_pe);
+            var agility_modifier = Math.floor(agility/2) + parseInt(values.agility_manifest);
+            var force_modifier = Math.floor(force/2) + parseInt(values.force_manifest);
+            var tenacity_modifier = Math.floor(tenacity/2) + parseInt(values.tenacity_manifest);
+            var scholarship_modifier = Math.floor(scholarship/2) + parseInt(values.scholarship_manifest);
+            var insight_modifier = Math.floor(insight/2) + parseInt(values.insight_manifest);
+            var spirit_modifier = Math.floor(spirit/2) + parseInt(values.spirit_manifest);
+            var personality_modifier = Math.floor(personality/2) + parseInt(values.personality_manifest);
+            setAttrs({
+                "agility":agility,
+                "agility_modifier":agility_modifier,
+                "agility_tfmodifier":agility_modifier + parseInt(values.agility_tf),
+
+                "force":force,
+                "force_modifier":force_modifier,
+                "force_tfmodifier":force_modifier + parseInt(values.force_tf),
+                
+                "tenacity":tenacity,
+                "tenacity_modifier":tenacity_modifier,
+                "tenacity_tfmodifier":tenacity_modifier + parseInt(values.tenacity_tf),
+                
+                "scholarship":scholarship,
+                "scholarship_modifier":scholarship_modifier,
+                "scholarship_tfmodifier":scholarship_modifier + parseInt(values.scholarship_tf),
+                
+                "insight":insight,
+                "insight_modifier":insight_modifier,
+                "insight_tfmodifier":insight_modifier + parseInt(values.insight_tf),
+                
+                "spirit":spirit,
+                "spirit_modifier":spirit_modifier,
+                "spirit_tfmodifier":spirit_modifier + parseInt(values.spirit_tf),
+                
+                "personality":personality,
+                "personality_modifier":personality_modifier,
+                "personality_tfmodifier":personality_modifier + parseInt(values.personality_tf)
+            });
+        });
+    }
+
+    on("change:agility_ranks change:agility_racial change:force_ranks change:force_racial change:tenacity_ranks change:tenacity_racial change:scholarship_ranks change:scholarship_racial change:insight_ranks change:insight_racial change:spirit_ranks change:spirit_racial change:personality_ranks change:personality_racial", function(){                
+        update_stats();
+    });
+
+    on("sheet:opened change:race_health_data change:tenacity_modifier change:power_level change:maxhp_rule", function(){
+        getAttrs([
+            "race_health_data",
+            "tenacity_modifier",
+            "power_level",
+            "maxhp_rule"
+        ], function(values){
+            if (values.maxhp_rule == "on"){
+                var rhp = parseInt(values.race_health_data);
+                var te_mod = parseInt(values.tenacity_modifier);
+                var pl = parseInt(values.power_level);
+                var max_hp = 50 + rhp + te_mod + ((20+rhp+te_mod)*(pl-1));
+                setAttrs({
+                    "hp_max": max_hp
+                });
+            }
+        });
+        
+    });
+
+    on("sheet:opened change:impulsive_misc change:corporeal_misc change:cognitive_misc change:morale_misc", function(){
+        getAttrs([
+        "impulsive_misc",
+        "corporeal_misc",
+        "cognitive_misc",
+        "morale_misc",
+        "tier_of_power"
+        ], function(values){
+            var tier = parseInt(values.tier_of_power);
+            var impulsive = parseNumber(values.impulsive_misc, tier);
+            var corporeal = parseNumber(values.corporeal_misc, tier);
+            var cognitive = parseNumber(values.cognitive_misc, tier);
+            var morale = parseNumber(values.morale_misc, tier);
+            console.log(cognitive);
+            setAttrs({
+                "impulsive_misc_hidden": impulsive,
+                "corporeal_misc_hidden": corporeal,
+                "cognitive_misc_hidden": cognitive,
+                "morale_misc_hidden": morale
+            })
+        })
+    }); 
+    /*
+        Race Logic
+    */
+    on("change:race_size sheet:opened", function(){
+        getAttrs([
+            "race_size"
+        ], function(values){
+            let race = values.race_size;
+            switch(race){
+                case "Tiny":
+                    setAttrs({
+                        "size_reach": 1,
+                        "size_speed": -3,
+                        "size_dodge": "(3 * @{tier_of_power})",
+                        "size_soak": "(-2 * @{tier_of_power})" 
+                    });
+                    break;
+                case "Small":
+                    setAttrs({
+                        "size_reach": 1,
+                        "size_speed": -1,
+                        "size_dodge": "(2 * @{tier_of_power})",
+                        "size_soak": "(-1 * @{tier_of_power})" 
+                    });
+                    break;
+                case "Medium":
+                    setAttrs({
+                        "size_reach": 1,
+                        "size_speed": 0,
+                        "size_dodge": 0,
+                        "size_soak": 0 
+                    });
+                    break;
+                case "Large":
+                    setAttrs({
+                        "size_reach": 2,
+                        "size_speed": 1,
+                        "size_dodge": 0,
+                        "size_soak": "(1 * @{tier_of_power})" 
+                    });
+                    break;
+                case "Enormous":    
+                    setAttrs({
+                        "size_reach": 2,
+                        "size_speed": +3,
+                        "size_dodge": "(-1 * @{tier_of_power})",
+                        "size_soak": "(2 * @{tier_of_power})" 
+                    });
+                    break;
+                case "Gigantic":
+                    setAttrs({
+                        "size_reach": 4,
+                        "size_speed": +5,
+                        "size_dodge": "(-2 * @{tier_of_power})",
+                        "size_soak": "(3 * @{tier_of_power})" 
+                    });
+                    break;
+            }
+        });
+    });
+
+    /*
+        Hidden soak logic
+    */
+    on("change:tenacity_tfmodifier sheet:opened", function(){
+        getAttrs(["tenacity_tfmodifier"], function(values){
+            var ten = values.tenacity_tfmodifier;
+            if(ten == 1){
+                setAttrs({
+                    "hidden_soak":2
+                });
+            }else{
+                setAttrs({
+                    "hidden_soak":ten
+                });
+            };
+        });
+    });
+    /*
+        Transformation logic
+    */
+
+    function parseNumber(value, tier){
+        var result = 0;
+        const mathRegex = /^([*/+-])/g;
+        const tierRegex = /^(\([tT]\))/g;
+        const numberRegex = /^([0-9]+)/g;
+        /*
+            Math Flag:
+                0 - add
+                1 - sub
+                2 - mul
+                3 - div
+        */
+        var mathflag = 0;
+        while (value.length>0){
+            match = value.match(mathRegex);
+            if (match != null && match[0] != ''){
+                value = value.substring(match[0].length);
+                switch(match[0]){
+                    case '+':
+                        mathflag = 0;
+                        break;
+                    case '-':
+                        mathflag = 1;
+                        break;
+                    case '*':
+                        mathflag = 2;
+                        break;
+                    case '/':
+                        mathflag = 3;
+                        break;
+                }
+                continue
+            }
+            match = value.match(numberRegex);
+            if (match != null && match[0] != ''){
+                value = value.substring(match[0].length);
+                switch (mathflag){
+                    case 0: result += parseInt(match[0]); break;
+                    case 1: result -= parseInt(match[0]); break;
+                    case 2: result *= parseInt(match[0]); break;
+                    case 3: result /= parseInt(match[0]); break;
+                }
+                continue
+            }
+            match = value.match(tierRegex);
+            if (match != null && match[0] != ''){
+                /* Tier detected - Take the shot */
+                value = value.substring(match[0].length);
+                result *= tier;
+                continue;
+            }
+            value = value.substring(1);
+        }
+        return result;
+    }
+
+    function parseNumberAsString(value){
+        var result = "";
+        const tierRegex = /^(\([tT]\))/g;
+        while (value.length>0){
+            match = value.match(tierRegex);
+            if (match != null && match[0] != ''){
+                /* Tier detected - Take the shot */
+                value = value.substring(match[0].length);
+                result += "*@{tier_of_power}";
+                continue;
+            }
+            result += value.substring(0,1);
+            value = value.substring(1);
+        }
+        return "("+result+")";
+    }
+
+    on("change:repeating_transformations:stacks change:repeating_transformations:shatter change:repeating_transformations:ag_misc change:repeating_transformations:fo_misc change:repeating_transformations:te_misc change:repeating_transformations:sc_misc change:repeating_transformations:in_misc change:repeating_transformations:sp_misc change:repeating_transformations:pe_misc",
+    function(){
+        getAttrs([
+            "repeating_transformations_ag_misc",
+            "repeating_transformations_fo_misc",
+            "repeating_transformations_te_misc",
+            "repeating_transformations_sc_misc",
+            "repeating_transformations_in_misc",
+            "repeating_transformations_sp_misc",
+            "repeating_transformations_pe_misc",
+            "repeating_transformations_stacks",
+            "repeating_transformations_shatter",
+            "tier_of_power"
+        ], function(values){
+            var ag_misc = parseNumber(values.repeating_transformations_ag_misc, parseInt(values.tier_of_power));
+            var fo_misc = parseNumber(values.repeating_transformations_fo_misc, parseInt(values.tier_of_power));
+            var te_misc = parseNumber(values.repeating_transformations_te_misc, parseInt(values.tier_of_power));
+            var sc_misc = parseNumber(values.repeating_transformations_sc_misc, parseInt(values.tier_of_power));
+            var in_misc = parseNumber(values.repeating_transformations_in_misc, parseInt(values.tier_of_power));
+            var sp_misc = parseNumber(values.repeating_transformations_sp_misc, parseInt(values.tier_of_power));
+            var pe_misc = parseNumber(values.repeating_transformations_pe_misc, parseInt(values.tier_of_power));
+            var stacks = parseNumber(values.repeating_transformations_stacks, parseInt(values.tier_of_power));
+            var shatter = parseInt(values.repeating_transformations_shatter);
+            setAttrs({
+                "repeating_transformations_agility":parseInt((ag_misc * stacks) * (1+(0.5*shatter))),
+                "repeating_transformations_force":parseInt((fo_misc * stacks) * (1+(0.5*shatter))),
+                "repeating_transformations_tenacity":parseInt((te_misc * stacks) * (1+(0.5*shatter))),
+                "repeating_transformations_scholarship":parseInt((sc_misc * stacks) * (1+(0.5*shatter))),
+                "repeating_transformations_insight":parseInt((in_misc * stacks) * (1+(0.5*shatter))),
+                "repeating_transformations_spirit":parseInt((sp_misc * stacks) * (1+(0.5*shatter))),
+                "repeating_transformations_personality":parseInt((pe_misc * stacks) * (1+(0.5*shatter)))
+            })
+        });
+    });
+
+    on("sheet:opened change:power_level change:repeating_transformations", function(){
+        getSectionIDs("transformations", function(idarray){
+            // Get the list of attributes we'll need
+            var attrGetList = ["tier_of_power"];
+            for(var i=0; i < idarray.length; i++){
+                attrGetList.push(`repeating_transformations_${idarray[i]}_active`);
+                attrGetList.push(`repeating_transformations_${idarray[i]}_type`);
+                attrGetList.push(`repeating_transformations_${idarray[i]}_agility`);
+                attrGetList.push(`repeating_transformations_${idarray[i]}_force`);
+                attrGetList.push(`repeating_transformations_${idarray[i]}_tenacity`);
+                attrGetList.push(`repeating_transformations_${idarray[i]}_scholarship`);
+                attrGetList.push(`repeating_transformations_${idarray[i]}_insight`);
+                attrGetList.push(`repeating_transformations_${idarray[i]}_spirit`);
+                attrGetList.push(`repeating_transformations_${idarray[i]}_personality`);
+                attrGetList.push(`repeating_transformations_${idarray[i]}_aspects`);
+            }
+            getAttrs(attrGetList, function(values){
+                var ag_total = 0;
+                var fo_total = 0;
+                var te_total = 0;
+                var sc_total = 0;
+                var in_total = 0;
+                var sp_total = 0;
+                var pe_total = 0;
+
+                var ag_manifest = 0;
+                var fo_manifest = 0;
+                var te_manifest = 0;
+                var sc_manifest = 0;
+                var in_manifest = 0;
+                var sp_manifest = 0;
+                var pe_manifest = 0;
+                
+                // Aspects
+                var enhanced_save = 0;
+                /*
+                 * Enhanced_save is a flagbyte
+                 * 1 = Impulsive
+                 * 2 = Corporeal
+                 * 4 = Cognitive
+                 * 8 = Morale
+                 */
+                var high_speed_form = 0; // Upto 3 levels
+                var durable_form = 0; // Multiple levels
+                var armored_form = false;
+                var perfect_ki_control = false; 
+                var size_decreasing = false;
+                var size_increasing = 0; // Levels
+                var god_ki = false;
+                var raging = false;
+                var rampaging = 0; // Upto 3 levels
+                var temporary_form = 0; // Levels
+                var draining = 0; // Levels
+                var long_transformation = 0; // Levels
+                var exhausting = false;
+                var dedicated_transformation = false;
+                var controlled_fury = false;
+                var natural_form = false;
+                var heartbeat = false;
+                var bulky_form = false;
+                var power_high = 0; // Levels
+
+                const enhanced_save_regex = /Enhanced Save +?\(([a-zA-Z\/]+)\)\.?,? ?/;
+                const high_speed_form_regex = /High-Speed Form \(Level (\d+)\)\.?,? ?/;
+                const durable_form_regex = /Durable Form \(Level (\d+)\)\.?,? ?/;
+                const armored_form_regex = /Armored Form\.?,? ?/;
+                const perfect_ki_control_regex = /Perfect Ki Control\.?,? ?/;
+                const size_decreasing_regex = /Size Decreasing\.?,? ?/;
+                const size_increasing_regex = /Size Increasing \(Level (\d+)\)\.?,? ?/;
+                const god_ki_regex = /God Ki\.?,? ?/;
+                const raging_regex = /Raging\.?,? ?/;
+                const rampaging_regex = /Rampaging \(Level (\d+)\)\.?,? ?/;
+                const temporary_form_regex = /Temporary Form \(Level (\d+)\)\.?,? ?/;
+                const draining_regex = /Draining \(Level (\d+)\)\.?,? ?/;
+                const long_transformation_regex = /Long Transformation \(Level (\d+)\)\.?,? ?/;
+                const exhausting_regex = /Exhausting\.?,? ?/;
+                const dedicated_transformation_regex = /Dedicated Transformation\.?,? ?/;
+                const controlled_fury_regex = /Controlled Fury\.?,? ?/;
+                const natural_form_regex = /Natural Form\.?,? ?/;
+                const heartbeat_regex = /Heartbeat\.?,? ?/;
+                const bulky_form_regex = /Bulky Form\.?,? ?/;
+                const power_high_regex = /Power High \(Level (\d+)\)\.?,? ?/;                
+
+                for(var i=0; i < idarray.length; i++){
+                    var aspects = values[`repeating_transformations_${idarray[i]}_aspects`];
+                    // parse Aspects
+                    if (values[`repeating_transformations_${idarray[i]}_active`]=="1")
+                    {
+                        match = aspects.match(enhanced_save_regex);
+                        if (match != null && match[0] != ""){
+                            if (match[1].includes("All"))
+                                enhanced_save = 15;
+                            else{
+                                if (match[1].includes("Impulsive")){
+                                    enhanced_save = enhanced_save | 1;
+                                }
+                                if (match[1].includes("Corporeal")){
+                                    enhanced_save = enhanced_save | 2;
+                                }
+                                if (match[1].includes("Cognitive")){
+                                    enhanced_save = enhanced_save | 4;
+                                }
+                                if (match[1].includes("Morale")){
+                                    enhanced_save = enhanced_save | 8;
+                                }
+                            }
+                        }
+                        match = aspects.match(high_speed_form_regex);
+                        if (match != null && match[0] != ""){
+                            var value = parseInt(match[1]);
+                            if (value>high_speed_form){
+                                high_speed_form = value;
+                            }
+                        }
+                        match = aspects.match(durable_form_regex);
+                        if (match != null && match[0] != ""){
+                            var value = parseInt(match[1]);
+                            if (value>durable_form){
+                                durable_form = value;
+                            }
+                        }
+                        match = aspects.match(armored_form_regex);
+                        if (match != null && match[0] != ""){
+                            armored_form = true;
+                        }
+                        match = aspects.match(perfect_ki_control_regex);
+                        if (match != null && match[0] != ""){
+                            perfect_ki_control = true;
+                        }
+                        match = aspects.match(size_decreasing_regex);
+                        if (match != null && match[0] != ""){
+                            size_decreasing = true;
+                        }
+                        match = aspects.match(size_increasing_regex);
+                        if (match != null && match[0] != ""){
+                            var value = parseInt(match[1]);
+                            if (value>size_increasing){
+                                size_increasing = value;
+                            }
+                        }
+                        match = aspects.match(god_ki_regex);
+                        if (match != null && match[0] != ""){
+                            god_ki = true;
+                        }
+                        match = aspects.match(raging_regex);
+                        if (match != null && match[0] != ""){
+                            raging = true;
+                        }
+                        match = aspects.match(rampaging_regex);
+                        if (match != null && match[0] != ""){
+                            var value = parseInt(match[1]);
+                            if (value>rampaging){
+                                rampaging = value;
+                            }
+                        }
+                        match = aspects.match(temporary_form_regex);
+                        if (match != null && match[0] != ""){
+                            var value = parseInt(match[1]);
+                            if (value>temporary_form){
+                                temporary_form = value;
+                            }
+                        }
+                        match = aspects.match(draining_regex);
+                        if (match != null && match[0] != ""){
+                            var value = parseInt(match[1]);
+                            if (value>draining){
+                                draining = value;
+                            }
+                        }
+                        match = aspects.match(long_transformation_regex);
+                        if (match != null && match[0] != ""){
+                            var value = parseInt(match[1]);
+                            if (value>long_transformation){
+                                long_transformation = value;
+                            }
+                        }
+                        match = aspects.match(exhausting_regex);
+                        if (match != null && match[0] != ""){
+                            exhausting = true;
+                        }
+                        match = aspects.match(dedicated_transformation_regex);
+                        if (match != null && match[0] != ""){
+                            dedicated_transformation = true;
+                        }
+                        match = aspects.match(controlled_fury_regex);
+                        if (match != null && match[0] != ""){
+                            controlled_fury = true;
+                        }
+                        match = aspects.match(natural_form_regex);
+                        if (match != null && match[0] != ""){
+                            natural_form = true;
+                        }
+                        match = aspects.match(heartbeat_regex);
+                        if (match != null && match[0] != ""){
+                            heartbeat = true;
+                        }
+                        match = aspects.match(bulky_form_regex);
+                        if (match != null && match[0] != ""){
+                            bulky_form = true;
+                        }
+                        match = aspects.match(power_high_regex);
+                        if (match != null && match[0] != ""){
+                            var value = parseInt(match[1]);
+                            if (value>power_high){
+                                power_high = value;
+                            }
+                        }
+                    }
+
+                    if (values[`repeating_transformations_${idarray[i]}_type`]!="Manifested Power"){
+                        ag_total += (parseInt(values[`repeating_transformations_${idarray[i]}_agility`]) * parseInt(values[`repeating_transformations_${idarray[i]}_active`]));
+                        fo_total += (parseInt(values[`repeating_transformations_${idarray[i]}_force`]) * parseInt(values[`repeating_transformations_${idarray[i]}_active`]));
+                        te_total += (parseInt(values[`repeating_transformations_${idarray[i]}_tenacity`]) * parseInt(values[`repeating_transformations_${idarray[i]}_active`]));
+                        sc_total += (parseInt(values[`repeating_transformations_${idarray[i]}_scholarship`]) * parseInt(values[`repeating_transformations_${idarray[i]}_active`]));
+                        in_total += (parseInt(values[`repeating_transformations_${idarray[i]}_insight`]) * parseInt(values[`repeating_transformations_${idarray[i]}_active`]));
+                        sp_total += (parseInt(values[`repeating_transformations_${idarray[i]}_spirit`]) * parseInt(values[`repeating_transformations_${idarray[i]}_active`]));
+                        pe_total += (parseInt(values[`repeating_transformations_${idarray[i]}_personality`]) * parseInt(values[`repeating_transformations_${idarray[i]}_active`]));
+                    }else{
+                        ag_total += parseInt(values[`repeating_transformations_${idarray[i]}_agility`]/2);
+                        fo_total += parseInt(values[`repeating_transformations_${idarray[i]}_force`]/2);
+                        te_total += parseInt(values[`repeating_transformations_${idarray[i]}_tenacity`]/2);
+                        sc_total += parseInt(values[`repeating_transformations_${idarray[i]}_scholarship`]/2);
+                        in_total += parseInt(values[`repeating_transformations_${idarray[i]}_insight`]/2);
+                        sp_total += parseInt(values[`repeating_transformations_${idarray[i]}_spirit`]/2);
+                        pe_total += parseInt(values[`repeating_transformations_${idarray[i]}_personality`]/2);
+
+                        ag_manifest += parseInt(values[`repeating_transformations_${idarray[i]}_agility`]/2);
+                        fo_manifest += parseInt(values[`repeating_transformations_${idarray[i]}_force`]/2);
+                        te_manifest += parseInt(values[`repeating_transformations_${idarray[i]}_tenacity`]/2);
+                        sc_manifest += parseInt(values[`repeating_transformations_${idarray[i]}_scholarship`]/2);
+                        in_manifest += parseInt(values[`repeating_transformations_${idarray[i]}_insight`]/2);
+                        sp_manifest += parseInt(values[`repeating_transformations_${idarray[i]}_spirit`]/2);
+                        pe_manifest += parseInt(values[`repeating_transformations_${idarray[i]}_personality`]/2);
+                    }
+                }
+
+                var aspects = "";
+                if (enhanced_save){
+                    var saves = [];
+                    if ((enhanced_save&1)==1)
+                        saves.push("Impulsive");
+                    if ((enhanced_save&2)==2)
+                        saves.push("Corporeal");
+                    if ((enhanced_save&4)==4)
+                        saves.push("Cognitive");
+                    if ((enhanced_save&8)==8)
+                        saves.push("Morale");
+                    if (saves.length==4)
+                        saves = ["All"];
+                    aspects += `Enhanced Save (${saves.join("/")}), `;
+                }
+                if (high_speed_form){
+                    aspects += `High Speed Form (Level ${high_speed_form}), `;
+                }
+                if (durable_form){
+                    aspects += `Durable Form (Level ${durable_form}), `;
+                }
+                if (armored_form){
+                    aspects += `Armored Form, `;
+                }
+                if (perfect_ki_control){
+                    aspects += `Perfect Ki Control, `;
+                }
+                if (size_decreasing){
+                    aspects += `Size Decreasing, `;
+                }
+                if (size_increasing){
+                    aspects += `Size Increasing (Level ${size_increasing}), `;
+                }
+                if (god_ki){
+                    aspects += `God Ki, `;
+                }
+                if (raging){
+                    aspects += `Raging, `;
+                }
+                if (rampaging){
+                    aspects += `Rampaging (Level ${rampaging}), `;
+                }
+                aspects = aspects.substring(0,aspects.length-2);
+
+                setAttrs({
+                    'agility_tf': ag_total,
+                    'force_tf': fo_total,
+                    'tenacity_tf': te_total,
+                    'scholarship_tf': sc_total,
+                    'insight_tf': in_total,
+                    'spirit_tf': sp_total,
+                    'personality_tf': pe_total,
+                    
+                    'agility_manifest': ag_manifest,
+                    'force_manifest': fo_manifest,
+                    'tenacity_manifest': te_manifest,
+                    'scholarship_manifest': sc_manifest,
+                    'insight_manifest': in_manifest,
+                    'spirit_manifest': sp_manifest,
+                    'personality_manifest': pe_manifest,
+
+                    'aspects': aspects
+                })
+                update_stats();
+            });
+        });
+    });
+    
+    // Change None to active
+    on("change:repeating_transformations:none", function(){
+
+        getAttrs([
+            "repeating_transformations_active",
+            "repeating_transformations_agility",
+            "repeating_transformations_force",
+            "repeating_transformations_tenacity",
+            "repeating_transformations_scholarship",
+            "repeating_transformations_insight",
+            "repeating_transformations_spirit",
+            "repeating_transformations_personality",
+            "agility_tf",
+            "force_tf",
+            "tenacity_tf",
+            "scholarship_tf",
+            "insight_tf",
+            "spirit_tf",
+            "personality_tf",
+            "tier_of_power"
+        ], function(values){
+            var on = values.repeating_transformations_active;
+            /*
+                rp_ defines repeating abilities
+                tf_ defines hidden transformation modifier
+            */
+            var rp_agility = parseNumber(values.repeating_transformations_agility, parseInt(values.tier_of_power));
+            var rp_force = parseNumber(values.repeating_transformations_force, parseInt(values.tier_of_power));
+            var rp_tenacity = parseNumber(values.repeating_transformations_tenacity, parseInt(values.tier_of_power));
+            var rp_scholarship = parseNumber(values.repeating_transformations_scholarship, parseInt(values.tier_of_power));
+            var rp_insight = parseNumber(values.repeating_transformations_insight, parseInt(values.tier_of_power));
+            var rp_spirit = parseNumber(values.repeating_transformations_spirit, parseInt(values.tier_of_power));
+            var rp_personality = parseNumber(values.repeating_transformations_personality, parseInt(values.tier_of_power));
+            
+            var tf_agility = values.agility_tf;
+            var tf_force = values.force_tf;
+            var tf_tenacity = values.tenacity_tf;
+            var tf_scholarship = values.scholarship_tf;
+            var tf_insight = values.insight_tf;
+            var tf_spirit = values.spirit_tf;
+            var tf_personality = values.personality_tf;
+            if (+on){
+                setAttrs({
+                    "agility_tf":(+tf_agility + +rp_agility),
+                    "force_tf":(+tf_force + +rp_force),
+                    "tenacity_tf":(+tf_tenacity + +rp_tenacity),
+                    "scholarship_tf":(+tf_scholarship + +rp_scholarship),
+                    "insight_tf":(+tf_insight + +rp_insight),
+                    "spirit_tf":(+tf_spirit + +rp_spirit),
+                    "personality_tf":(+tf_personality + +rp_personality),
+                });
+            }else{
+                setAttrs({
+                    "agility_tf":(+tf_agility - +rp_agility),
+                    "force_tf":(+tf_force - +rp_force),
+                    "tenacity_tf":(+tf_tenacity - +rp_tenacity),
+                    "scholarship_tf":(+tf_scholarship - +rp_scholarship),
+                    "insight_tf":(+tf_insight - +rp_insight),
+                    "spirit_tf":(+tf_spirit - +rp_spirit),
+                    "personality_tf":(+tf_personality - +rp_personality),
+                });
+            }
+            update_stats();
+        });
+    });
+
+    on("clicked:recalc_stats", function(){
+        setAttrs({
+            "agility_tf":0,
+            "force_tf":0,
+            "tenacity_tf":0,
+            "scholarship_tf":0,
+            "insight_tf":0,
+            "spirit_tf":0,
+            "personality_tf":0
+        });
+        update_stats();
+    });
+
+    on("sheet:opened", function(){
+        update_stats();
+    });
+</script>

@@ -1,0 +1,1818 @@
+/*----------------- GENERAL CSS ------------------*/
+
+/*Configure the tab buttons*/
+.sheet-banner{
+    background-image: url(https://homemadegaming.files.wordpress.com/2020/10/cropped-bal_logo_no_background.png?w=50);
+    background-color: white;
+    background-position: center top;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+.sheet-select-btn{
+    border-radius: 8px;
+    background-color: dimgray;
+    color: white;
+}
+.sheet-select-btn:hover{
+    background-color: darkgray;
+    border-color: gray;
+}
+
+.sheet-attributes,
+.sheet-race,
+.sheet-attacks,
+.sheet-abilities,
+.sheet-transformations,
+.sheet-settings {
+	display: none;
+}
+
+/* show the selected tab */
+.sheet-tabstoggle[value="attributes"] ~ div.sheet-attributes,
+.sheet-tabstoggle[value="race"] ~ div.sheet-race,
+.sheet-tabstoggle[value="attacks"] ~ div.sheet-attacks,
+.sheet-tabstoggle[value="abilities"] ~ div.sheet-abilities,
+.sheet-tabstoggle[value="transformations"] ~ div.sheet-transformations,
+.sheet-tabstoggle[value="settings"] ~ div.sheet-settings {
+	display: block;
+}
+
+/*----------------- ATTRIBUTES ------------------*/
+
+.sheet-info{
+    display: grid;
+    border: 1px solid darkgray;
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+    padding: 5px;
+    grid-template-areas:
+    'info-header info-header info-header info-header info-header info-header'
+    'info-name info-name-data info-name-data info-initiative info-initiative-data info-initiative-data'
+    'info-race info-race-data info-race-data info-size info-size-data info-size-data'
+    'info-reach info-reach-data info-ki info-ki-data info-ki-bar info-ki-bar'
+    'info-land-speed info-land-speed-data info-capacity info-capacity-data info-capacity-bar info-capacity-bar'
+    'info-fly-speed info-fly-speed-data info-hp info-hp-data info-hp-bar info-hp-bar';
+}
+
+.sheet-info-header{
+    grid-area: info-header;
+}
+.sheet-info-name{
+    grid-area: info-name;
+}
+.sheet-info-name-data{
+    grid-area: info-name-data;
+}
+.sheet-info-race{
+    grid-area: info-race;
+}
+.sheet-info-race-data{
+    grid-area: info-race-data;
+}
+.sheet-info-initiative{
+    grid-area: info-initiative;
+}
+.sheet-info-initiative-data{
+    grid-area: info-initiative-data;
+    display:flex;
+}
+.sheet-info-initiative-data input{
+    width: calc(100% - 3.5em);
+}
+.sheet-info-size{
+    grid-area: info-size;
+}
+.sheet-info-size-data{
+    grid-area: info-size-data;
+}
+.sheet-info-powerlevel{
+    grid-area: info-powerlevel;
+}
+.sheet-info-powerlevel-data{
+    grid-area: info-powerlevel-data;
+    display:flex;
+}
+.sheet-info-battlepower{
+    grid-area: info-battlepower;
+}
+.sheet-info-battlepower-data{
+    grid-area: info-battlepower-data;
+}
+.sheet-info-hp{
+    grid-area: info-hp;
+}
+.sheet-info-hp-data{
+    grid-area: info-hp-data;
+    display:flex;
+}
+.sheet-info-hp-bar{
+    grid-area: info-hp-bar;
+}
+.sheet-info-ki{
+    grid-area: info-ki;
+}
+.sheet-info-ki-data{
+    grid-area: info-ki-data;
+    display:flex;
+}
+.sheet-info-ki-bar{
+    grid-area: info-ki-bar;
+}
+.sheet-info-capacity{
+    grid-area: info-capacity;
+}
+.sheet-info-capacity-data{
+    grid-area: info-capacity-data;
+    display:flex;
+}
+.sheet-info-capacity-bar{
+    grid-area: info-capacity-bar;
+}
+.sheet-info-reach{
+    grid-area: info-reach;
+}
+.sheet-info-reach-data{
+    grid-area: info-reach-data;
+    display:flex;
+}
+.sheet-info-reach-data input{
+    width: calc(100% - 3.5em);
+}
+.sheet-info-land-speed{
+    grid-area: info-land-speed;
+}
+.sheet-info-land-speed-data{
+    grid-area: info-land-speed-data;
+    display:flex;
+}
+.sheet-info-land-speed-data input{
+    width: calc(100% - 3.5em);
+}
+.sheet-info-fly-speed{
+    grid-area: info-fly-speed;
+}
+.sheet-info-fly-speed-data{
+    grid-area: info-fly-speed-data;
+    display:flex;
+}
+.sheet-info-fly-speed-data input{
+    width: calc(100% - 3.5em);
+}
+
+.sheet-info-name-data input,
+.sheet-info-player-data input,
+.sheet-info-race-data input,
+.sheet-info-size-data input,
+.sheet-info-powerlevel-data input,
+.sheet-info-battlepower-data input
+{
+    width:100%;
+}
+div.sheet-kibar,
+div.sheet-capacitybar,
+div.sheet-hpbar{
+    width:100%;
+    height:15px;
+    border:2px solid black;
+    border-radius:1000px;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+/* Ki Bar */
+input.sheet-kibar[value="0"] ~ div.sheet-kibar{
+    background:black;
+}
+input.sheet-kibar[value="1"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 95%, green 5%, lawngreen 100%);
+}
+input.sheet-kibar[value="2"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 90%, green 5%, lawngreen 100%);
+}
+input.sheet-kibar[value="3"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 85%, green 10%, lawngreen 100%);
+}
+input.sheet-kibar[value="4"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 80%, green 10%, lawngreen 100%);
+}
+input.sheet-kibar[value="5"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 75%, green 20%, lawngreen 100%);
+}
+input.sheet-kibar[value="6"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 70%, green 20%, lawngreen 100%);
+}
+input.sheet-kibar[value="7"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 65%, green 20%, lawngreen 100%);
+}
+input.sheet-kibar[value="8"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 60%, green 20%, lawngreen 100%);
+}
+input.sheet-kibar[value="9"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 55%, green 30%, lawngreen 100%);
+}
+input.sheet-kibar[value="10"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 50%, green 30%, lawngreen 100%);
+}
+input.sheet-kibar[value="11"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 45%, green 30%, lawngreen 100%);
+}
+input.sheet-kibar[value="12"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 40%, green 30%, lawngreen 100%);
+}
+input.sheet-kibar[value="13"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 35%, green 30%, lawngreen 100%);
+}
+input.sheet-kibar[value="14"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 30%, green 30%, lawngreen 100%);
+}
+input.sheet-kibar[value="15"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 25%, green 20%, lawngreen 100%);
+}
+input.sheet-kibar[value="16"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 20%, green 20%, lawngreen 100%);
+}
+input.sheet-kibar[value="17"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 15%, green 10%, lawngreen 100%);
+}
+input.sheet-kibar[value="18"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 10%, green 5%, lawngreen 100%);
+}
+input.sheet-kibar[value="19"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, black 5%, green 5%, lawngreen 100%);
+}
+input.sheet-kibar[value="20"] ~ div.sheet-kibar{
+    background: lawngreen;
+}
+input.sheet-kibar[value="21"] ~ div.sheet-kibar{
+    background: linear-gradient(to left, lawngreen 10%, #FC7F1F 100%);
+}
+input.sheet-kibar[value="21"] ~ div.sheet-kibar::before {
+    content: "Overcharge";
+}
+/* Capacity Bar */
+input.sheet-capacitybar[value="0"] ~ div.sheet-capacitybar{
+    background:black;
+}
+input.sheet-capacitybar[value="1"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 95%, blue 5%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="2"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 90%, blue 5%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="3"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 85%, blue 10%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="4"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 80%, blue 10%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="5"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 75%, blue 20%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="6"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 70%, blue 20%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="7"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 65%, blue 20%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="8"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 60%, blue 20%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="9"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 55%, blue 30%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="10"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 50%, blue 30%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="11"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 45%, blue 30%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="12"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 40%, blue 30%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="13"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 35%, blue 30%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="14"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 30%, blue 30%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="15"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 25%, blue 20%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="16"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 20%, blue 20%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="17"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 15%, blue 10%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="18"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 10%, blue 5%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="19"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, black 5%, blue 5%, deepskyblue 100%);
+}
+input.sheet-capacitybar[value="20"] ~ div.sheet-capacitybar{
+    background: deepskyblue;
+}
+input.sheet-capacitybar[value="21"] ~ div.sheet-capacitybar{
+    background: linear-gradient(to left, deepskyblue 10%, yellow 100%);
+}
+input.sheet-capacitybar[value="21"] ~ div.sheet-capacitybar::before {
+    content: "Overcharge";
+}
+/* HP Bar */
+input.sheet-hpbar[value="0"] ~ div.sheet-hpbar{
+    background:black;
+}
+input.sheet-hpbar[value="1"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 95%, darkred 5%, red 100%);
+}
+input.sheet-hpbar[value="2"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 90%, darkred 5%, red 100%);
+}
+input.sheet-hpbar[value="3"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 85%, darkred 10%, red 100%);
+}
+input.sheet-hpbar[value="4"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 80%, darkred 10%, red 100%);
+}
+input.sheet-hpbar[value="5"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 75%, darkred 20%, red 100%);
+}
+input.sheet-hpbar[value="6"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 70%, darkred 20%, red 100%);
+}
+input.sheet-hpbar[value="7"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 65%, darkred 20%, red 100%);
+}
+input.sheet-hpbar[value="8"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 60%, darkred 20%, red 100%);
+}
+input.sheet-hpbar[value="9"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 55%, darkred 30%, red 100%);
+}
+input.sheet-hpbar[value="10"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 50%, darkred 30%, red 100%);
+}
+input.sheet-hpbar[value="11"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 45%, darkred 30%, red 100%);
+}
+input.sheet-hpbar[value="12"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 40%, darkred 30%, red 100%);
+}
+input.sheet-hpbar[value="13"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 35%, darkred 30%, red 100%);
+}
+input.sheet-hpbar[value="14"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 30%, darkred 30%, red 100%);
+}
+input.sheet-hpbar[value="15"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 25%, darkred 20%, red 100%);
+}
+input.sheet-hpbar[value="16"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 20%, darkred 20%, red 100%);
+}
+input.sheet-hpbar[value="17"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 15%, darkred 10%, red 100%);
+}
+input.sheet-hpbar[value="18"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 10%, darkred 5%, red 100%);
+}
+input.sheet-hpbar[value="19"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, black 5%, darkred 5%, red 100%);
+}
+input.sheet-hpbar[value="20"] ~ div.sheet-hpbar{
+    background: red;
+}
+input.sheet-hpbar[value="21"] ~ div.sheet-hpbar{
+    background: linear-gradient(to left, red 10%, purple 100%);
+}
+
+input.sheet-hpbar[value="0"] ~ div.sheet-hpbar::before {
+    content: "Defeated";
+}
+input.sheet-hpbar[value="1"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="2"] ~ div.sheet-hpbar::before  {
+    content: "Wounded";
+}
+input.sheet-hpbar[value="3"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="4"] ~ div.sheet-hpbar::before
+input.sheet-hpbar[value="5"] ~ div.sheet-hpbar::before {
+    content: "Injured";
+}
+input.sheet-hpbar[value="6"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="7"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="8"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="9"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="10"] ~ div.sheet-hpbar::before {
+    content: "Bloodied";
+}
+input.sheet-hpbar[value="11"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="12"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="13"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="14"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="15"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="16"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="17"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="18"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="19"] ~ div.sheet-hpbar::before,
+input.sheet-hpbar[value="20"] ~ div.sheet-hpbar::before  {
+    content: "Healthy";
+}
+input.sheet-hpbar[value="21"] ~ div.sheet-hpbar::before {
+    content: "Overcharge";
+}
+
+
+.sheet-ability-table{
+    border: 1px inset darkgray;
+    display:grid;
+    grid-template-areas:
+    'abilityName abilityMod abilityTrans abilityRanks abilityRacial abilityTotal';
+}
+
+.sheet-level-table{
+    border: 1px inset darkgray;
+    display:grid;
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+    padding:5px;
+    grid-template-areas:
+    'level-header level-header level-header level-header'
+    'level-power level-power-data level-battle level-battle-data'
+    'level-tier level-tier-data level-dice level-dice-data';
+
+}
+.sheet-level-header{
+    grid-area: level-header;
+}
+.sheet-level-power{
+    grid-area: level-power;
+}
+.sheet-level-power-data{
+    grid-area: level-power-data;
+    display: flex;
+}
+.sheet-level-battle{
+    grid-area: level-battle;
+}
+.sheet-level-battle-data{
+    grid-area: level-battle-data;
+    display: flex;
+}
+.sheet-level-tier{
+    grid-area: level-tier;
+}
+.sheet-level-tier-data{
+    grid-area: level-tier-data;
+    display: flex;
+}
+.sheet-level-tier-data input{
+    width: calc(100% - 3.5em);
+}
+.sheet-level-dice{
+    grid-area: level-dice;
+}
+.sheet-level-dice-data{
+    grid-area: level-dice-data;
+    display: flex;
+}
+.sheet-level-dice-data input{
+    width: 100%;
+}
+
+.sheet-save-table{
+    border: 1px inset darkgray;
+    grid-template-areas:
+    'save-name save-misc save-total';
+    display:grid;
+}
+
+.sheet-character{
+    background-position: center;
+    background-color: white;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+.sheet-stat-ten{
+    display: flex;
+    grid-area: stat-ten;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px inset darkgray;
+}
+
+.sheet-stat-pot{
+    display: flex;
+    grid-area: stat-pot;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px inset darkgray;
+}
+
+.sheet-stat-per{
+    display: flex;
+    grid-area: stat-per;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px inset darkgray;
+}
+
+.sheet-stat-spi{
+    display: flex;
+    grid-area: stat-spi;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px inset darkgray;
+}
+
+.sheet-stat-str{
+    display: flex;
+    grid-area: stat-str;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px inset darkgray;
+}
+
+.sheet-stat-sch{
+    display: flex;
+    grid-area: stat-sch;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px inset darkgray;
+}
+
+.sheet-stat-agi{
+    display: flex;
+    grid-area: stat-agi;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px inset darkgray;
+}
+
+.sheet-stat-ins{
+    grid-area: stat-ins;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px inset darkgray;
+}
+.sheet-skills{
+    grid-area: skills;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 6px;
+    border: 1px inset darkgray;
+}
+.charsheet .repcontainer[data-groupname=repeating_knowledge],
+.charsheet .repcontainer[data-groupname=repeating_profession],
+.sheet-skill-table{
+    width:100%;
+}
+.charsheet .repcontainer[data-groupname=repeating_knowledge]>div,
+.charsheet .repcontainer[data-groupname=repeating_profession]>div,
+.sheet-skill-table{
+    display:grid;
+    grid-template-areas:
+    'skill-name skill-profieciency skill-misc ability-mod skill-total';
+}
+.sheet-skill-table>p{
+    font-size:10px;
+}
+.sheet-skill-label{
+    color: black;
+}
+.sheet-skill-label:hover{
+    cursor: pointer;
+}
+
+button[type="roll"].sheet-skill:hover{
+    background-position: 0;
+    color:red;
+}
+
+button[type="roll"].sheet-skill{
+    font-size: 10px;
+    border-style: none;
+    background-color: transparent;
+    margin-left: 5px;
+    width:100px;
+    background: none;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}
+button[type="roll"].sheet-ability:hover{
+    background-position: 0;
+    color:red;
+}
+
+button[type="roll"].sheet-ability{
+    font-size: 13px;
+    /*border-style: none;*/
+    background-color: transparent;
+    width:fit-content;
+    background: none;
+    background-image: none;
+    border: none;
+    box-shadow:none;
+}
+
+.sheet-skill-number{
+    width:45px !important;
+    height:20px !important;
+    font-size:10px;
+}
+
+.sheet-proficiency-select{
+    margin:2px;
+    font-size:10px;
+    width:100px;
+    height:20px;
+}
+/*
+might try something like this later
+pulled from pathfinder sheet
+.sheet-skills>.repcontrol>.repcontrol_add:before{
+    content: '&';
+    font-family: pictos;
+    color: black;
+    display: inline-block;
+}
+
+.sheet-skills>.repcontrol>.repcontrol_add{
+    border: 1px solid black;
+    border-radius: 50%;
+    font-size: 13px;
+    padding: 3px;
+    height: 12px;
+    width: 12px;
+    line-height: 12px;
+}
+.sheet-skills>.repcontrol>.repcontrol_edit{
+    border: 1px solid black;
+    border-radius: 50%;
+    font-size: 13px;
+    padding: 3px;
+    height: 12px;
+    width: 12px;
+    line-height: 12px;
+}
+*/
+.sheet-all-stats{
+    grid-area: all-stats;
+}
+
+.sheet-stats{
+    display: grid;
+    grid-template-areas: 
+    'all-stats skills';
+}
+
+/*----------------- RACE ------------------*/
+.sheet-race-head{
+    display: grid;
+    border: 1px solid darkgray;
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+    padding: 5px;
+    grid-template-areas: 
+    'race-header race-header race-header race-header race-header'
+    'race-name race-name-data race-name-data race-health race-health-data'
+    'race-subname race-subname-data race-subname-data race-size race-size-data'
+    'race-save race-save-data race-save-data race-dexterity race-dexterity-data';
+}
+
+.sheet-race-header{
+    grid-area: race-header;
+    text-align: center;
+}
+.sheet-race-name{
+    grid-area: race-name;
+}
+.sheet-race-name-data{
+    grid-area: race-name-data;
+}
+.sheet-race-health{
+    grid-area: race-health;
+}
+.sheet-race-health-data{
+    grid-area: race-health-data;
+}
+.sheet-race-health-data input{
+    width: calc(100% - 3.5em);
+}
+.sheet-race-subname{
+    grid-area: race-subname;
+}
+.sheet-race-subname-data{
+    grid-area: race-subname-data;
+}
+.sheet-race-size{
+    grid-area: race-size;
+}
+.sheet-race-size-data{
+    grid-area: race-size-data;
+}
+.sheet-race-save{
+    grid-area: race-save;
+}
+.sheet-race-save-data{
+    grid-area: race-save-data;
+}
+.sheet-race-dexterity{
+    grid-area: race-dexterity;
+}
+.sheet-race-dexterity-data{
+    grid-area: race-dexterity-data;
+}
+.sheet-race-dexterity-data input{
+    width: calc(100% - 3.5em);
+}
+
+.sheet-race-name-data input,
+.sheet-race-subname-data input,
+.sheet-race-size-data input,
+.sheet-race-save-data input{
+    width:100%
+}
+
+.sheet-race-attributes{
+    display: grid;
+    grid-template-columns: 14.25% 14.25% 14.25% 14% 14.25% 14.25% 14.25%;
+    text-align:center;
+    border: 1px solid darkgray;
+}
+.sheet-race-attributes input{
+    width: 100%;
+}
+
+.sheet-race-traits{
+    border: 1px solid darkgray;
+}
+
+.sheet-trait-table{
+    display: grid;
+    grid-template-areas:
+    'name short_desc short_desc'
+    'long_desc long_desc long_desc';
+    border: 1px inset darkgray;
+}
+
+.sheet-trait-edit ~ .sheet-trait-verbose{
+    display:none;
+}
+
+.sheet-trait-edit ~ .sheet-trait-simple{
+    display:none;
+}
+
+.sheet-trait-edit:checked ~ .sheet-trait-verbose{
+    display:grid;
+}
+
+.sheet-trait-edit:not(:checked) ~ .sheet-trait-simple{
+    display: grid;
+    grid-template-areas:
+    'name short_desc';
+    border: 1px solid darkgray;
+}
+
+.sheet-trait-name{
+    grid-area: name;
+    display: grid;
+    grid-template-rows:auto;
+    grid-template-columns: 26px auto;
+    width:100%;
+}
+.sheet-trait-short-desc{
+    grid-area: short_desc;
+    width:100%;
+}
+.sheet-trait-long-desc{
+    grid-area: long_desc;
+    font-size:10px;
+    resize:vertical;
+    margin: 5px;
+    min-height:13px;
+}
+
+
+/* Attack CSS */
+.sheet-attacks{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: white;
+}
+.sheet-attack-header{
+    border:1px solid darkgray;
+    display:grid;
+    grid-template-areas:
+    'combat-header combat-header'
+    'strike defense';
+    text-align: center;
+}
+.sheet-combat-header{
+    grid-area:combat-header;
+    border-bottom: 1px solid darkgray;
+}
+.sheet-strike-section{
+    grid-area:strike;
+    display:grid;
+    grid-template-areas:
+    'strike-header strike-header strike-header strike-header'
+    'strike-haste strike-haste-data strike-awareness strike-awareness-data'
+    'strike-bonus strike-bonus-data strike-total strike-total-data';
+}
+.sheet-strike-header{
+    grid-area:strike-header;
+}
+.sheet-strike-haste{
+    grid-area:strike-haste;
+}
+.sheet-stike-haste-data{
+    grid-area:strike-haste-data;
+}
+.sheet-strike-awareness{
+    grid-area:strike-awareness;
+}
+.sheet-stike-awareness-data{
+    grid-area:strike-awareness-data;
+}
+.sheet-strike-bonus{
+    grid-area:strike-bonus;
+}
+.sheet-stike-bonus-data{
+    grid-area:strike-bonus-data;
+}
+.sheet-strike-total{
+    grid-area:strike-total;
+}
+.sheet-stike-total-data{
+    grid-area:strike-total-data;
+}
+
+.sheet-strike-haste-data input,
+.sheet-strike-awareness-data input,
+.sheet-strike-bonus-data input{
+    width:calc(100% - 3.5em);
+}
+
+.sheet-defense-section{
+    grid-area:defense;
+    display:grid;
+    grid-template-areas:
+    'defense-header defense-header defense-header defense-header'
+    'defense-value defense-value-data defense-diminishing defense-diminishing-data'
+    'defense-dodge defense-dodge-data defense-soak defense-soak-data';
+}
+.sheet-defense-header{
+    grid-area:defense-header;
+    border-left: 1px solid darkgray;
+}
+.sheet-defense-value{
+    grid-area:defense-value;
+    border-left: 1px solid darkgray;
+}
+.sheet-defense-value-data{
+    grid-area:defense-value-data;
+}
+.sheet-defense-diminishing{
+    grid-area:defense-diminishing;
+}
+.sheet-defense-diminishing-data{
+    grid-area:defense-diminishing-data;
+}
+.sheet-defense-dodge{
+    grid-area:defense-dodge;
+    border-left: 1px solid darkgray;
+}
+.sheet-defense-dodge-data{
+    grid-area:defense-dodge-data;
+}
+.sheet-defense-soak{
+    grid-area:defense-soak;
+}
+.sheet-defense-soak-data{
+    grid-area:defense-soak-data;
+}
+.sheet-defense-value-data input,
+.sheet-defense-diminishing-data input,
+.sheet-defense-dodge-data input,
+.sheet-defense-soak-data input
+{
+    width:calc(100% - 3.5em);
+}
+.sheet-basic-attack{
+    display: grid;
+    grid-template-areas: 
+    'category-head name-head misc-strike-head strike-head misc-wound-head wound-head ki-cost-head'
+    'physical physical-content physical-content physical-content physical-content physical-content physical-content'
+    'energy energy-content energy-content energy-content energy-content energy-content energy-content'
+    'magic magic-content magic-content magic-content magic-content magic-content magic-content'
+    'signature signature-content signature-content signature-content signature-content signature-content signature-content'
+    'footer footer footer footer footer footer footer';
+    text-align: center;
+    border: 1px solid darkgray;
+}
+
+.sheet-attack-category-head{
+    grid-area: category-head;
+    border-bottom: 1px inset darkgray;
+}
+.sheet-attack-name-head{
+    grid-area: name-head;
+    border-bottom: 1px inset darkgray;
+}
+.sheet-attack-misc-strike-head{
+    grid-area: misc-strike-head;
+    border-bottom: 1px inset darkgray;
+}
+.sheet-attack-strike-head{
+    grid-area: strike-head;
+    border-bottom: 1px inset darkgray;
+}
+.sheet-attack-misc-wound-head{
+    grid-area: misc-wound-head;
+    border-bottom: 1px inset darkgray;
+}
+.sheet-attack-wound-head{
+    grid-area: wound-head;
+    border-bottom: 1px inset darkgray;
+}
+.sheet-attack-ki-cost-head{
+    grid-area: ki-cost-head;
+    border-bottom: 1px inset darkgray;
+}
+
+.sheet-attack-physical{
+    grid-area: physical;
+    border-bottom: 1px inset darkgray;
+    border-right: 1px inset darkgray;
+}
+.sheet-attack-physical-content{
+    grid-area: physical-content;
+    border-bottom: 1px inset darkgray;
+    grid-template-areas:'attack-name stike-misc strike wound-misc wound ki-cost';
+    justify-content: space-between;
+    display: grid;
+}
+.sheet-attack-energy{
+    grid-area: energy;
+    border-bottom: 1px inset darkgray;
+    border-right: 1px inset darkgray;
+}
+.sheet-attack-energy-content{
+    grid-area: energy-content;
+    border-bottom: 1px inset darkgray;
+    grid-template-areas:'attack-name stike-misc strike wound-misc wound ki-cost';
+    justify-content: space-between;
+    display: grid;
+}
+
+.sheet-attack-magic{
+    grid-area: magic;
+    border-bottom: 1px inset darkgray;
+    border-right: 1px inset darkgray;
+}
+.sheet-attack-magic-content{
+    grid-area: magic-content;
+    border-bottom: 1px inset darkgray;
+    grid-template-areas:'attack-name stike-misc strike wound-misc wound ki-cost';
+    justify-content: space-between;
+    display: grid;
+}
+
+.sheet-attack-signature{
+    grid-area: signature;
+    border-right: 1px inset darkgray;
+}
+.sheet-attack-signature-content{
+    grid-area: signature-content;
+    text-align: left;
+}
+.sheet-attack-signature-item-edit{
+    display:none;
+}
+.sheet-attack-signature-item-display{
+    display:grid;
+}
+.sheet-signature-edit:checked ~ .sheet-attack-signature-item-edit{
+    display:grid;
+} 
+.sheet-signature-edit:checked ~ .sheet-attack-signature-item-display{
+    display:none;
+}
+.sheet-signature-kipoint-grid{
+    display:grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-areas:
+    'ki_header ki_header ki_header ki_header ki_header'
+    'ki_total_header ki_profile_header ki_advantages_header ki_disadvantages_header ki_misc_header'
+    'ki_total ki_profile ki_advantages ki_disadvantages ki_misc';
+}
+.sheet-ki-header{
+    grid-area: ki_header;
+}
+.sheet-ki-total-header{
+    grid-area: ki_total_header;
+}
+.sheet-ki-total{
+    grid-area: ki_total;
+}
+.sheet-ki-profile-header{
+    grid-area: ki_profile_header;
+}
+.sheet-ki-profile{
+    grid-area: ki_profile;
+}
+.sheet-ki-advantages-header{
+    grid-area: ki_advantages_header;
+}
+.sheet-ki-advantages{
+    grid-area: ki_advantages;
+}
+.sheet-ki-disadvantages-header{
+    grid-area: ki_disadvantages_header;
+}
+.sheet-ki-disadvantages{
+    grid-area: ki_disadvantages;
+}
+.sheet-ki-misc-header{
+    grid-area:ki_misc_header;
+}
+.sheet-ki-misc{
+    grid-area:ki_misc;
+}
+
+.sheet-combat-middle-header{
+    background: dimgray;
+    color:white;
+    text-align:center;
+}
+.sheet-combat-numberbox{
+    background:none;
+    border-style:none;
+}
+.sheet-combat-data{
+    display:block;
+    background:darkgray;
+    color: white;
+    font-weight: bold;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.sheet-attack-footer{
+    grid-area: footer;
+    border-top: 3px double darkgray;
+}
+.sheet-spellbook{
+    border: 1px solid darkgray;
+}
+.sheet-spellbook h2{
+    text-align:center;
+}
+.sheet-signature-style h3,
+.sheet-spell h3{
+    color: #cf2e2e;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 18px;
+    margin: 24px;
+}
+.sheet-signature-style p,
+.sheet-spell p{
+    margin-left: 24px;
+}
+.sheet-signature-style ul,
+.sheet-spell ul{
+    margin-left: 24px;
+    padding: 0 0 0 12px;
+}
+.sheet-signature-style li,
+.sheet-spell li{
+    list-style:inside;
+    margin-left:6px;
+    padding: 0 0 0 12px;
+}
+div.sheet-spell-edit,
+.sheet-spell-display{
+    display: none;
+}
+input.sheet-spell-edit[value="on"] ~ .sheet-spell-edit{
+    display:grid;
+}
+input.sheet-spell-edit[value="0"] ~ .sheet-spell-display{
+    display:grid;
+}
+button.sheet-signature-button[type="roll"]{
+    width: fit-content;
+    background: none;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+    color: #cd2e2e;
+}
+/* Information Section */
+
+.sheet-equipmentTable{
+    display: grid;
+    border: 1px solid seagreen;
+    border-top: none;
+    grid-template-areas: 
+    'gear1 gear2 gear3';
+}
+
+.sheet-abilities{
+    background-position: center;
+    background-color: white;
+}
+.sheet-combat-top-header,
+.sheet-abilities-top-header{
+    background: dimgray;
+    color:white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    text-align:center;
+}
+.sheet-combat-left-header,
+.sheet-abilities-left-header{
+    background: dimgray;
+    color:white;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    text-align:center;
+}
+.sheet-abilities-head{
+    text-align: center;
+    grid-template-areas:
+    'header header header header'
+    'player-header player player age-header'
+    'gender-header gender gender age'
+    'hair-header hair eye-header eye'
+    'skin-header skin birthday-header birthday'
+    'backstory-header backstory-header backstory-header backstory-header'
+    'backstory backstory backstory backstory';
+    display:grid;
+}
+
+.sheet-abilities-header{
+    grid-area:header;
+}
+.sheet-abilities-player-header{
+    grid-area:player-header;
+}
+.sheet-abilities-player{
+    grid-area:player;
+    width:100%;
+}
+.sheet-abilities-age-header{
+    grid-area:age-header;
+}
+.sheet-abilities-age{
+    grid-area:age;
+    width:100%;
+}
+.sheet-abilities-gender-header{
+    grid-area:gender-header;
+}
+.sheet-abilities-gender{
+    grid-area:gender;
+    width:100%;
+}
+.sheet-abilities-hair-header{
+    grid-area:hair-header;
+}
+.sheet-abilities-hair{
+    grid-area:hair;
+    width:100%;
+}
+.sheet-abilities-eye-header{
+    grid-area:eye-header;
+}
+.sheet-abilities-eye{
+    grid-area:eye;
+    width:100%;
+}
+.sheet-abilities-backstory-header{
+    grid-area:backstory-header;
+}
+.sheet-abilities-backstory{
+    grid-area: backstory;
+    width:100%;
+}
+
+.sheet-abilities-player input[type="text"],
+.sheet-abilities-age input[type="number"],
+.sheet-abilities-gender input[type="text"],
+.sheet-abilities-skin input[type="text"]{
+    width:50%;
+}
+
+.sheet-abilities-group{
+    grid-template-areas:'equipment talents';
+    display:grid;
+}
+.sheet-abilities-equipment{
+    grid-area:equipment;
+    border: 1px solid darkgray;
+    padding: 5px;
+}
+.sheet-abilities-equipment h2{
+    text-align:center;
+}
+
+.sheet-talent-table{
+    grid-area:talents;
+    border: 1px solid darkgray;
+    padding: 5px;
+}
+.sheet-talent-table h2{
+    text-align:center;
+}
+
+.sheet-talent-verbose{
+    display:none;
+    grid-template-areas:
+    'talent-name talent-name-data talent-name-data talent-type talent-type-data'
+    'talent-short-desc talent-short-desc-data talent-short-desc-data talent-short-desc-data talent-short-desc-data'
+    'talent-prereqs talent-prereqs-data talent-prereqs-data talent-prereqs-data talent-prereqs-data'
+    'talent-description talent-description talent-description talent-description talent-description'
+    'talent-description-data talent-description-data talent-description-data talent-description-data talent-description-data'
+    'talent-notes talent-notes talent-notes talent-notes talent-notes'
+    'talent-notes-data talent-notes-data talent-notes-data talent-notes-data talent-notes-data';
+    border: 1px inset darkgray;
+}
+
+.sheet-talent-simple{
+    display:none;
+    grid-template-areas:
+    'talent-name talent-short-desc';
+    border: 1px inset darkgray;
+}
+
+.sheet-talent-edit:checked ~ .sheet-talent-verbose{
+    display:grid;
+}
+
+.sheet-talent-edit:not(:checked) ~ .sheet-talent-simple{
+    display: grid;
+}
+
+.sheet-talent-name{
+    grid-area: talent-name;
+}
+.sheet-talent-name-data{
+    grid-area: talent-name-data;
+}
+.sheet-talent-type{
+    grid-area: talent-type;
+}
+.sheet-talent-type-data{
+    grid-area: talent-type-data;
+    margin:0px;
+}
+.sheet-talent-short-desc{
+    grid-area: talent-short-desc;
+}
+.sheet-talent-short-desc-data{
+    grid-area: talent-short-desc-data;
+    width:100%;
+}
+.sheet-talent-prereqs{
+    grid-area: talent-prereqs;
+}
+.sheet-talent-prereqs-data{
+    grid-area: talent-prereqs-data;
+    width:100%;
+}
+.sheet-talent-description{
+    grid-area: talent-description;
+    text-align:center;
+}
+.sheet-talent-description-data{
+    grid-area: talent-description-data;
+    font-size:10px;
+    resize:vertical;
+    min-height:24px;
+}
+.sheet-auto-expand {
+	position: relative;
+	cursor: text;
+	word-wrap: break-word;
+}
+.sheet-auto-expand span {
+	visibility: hidden;
+	white-space: pre-wrap;
+	display: block;
+}
+.sheet-auto-expand textarea {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	margin: 0;
+	overflow: hidden;
+	resize: none;
+    min-height:18px;
+	height: 100%;
+	width: 100%;
+	display: block;
+	box-sizing: border-box;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	letter-spacing: inherit;
+	padding: inherit;
+	text-align: inherit;
+	text-transform: inherit;
+}
+
+
+/* Tranformation section */
+.sheet-transformations-head{
+    text-align:center;
+}
+.sheet-transformations-header{
+    background: dimgray;
+    color:white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    text-align:center;
+}
+.sheet-transformations-global-aspects{
+    width:100%;
+    background:gray;
+    color: white;
+    text-align: center;
+    font-size:10px;
+}
+.sheet-transformations-content{
+    background: dimgray;
+}
+.sheet-transformations-table{
+    padding:5px;
+    display:grid;
+    background:darkgray;
+    grid-template-areas: 
+    'expand header-active header-name header-name header-stacks header-mastered header-tier header-stress'
+    'none active name name stacks mastered tier stress'
+    'none header-ag header-fo header-te header-sc header-in header-sp header-pe'
+    'none agility force tenacity scholarship insight spirit personality'
+    'none header-stress-mod stress-mod header-shatter-limits shatter-limits header-type type type'
+    'none header-ag-misc header-fo-misc header-te-misc header-sc-misc header-in-misc header-sp-misc header-pe-misc'
+    'none ag-misc fo-misc te-misc sc-misc in-misc sp-misc pe-misc'
+    'none header-aspects header-aspects header-aspects header-aspects header-aspects header-aspects header-aspects'
+    'none aspects aspects aspects aspects aspects aspects aspects';
+}
+.sheet-transformations-expand{
+    grid-area: expand;
+}
+.sheet-transformations-header-active{
+    grid-area: header-active;
+}
+.sheet-transformations-header-name{
+    grid-area: header-name;
+}
+.sheet-transformations-header-stacks{
+    grid-area: header-stacks;
+}
+.sheet-transformations-header-mastered{
+    grid-area: header-mastered;
+}
+.sheet-transformations-header-tier{
+    grid-area: header-tier;
+}
+.sheet-transformations-header-stress{
+    grid-area: header-stress;
+}
+.sheet-transformations-active{
+    grid-area: active;
+}
+.sheet-transformations-active-input[type="checkbox"]{
+    height:100%;
+    width: 52px;
+    opacity:0;
+}
+.sheet-transformations-active-span{
+    position: absolute;
+    display: block;
+    background: gray;
+    border-radius:32px;
+    border:1px solid white;
+    width: 38px;
+    height: 20px;
+}
+.sheet-transformations-active-span:before{
+    content:"";
+    width:18px;
+    height:18px;
+    position:absolute;
+    left:1px;
+    top:1px;
+    background:dimgray;
+    border-radius:9px;
+    transition:0.1s;
+}
+.sheet-transformations-active-input[type="checkbox"]:checked ~ .sheet-transformations-active-span{
+    background:lightgray;
+    transition:0.1s;
+}.sheet-transformations-active-input[type="checkbox"]:checked ~ .sheet-transformations-active-span:before{
+    background:#eee;
+    left:19px;
+    transition:0.1s;
+}
+.sheet-transformations-name{
+    grid-area: name;
+    width:100%;
+}
+.sheet-transformations-stacks{
+    grid-area: stacks;
+}
+input[type="number"].sheet-transformations-stacks{
+    width:100%;
+}
+.sheet-transformations-mastered{
+    grid-area: mastered;
+}
+input[type="checkbox"].sheet-transformations-mastered{
+    height: 75%;
+    width: 100%;
+}
+.sheet-transformations-tier{
+    grid-area: tier;
+    width:100%;
+}
+.sheet-transformations-stress{
+    grid-area: stress;
+}
+.sheet-transformations-header-ag{
+    grid-area: header-ag;
+}
+.sheet-transformations-header-fo{
+    grid-area: header-fo;
+}
+.sheet-transformations-header-te{
+    grid-area: header-te;
+}
+.sheet-transformations-header-sc{
+    grid-area: header-sc;
+}
+.sheet-transformations-header-in{
+    grid-area: header-in;
+}
+.sheet-transformations-header-sp{
+    grid-area: header-sp;
+}
+.sheet-transformations-header-pe{
+    grid-area: header-pe;
+}
+.sheet-transformations-agility{
+    grid-area: agility;
+    font-size: 24px;
+    font-weight: 1000;
+}
+.sheet-transformations-force{
+    grid-area: force;
+    font-size: 24px;
+    font-weight: 1000;
+}
+.sheet-transformations-tenacity{
+    grid-area: tenacity;
+    font-size: 24px;
+    font-weight: 1000;
+}
+.sheet-transformations-scholarship{
+    grid-area: scholarship;
+    font-size: 24px;
+    font-weight: 1000;
+}
+.sheet-transformations-insight{
+    grid-area: insight;
+    font-size: 24px;
+    font-weight: 1000;
+}
+.sheet-transformations-spirit{
+    grid-area: spirit;
+    font-size: 24px;
+    font-weight: 1000;
+}
+.sheet-transformations-personality{
+    grid-area: personality;
+    font-size: 24px;
+    font-weight: 1000;
+}
+span.sheet-transformations-name,
+span.sheet-transformations-stacks,
+span.sheet-transformations-tier,
+.sheet-transformations-agility,
+.sheet-transformations-force,
+.sheet-transformations-tenacity,
+.sheet-transformations-scholarship,
+.sheet-transformations-insight,
+.sheet-transformations-spirit,
+.sheet-transformations-personality,
+.sheet-transformations-stress{
+    width:100%!important;
+    display:flow-root;
+    background:gray;
+    color:white;
+    text-align:center;
+    border: 1px solid white;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.sheet-transformations-vertical-header{
+    background:dimgray;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    color: white;
+    text-align: center;
+}
+.sheet-transformations-header-stress-mod{
+    grid-area: header-stress-mod;
+}
+.sheet-transformations-stress-mod{
+    grid-area: stress-mod;
+    width:100%;
+}
+.sheet-transformations-header-shatter-limits{
+    grid-area: header-shatter-limits;
+}
+.sheet-transformations-shatter-limits{
+    grid-area: shatter-limits;
+}
+.sheet-transformations-header-type{
+    grid-area: header-type;
+}
+.sheet-transformations-type{
+    grid-area: type;
+    width:100%;
+    height:100%;
+}
+.sheet-transformations-header-ag-misc{
+    grid-area: header-ag-misc;
+}
+.sheet-transformations-header-fo-misc{
+    grid-area: header-fo-misc;
+}
+.sheet-transformations-header-te-misc{
+    grid-area: header-te-misc;
+}
+.sheet-transformations-header-sc-misc{
+    grid-area: header-sc-misc;
+}
+.sheet-transformations-header-in-misc{
+    grid-area: header-in-misc;
+}
+.sheet-transformations-header-sp-misc{
+    grid-area: header-sp-misc;
+}
+.sheet-transformations-header-pe-misc{
+    grid-area: header-pe-misc;
+}
+.sheet-transformations-ag-misc{
+    grid-area: ag-misc;
+    width:100%;
+}
+.sheet-transformations-fo-misc{
+    grid-area: fo-misc;
+    width:100%;
+}
+.sheet-transformations-te-misc{
+    grid-area: te-misc;
+    width:100%;
+}
+.sheet-transformations-sc-misc{
+    grid-area: sc-misc;
+    width:100%;
+}
+.sheet-transformations-in-misc{
+    grid-area: in-misc;
+    width:100%;
+}
+.sheet-transformations-sp-misc{
+    grid-area: sp-misc;
+    width:100%;
+}
+.sheet-transformations-pe-misc{
+    grid-area: pe-misc;
+    width:100%;
+}
+
+.sheet-transformations-header-aspects{
+    grid-area: header-aspects;
+}
+.sheet-transformations-aspects{
+    grid-area: aspects;
+    width:100%;
+}
+
+
+.sheet-transformations-hide{
+    display: none;
+}
+
+.sheet-transformations-expand:checked ~ .sheet-transformations-hide{
+    display: block;
+}
+.sheet-transformations-expand:checked ~ .sheet-transformations-show{
+    display: none;
+}
+
+.sheet-transformations-type[value="Manifested Power"] ~ .sheet-transformations-hide-on-manifest{
+    display:none;
+}
+.sheet-transformations-type[value="Enchantment Power"] ~ .sheet-transformations-hide-on-enchant{
+    display:none;
+}
+.sheet-transformations-type[value="Alternate Form"] ~ .sheet-transformations-hide-on-alt{
+    display:none;
+}
+.sheet-transformations{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: white;
+}
+
+.sheet-transformations-foot{
+    background:dimgray;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-align: center;
+    color: white;
+    padding-bottom: 20px;
+}
+.sheet-transformations-foot span{
+    padding:5px 0px;
+    display:block;
+    font-size:10px;
+    width:100%;
+    background:darkgray;
+}
+/**/
+.sheet-ccol7{
+    grid-area: ccol7;
+}
+
+.sheet-ccol6{
+    grid-area: ccol6;
+}
+
+.sheet-ccol5{
+    grid-area: ccol5;
+    justify-content: center;
+}
+
+.sheet-ccol4{
+    grid-area: ccol4;
+    justify-content: center;
+}
+
+.sheet-ccol3{
+    grid-area: ccol3;
+    justify-content: center;
+}
+
+.sheet-ccol2{
+    grid-area: ccol2;
+    justify-content: center;
+}
+.sheet-ccol1{
+    grid-area: ccol1;
+    justify-content: center;
+}
+.sheet-saves{
+    display: grid;
+    grid-template-areas: 
+    'save1 save2 save3 save4';
+}
+.sheet-custom-attack-table{
+    display: grid;
+    border: 2px solid rgb(156, 155, 155);
+    justify-content: space-around;
+    grid-template-areas: 
+    'ccol1 ccol2 ccol3 ccol4 ccol5';
+}
+
+.sheet-custom-attacks-hcol7{
+    grid-area: hcol7;
+}
+
+
+.sheet-custom-attacks-hcol6{
+    grid-area: hcol6;
+}
+
+
+.sheet-custom-attacks-hcol5{
+    grid-area: hcol5;
+}
+
+
+.sheet-custom-attacks-hcol4{
+    grid-area: hcol4;
+}
+
+
+.sheet-custom-attacks-hcol3{
+    grid-area: hcol3;
+}
+
+
+.sheet-custom-attacks-hcol2{
+    grid-area: hcol2;
+}
+
+
+.sheet-custom-attacks-hcol1{
+    grid-area: hcol1;
+}
+
+.sheet-custom-attacks-top{
+    display: grid;
+    grid-area: custom-attacks-top;
+    grid-column: auto;
+    grid-template-areas: 
+    'hcol1 hcol2 hcol3 hcol4 hcol5';
+}
+
+.sheet-custom-attack-bottom{
+    grid-area: custom-attacks-bottom;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sheet-custom-attacks{
+    display: grid;
+    grid-row: auto;
+    grid-template-areas:
+    'custom-attacks-top'
+    'custom-attacks-bottom';
+    border: 1px solid darkgray;
+}
+
+.sheet-settings-table{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.sheet-settings-head{
+    border: 1px solid darkgray;
+    padding: 5px;
+    text-align:center;
+}
+.sheet-settings-debug{
+    border: 1px solid darkgray;
+    padding: 5px;
+}
+.sheet-settings-houserules{
+    border: 1px solid darkgray;
+    padding: 5px;
+}
+
+.sheet-j-label{
+    color: black;
+}
+
+.sheet-j-h3{
+    color: black;
+    font-size: 1.5em;
+}
+
+h1{
+    font-size: 3em;
+    color: black;
+}
+
+h2{
+    font-size: 2em;
+    color: black;
+}
+
+h3{
+    font-size: 1.5em;
+    color: black;
+}
+
+h4{
+    font-size: 1em;
+    color: black;
+}
+
+label{
+    color: black;
+    display: inline-block;
+}
